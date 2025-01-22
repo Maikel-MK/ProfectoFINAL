@@ -1,0 +1,42 @@
+html, body {
+    height: 100%; /* Asegura que el cuerpo ocupe toda la altura de la ventana */
+    margin: 0; /* Elimina márgenes por defecto */
+    display: flex; /* Utiliza Flexbox para el diseño */
+    flex-direction: column; /* Organiza los elementos en una columna */
+}
+
+main {
+    flex: 1; /* Permite que el contenido principal ocupe el espacio restante */
+}
+footer {
+    flex-shrink: 0; /* Evita que el footer se reduzca */
+}
+/* Estilos para los enlaces disfrazados como botones */
+.bg-verde-suave {
+    background-color: #66cc99; /* Color verde suave */
+}
+
+.hover\:bg-verde-oscuro:hover {
+    background-color: #07301a; /* Color verde oscuro al hacer hover */
+}
+
+/* Estilos para la ventana modal */
+.modal {
+    display: none; /* Oculta la modal por defecto */
+    position: fixed; /* Posiciona la modal en relación a la ventana del navegador */
+    z-index: 1000; /* Asegura que la modal esté por encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Alto completo */
+    overflow: auto; /* Permite desplazamiento si es necesario */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+}
+.modal-content {
+    background-color: #fefefe; /* Fondo blanco para el contenido de la modal */
+    margin: 15% auto; /* Margen superior e inferior y centrado horizontalmente */
+    padding: 20px; /* Espaciado interno */
+    border: 1px solid #888; /* Borde gris alrededor de la modal */
+    width: 80%; /* Ancho de la modal */
+    max-width: 500px; /* Ancho máximo de la modal */
+}

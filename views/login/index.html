@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"> <!-- Establece la codificación de caracteres a UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Hace que el diseño sea responsivo -->
+    <title>Residencial Oasis</title>
+    <!-- Incluye Tailwind CSS desde un CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-200 flex items-center justify-center h-screen"> <!-- Establece el fondo y centra el contenido -->
+
+<!-- Contenedor principal del formulario -->
+<div class="bg-white shadow-md rounded-lg p-8 w-96">
+    <h2 class="text-2xl font-semibold text-center mb-6">Iniciar Sesión</h2> <!-- Título del formulario -->
+    
+    <!-- Formulario de inicio de sesión -->
+    <form id="loginForm">
+        <!-- Campo para el nombre de usuario -->
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Usuario</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                   id="username" type="text" placeholder="Ingrese su usuario" required> <!-- Campo de entrada para usuario -->
+        </div>
+
+        <!-- Campo para la contraseña -->
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Contraseña</label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                   id="password" type="password" placeholder="Ingrese su contraseña" required> <!-- Campo de entrada para contraseña -->
+        </div>
+
+        <!-- Contenedor para los botones -->
+        <div class="flex items-center justify-between">
+            <!-- Botón para iniciar sesión -->
+            <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="login()">
+                Ingresar
+            </button>
+            <!-- Botón para crear un nuevo usuario -->
+            <button type="button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="createUser()">
+                Crear Usuario
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Función para manejar el inicio de sesión
+    function login() {
+        const username = document.getElementById('username').value; // Obtiene el valor del campo de usuario
+        const password = document.getElementById('password').value; // Obtiene el valor del campo de contraseña
+
+        // Aquí puedes agregar la lógica para verificar el usuario y la contraseña
+        alert(`Iniciando sesión con:\nUsuario: ${username}\nContraseña: ${password}`);
+    }
+
+    // Función para manejar la creación de un nuevo usuario
+    function createUser() {
+        const username = document.getElementById('username').value; // Obtiene el valor del campo de usuario
+
+        // Aquí puedes agregar la lógica para crear un nuevo usuario
+        alert(`Creando nuevo usuario:\nUsuario: ${username}`);
+    }
+</script>
+
+</body>
+</html>

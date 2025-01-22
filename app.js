@@ -1,0 +1,24 @@
+const dotenv = require('dotenv').config()
+const express = require('express')
+const app = express()
+const mongoose = require('mongoose')
+const path = require('path')
+
+//conexion a la Base de datos (B.D)
+
+    try {
+         mongoose.connect(process.env.MONGO_URL)
+        console.log('Conexion a la BD Correcta')
+    } catch (error) {
+        console.log(error)
+    }
+
+//Crear Rutas de FrontEND por cada carpeta creada en views se debe agregar su ruta de font-end
+app.use('/',express.static(path.resolve('views','home')))
+app.use('/login',express.static(path.resolve('views','login')))
+app.use('/components',express.static(path.resolve('views', 'components')))
+app.use('/administrador',express.static(path.resolve('views','administrador')))
+app.use('/condominio',express.static(path.resolve('views','condominio')))
+app.use('/contador',express.static(path.resolve('views','contador')))
+app.use('/residente',express.static(path.resolve('views', 'residente')))
+module.exports = app

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"> <!-- Establece la codificación de caracteres a UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Hace que el diseño sea responsivo -->
+    <title>Residencial Oasis</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-gray-100 text-gray-800"> <!-- Establece el fondo y el color del texto -->
+
+    <header class="bg-blue-300 text-white p-5 text-center"> <!-- Encabezado de la página -->
+        
+        <a href="../home/index.html"><h1 class="text-3xl font-bold">Residencial Oasis</h1></a>
+        
+        <!-- Botón para el menú hamburguesa (visible solo en móviles) -->
+        <div class="md:hidden flex justify-end">
+            <button id="menu-toggle" class="focus:outline-none"> <!-- Botón para mostrar/ocultar el menú móvil -->
+                <i class="fas fa-bars text-2xl"></i> <!-- Ícono de hamburguesa -->
+            </button>
+        </div>
+
+        <!-- Navegación principal (visible en pantallas medianas y grandes) -->
+        <nav id="navbar" class="hidden md:flex justify-center space-x-4 mt-3">
+            <ul class="flex space-x-4">
+                <li><a href="#about" class="hover:underline">Información</a></li> <!-- Enlace a la sección Acerca de -->
+                <li><a href="#" id="contact-link" class="hover:underline">Contacto</a></li> <!-- Enlace para abrir la ventana modal de contacto -->
+                <li><a href="../login/index.html" class="hover:underline">Iniciar Sesión</a></li> <!-- Enlace a la página de inicio de sesión -->
+            </ul>
+        </nav>
+
+        <!-- Menú desplegable para móviles (inicialmente oculto) -->
+        <nav id="mobile-menu" class="md:hidden hidden flex-col items-center mt-3 space-y-2">
+            <a href="#about" class="hover:underline">Información</a> <!-- Enlace a la sección Acerca de -->
+            <a href="#" id="contact-link-mobile" class="hover:underline">Contacto</a> <!-- Enlace para abrir la ventana modal de contacto -->
+            <a href="login.html" class="hover:underline">Iniciar Sesión</a> <!-- Enlace a la página de inicio de sesión -->
+        </nav>
+    </header>
+
+    <main class="p-5"> <!-- Contenido principal de la página -->
+
+        <!-- Carrusel de imágenes existente -->
+        <div id="carousel" class="relative mb-5">
+            <div class="carousel-inner">
+                <!-- Cada item del carrusel se define aquí -->
+                <div class="carousel-item active">
+                    <img src="https://via.placeholder.com/800x300?text=Imagen+1" alt="Imagen 1" class="w-full rounded-lg"> <!-- Imagen 1 del carrusel -->
+                </div>
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/800x300?text=Imagen+2" alt="Imagen 2" class="w-full rounded-lg"> <!-- Imagen 2 del carrusel -->
+                </div>
+                <div class="carousel-item">
+                    <img src="https://via.placeholder.com/800x300?text=Imagen+3" alt="Imagen 3" class="w-full rounded-lg"> <!-- Imagen 3 del carrusel -->
+                </div>
+            </div>
+
+            <!-- Controles del carrusel -->
+            <!-- Botón para ir al slide anterior -->
+            <button onclick="prevSlide()" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">❮</button>
+            <!-- Botón para ir al siguiente slide -->
+            <button onclick="nextSlide()" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">❯</button>
+        </div>
+
+        <!-- Sección Acerca de -->
+        <section id="about" class="mb-5">
+            <h2 class="text-2xl font-semibold">Acerca de</h2> <!-- Título de la sección Acerca de -->
+            <p>Aquí puedes aprender más sobre nosotros y nuestra misión.</p> <!-- Descripción de la sección Acerca de -->
+        </section>
+
+        <!-- Sección Instalaciones con slider automático-->
+        <section id='installations' class='mb-5 flex'>
+            <div style='flex: 1;'> 
+                <h2 class='text-2xl font-semibold'>Instalaciones</h2>
+
+                <!-- Enlaces disfrazados como botones, dispuestos uno debajo del otro-->
+                <div class='flex flex-col space-y-4 mb-4'>
+                    <a href='#' 
+                       class='bg-verde-suave text-white py-2 px-4 rounded hover:bg-verde-oscuro'>Piscina</a>
+                    <a href='#' 
+                       class='bg-verde-suave text-white py-2 px-4 rounded hover:bg-verde-oscuro'>Salón de Fiestas</a>
+                    <a href='#' 
+                       class='bg-verde-suave text-white py-2 px-4 rounded hover:bg-verde-oscuro'>Zonas Verdes</a>
+                </div>
+            </div>
+
+            <!-- Slider automático para instalaciones, posicionado a la derecha-->
+            <div id='installations-slider' style='flex: 1;' class='relative ml-5'>
+                <div id='slider-inner' class='overflow-hidden'>
+                    <div id='installation-slide' class='slider-item active'>
+                        <img src='https://via.placeholder.com/800x300?text=Instalación+1' alt='Instalación 1' 
+                             class='w-full rounded-lg'> 
+                    </div>
+                    <div id='installation-slide' class='slider-item'>
+                        <img src='' alt='Instalación 2' 
+                             class='w-full rounded-lg'> 
+                    </div>
+                    <div id='installation-slide' class='slider-item'>
+                        <img src='' alt='Instalación 3' 
+                             class='w-full rounded-lg'> 
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div>
+                <!-- pesta~a de eventos -->
+            </div>
+        </section>
+
+        <!-- Sección Contacto con Mapa -->
+<section id="contact" class="mb-5">
+       
+    <!-- Mapa interactivo -->
+    <div class="mt-4 flex justify-center">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d1002101.1063066627!2d-67.25384694540108!3d11.153726803472914!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sve!4v1737422208817!5m2!1ses-419!2sve" 
+        width="800" 
+        height="200"
+         style="border:0;" 
+         allowfullscreen="" 
+         loading="lazy" 
+         referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+</section>
+
+
+    </main>
+
+    <!-- Pie de página mejorado y fijo al fondo -->
+    <footer class='bg-gray-800 text-white text-center p-6 mt-auto'>
+        &copy; 2025 Mi Página Web. Todos los derechos reservados.
+        | 
+        <a href='/privacy-policy' 
+           class='hover:underline mx-2'>Política de Privacidad</a>
+        |
+        <a href='/terms-of-service' 
+           class='hover:underline mx-2'>Términos de Servicio</a>
+        
+        | Síguenos en:
+        <a href='#' aria-label='Facebook' target='_blank'><i 
+           class='fab fa-facebook mx-2'></i></a>
+        <a href='#' aria-label='Twitter' target='_blank'><i 
+           class='fab fa-twitter mx-2'></i></a>
+        <a href='#' aria-label='Instagram' target='_blank'><i 
+           class='fab fa-instagram mx-2'></i></a>
+
+    </footer>
+
+ <!-- Modal para Contacto -->
+ <div id="contact-modal" class="modal">
+    <div class="modal-content">
+        <span id="close-modal" style="cursor:pointer;">&times;</span> <!-- Botón para cerrar la modal -->
+        <h3>Formas de Contacto</h3>
+        <p><strong>Email:</strong> contacto@residencialoasis.com</p> 
+        <p><strong>Teléfono:</strong> +1234567890</p> 
+        <p><strong>Redes Sociales:</strong></p>
+        <ul>
+            <li><i class='fab fa-facebook'></i> Facebook</li>
+            <li><i class='fab fa-twitter'></i> Twitter</li>
+            <li><i class='fab fa-instagram'></i> Instagram</li>
+        </ul>
+    </div>
+  </div>
+
+    <!-- Scripts para el funcionamiento del carrusel y menú hamburguesa -->
+    <script src="script.js"></script> <!-- Importa el archivo JavaScript -->
+
+</body>
+</html>
