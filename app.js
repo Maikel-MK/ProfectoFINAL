@@ -21,4 +21,5 @@ app.use('/administrador',express.static(path.resolve('views','administrador')))
 app.use('/condominio',express.static(path.resolve('views','condominio')))
 app.use('/contador',express.static(path.resolve('views','contador')))
 app.use('/residente',express.static(path.resolve('views', 'residente')))
+app.use('/registroUsuarios',express.static(path.resolve('views', 'registroUsuarios')))
 module.exports = app

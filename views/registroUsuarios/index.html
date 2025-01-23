@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"> <!-- Establece la codificación de caracteres a UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Hace que el diseño sea responsivo -->
+    <title>Registro de Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> <!-- Importa Tailwind CSS desde un CDN -->
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen"> <!-- Establece el fondo y centra el contenido -->
+
+    <div class="bg-white p-8 rounded-lg shadow-md w-96"> <!-- Contenedor del formulario -->
+        <h2 class="text-2xl font-semibold mb-6 text-center">Registro de Usuario</h2> <!-- Título del formulario -->
+
+        <form id="registration-form"> <!-- Formulario -->
+            <div class="mb-4">
+                <label for="user-type" class="block text-sm font-medium text-gray-700">Tipo de Usuario</label>
+                <select id="user-type" name="user-type" required class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-500">
+                    <option value="">Selecciona una opción</option>
+                    <option value="residente">Residente</option>
+                    <option value="visitante">Visitante</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="username" class="block text-sm font-medium text-gray-700">Nombre de Usuario</label>
+                <input type="text" id="username" name="username" required class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-500" placeholder="Ingresa tu nombre de usuario">
+            </div>
+
+            <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+                <input type="email" id="email" name="email" required class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-500" placeholder="Ingresa tu correo electrónico">
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+                <input type="password" id="password" name="password" required class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-500" placeholder="Ingresa tu contraseña">
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200">Registrar</button> <!-- Botón de envío -->
+        </form>
+    </div>
+
+    <script>
+        // Manejo del evento de envío del formulario
+        document.getElementById('registration-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Previene el comportamiento por defecto del formulario
+            const userType = document.getElementById('user-type').value; // Obtiene el tipo de usuario
+            const username = document.getElementById('username').value; // Obtiene el nombre de usuario
+            const email = document.getElementById('email').value; // Obtiene el correo electrónico
+            const password = document.getElementById('password').value; // Obtiene la contraseña
+            
+            // Aquí puedes manejar el registro (enviar los datos a un servidor, etc.)
+            console.log('Usuario registrado:', { userType, username, email, password });
+        });
+    </script>
+
+</body>
+</html>
