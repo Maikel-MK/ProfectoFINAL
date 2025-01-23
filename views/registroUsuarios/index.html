@@ -41,19 +41,7 @@
         </form>
     </div>
 
-    <script>
-        // Manejo del evento de envío del formulario
-        document.getElementById('registration-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Previene el comportamiento por defecto del formulario
-            const userType = document.getElementById('user-type').value; // Obtiene el tipo de usuario
-            const username = document.getElementById('username').value; // Obtiene el nombre de usuario
-            const email = document.getElementById('email').value; // Obtiene el correo electrónico
-            const password = document.getElementById('password').value; // Obtiene la contraseña
-            
-            // Aquí puedes manejar el registro (enviar los datos a un servidor, etc.)
-            console.log('Usuario registrado:', { userType, username, email, password });
-        });
-    </script>
+    <script src="index.js"></script>
 
 </body>
 </html>
