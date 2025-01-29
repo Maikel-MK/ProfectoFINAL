@@ -1,12 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Condominio</title>
+    <title>condominio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Condominio </h1>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto mt-10">
+
+        <div class="grid grid-cols-1 gap-6">
+            <!-- Sección 1: Muro de Información -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-bold">Muro de Información</h2>
+                <p>Aquí se mostrará información relevante.</p>
+            </div>
+
+            <!-- Sección 2: Incidencias -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-bold cursor-pointer" id="incidencias">Incidencias</h2>
+                <p>Haz clic para ver más detalles.</p>
+            </div>
+
+            <!-- Sección 3: Servicios -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-bold">Servicios</h2>
+                <p>Información sobre los servicios ofrecidos.</p>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center ">
+            <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+                <h3 class="text-lg font-bold"> INCIDENCIAS</h3>
+                <div class="mt-4">
+                    <p>CHAT  DE Incidencias</p>
+                    <!-- Aquí se puede incluir un formulario de chat o lista de servicios -->
+                </div>
+                <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="condominio.js"></script>
+
 </body>
 </html>

@@ -36,31 +36,15 @@
                 Ingresar
             </button>
             <!-- Botón para crear un nuevo usuario -->
-            <button type="button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="createUser()">
-                Crear Usuario
-            </button>
+             <button>
+                <a href="../registroUsuarios/index.html" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Crear Usuario</a>
+             </button>
+  
         </div>
     </form>
 </div>
 
-<script>
-    // Función para manejar el inicio de sesión
-    function login() {
-        const username = document.getElementById('username').value; // Obtiene el valor del campo de usuario
-        const password = document.getElementById('password').value; // Obtiene el valor del campo de contraseña
-
-        // Aquí puedes agregar la lógica para verificar el usuario y la contraseña
-        alert(`Iniciando sesión con:\nUsuario: ${username}\nContraseña: ${password}`);
-    }
-
-    // Función para manejar la creación de un nuevo usuario
-    function createUser() {
-        const username = document.getElementById('username').value; // Obtiene el valor del campo de usuario
-
-        // Aquí puedes agregar la lógica para crear un nuevo usuario
-        alert(`Creando nuevo usuario:\nUsuario: ${username}`);
-    }
-</script>
+<script src="../../app.js"></script>
 
 </body>
 </html>
