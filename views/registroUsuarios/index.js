@@ -1,8 +1,8 @@
-const userType = document.querySelector('#user-type')
 const userName = document.querySelector('#username')
 const email = document.querySelector('#email')
 const password = document.querySelector('#password')
-const formulario = document.querySelector('#registration-form')
+const match = document.querySelector('#password2')
+const formulario = document.querySelector('#formulario')
 
 
 const emailVal = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
@@ -11,6 +11,7 @@ const nameVal = /[a-zA-Z]+( [a-zA-Z])?$/g
 
 let valemail = false
 let valpassword = false
+let valMatch = false
 let valName = false
 
 userName.addEventListener('change', e=>{
@@ -29,10 +30,32 @@ password.addEventListener('input', e=>{
         // console.log(e.target.value)
         valpassword = passwordVal.test(e.target.value)
         validar(password,valpassword)
+        validar(match,valMatch)
+    })
+
+    match.addEventListener('input', e=>{
+        valpassword = passwordVal.test(e.target.value)
+        validar(match,valMatch)
+        validar(password,valpassword)
     })
 
     formulario.addEventListener('submit', e=>{
+        e.preventDefault()
 
+        try {
+            const newUser = {
+                nombre:userName.value,
+                correo:email.value,
+                password:password.value,
+                password2:match.value
+            }
+            console.log(newUser)
+            // if(valName && valemail && valpassword && valMatc){
+            //     const response =await axios.post()
+            // }
+        } catch (error) {
+            console.log(error)
+        }
     })
 
     
