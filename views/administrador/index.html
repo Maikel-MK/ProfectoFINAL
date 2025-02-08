@@ -5,61 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        .hidden {
-            display: none;
-        }
-    </style>
+
 </head>
 <body class="bg-gray-100 h-screen flex items-center justify-center">
 
-    <div class="w-full max-w-lg p-6 bg-white rounded-lg shadow-lg">
-        <!-- Sección 1: Estatus -->
-        <div class="mb-4">
-            <h2 class="text-xl font-bold cursor-pointer" onclick="openModal('statusModal')">Estatus</h2>
-        </div>
-
-        <!-- Sección 2: Información -->
-        <div class="mb-4">
-            <!-- talvez colocar una pagina mas -->
-            <a href="">
-                <h2 class="text-xl font-bold cursor-pointer">Información</h2>
-            </a>
-        </div>
-
-        <!-- Sección 3: Pagos -->
-        <div class="mb-4">
-            <h2 class="text-xl font-bold cursor-pointer" onclick="openModal('paymentsModal')">Pagos</h2>
-        </div>
-
-        <div class="mb-4">
-            <h2 class="text-xl font-bold cursor-pointer" onclick="toggleAccordion('Solicitudes')">Solicitudes y Permisos</h2>
-            <div id="Solicitudes" class="hidden mt-2">
-                <p>Permisos de creacion de usuarios</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal para Estatus -->
-    <div id="statusModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center">
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-            <h3 class="text-lg font-bold">Estatus</h3>
-            <p>Aquí puedes ver el estatus actual.</p>
-            <button onclick="closeModal('statusModal')" class="mt-4 bg-red-500 text-white px-4 py-2 rounded">Cerrar</button>
-        </div>
-    </div>
-
-    <!-- Modal para Pagos -->
-    <div id="paymentsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center">
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-            <h3 class="text-lg font-bold">Pagos</h3>
-            <p>Aquí puedes gestionar tus pagos.</p>
-            <button onclick="closeModal('paymentsModal')" class="mt-4 bg-red-500 text-white px-4 py-2 rounded">Cerrar</button>
-        </div>
-    </div>
+    <div id="dashboard"></div>
 
     <script src="../../app.js"></script>
     <script src="administrador.js"></script>
+    <script src="../components/Dashboards.js"></script>
 
 </body>
 </html>
