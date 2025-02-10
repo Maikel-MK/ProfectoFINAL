@@ -7,7 +7,7 @@ const path = require('path')
 //conexion a la Base de datos (B.D)
 
     try {
-         mongoose.connect(process.env.MONGO_URL)
+         mongoose.connect(process.env.MONGO_URI)
         console.log('Conexion a la BD Correcta')
     } catch (error) {
         console.log(error)
@@ -22,6 +22,10 @@ app.use('/condominio',express.static(path.resolve('views','condominio')))
 app.use('/contador',express.static(path.resolve('views','contador')))
 app.use('/residente',express.static(path.resolve('views', 'residente')))
 app.use('/registroUsuarios',express.static(path.resolve('views', 'registroUsuarios')))
+app.use('/pagos',express.static(path.resolve('views','pagos')))
+app.use('/OpcionesP',express.static(path.resolve('views','OpcionesdePago')))
+app.use('/info',express.static(path.resolve('views','informacion')))
+app.use('/estatus',express.static(path.resolve('views','status')))
 app.use('imagenes',express.static(path.resolve('img')))
 
 module.exports = app
