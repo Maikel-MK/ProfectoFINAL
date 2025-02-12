@@ -68,7 +68,7 @@ function createAdminDashboard() {
     dashboard.innerHTML =`
         ${createSidebarAdmin()}
         <main class="flex-grow p-6">
-            <h2 class="text-xl font-semibold mb-4">Administrador</h2>
+            <h2 class="text-xl font-semibold mb-4 text-center">Administrador</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 ${createCard("Pagos Pendientes", "<p>Total: $</p><p>Pagos vencidos: - -</p>")}
