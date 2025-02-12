@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muro de Informacion</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> <!-- Importa Tailwind CSS desde un CDN -->
+
+</head>
+<body>
+    
+    <div id="Muro" class="flex"></div>
+
+    <!-- Modal para mostrar contenido extenso -->
+    <div id="articleModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="float-right cursor-pointer">&times;</span>
+            <h3 id="modalTitle" class="font-bold text-lg"></h3>
+            <p id="modalContent"></p>
+        </div>
+    </div>
+
+
+
+    <script src="../components/MuroInfo.js"></script>
+    <script>loadArticlesPage();  </script>
+
+</body>
+</html>

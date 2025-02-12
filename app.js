@@ -25,7 +25,8 @@ app.use('/registroUsuarios',express.static(path.resolve('views', 'registroUsuari
 app.use('/pagos',express.static(path.resolve('views','pagos')))
 app.use('/OpcionesP',express.static(path.resolve('views','OpcionesdePago')))
 app.use('/info',express.static(path.resolve('views','informacion')))
+app.use('/muroInfo',express.static(path.resolve('views','MuroInfo')))
 app.use('/estatus',express.static(path.resolve('views','status')))
-app.use('imagenes',express.static(path.resolve('img')))
+app.use('img',express.static(path.resolve('img')))
 
 module.exports = app

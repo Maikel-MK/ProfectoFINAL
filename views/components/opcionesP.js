@@ -31,10 +31,18 @@ function loadManagePaymentsPage() {
 
             </div>
 
+          <button id="backButton" class="fixed bottom-5 right-5 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-200 ease-in-out" onclick="goBack()"> Go Back </button>
+
         </main>`;
     
     loadManagePayments(); // Cargar las opciones de pago al cargar la página
 }
+
+
+function goBack() {
+    history.back()
+  }
+
 
 // Función para cargar las opciones de pago en la tabla
 function loadManagePayments() {
