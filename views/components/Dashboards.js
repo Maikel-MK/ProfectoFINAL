@@ -11,6 +11,7 @@ function createSidebarAdmin() {
                     <ul>
                         <li class="mb-4"><a href="/administrador/" class="text-gray-600 hover:text-blue-500">Inicio</a></li>
                         <li class="mb-4"><a href="/pagos/" class="text-gray-600 hover:text-blue-500">Pagos</a></li> <!-- Redirige a la página de pagos -->
+                        <li class="mb-4"><a href="/Espacios/" class="text-gray-600 hover:text-blue-500">Alquiler de Espacios</a></li>
                         <li class="mb-4"><a href="/estatus/" class="text-gray-600 hover:text-blue-500">Estatus</a></li> <!-- Redirige a la página de estatus -->
                         <li class="mb-4"><a href="/info/" class="text-gray-600 hover:text-blue-500">Información</a></li>
                     </ul>
@@ -44,12 +45,29 @@ function createSidebarRes() {
                     <ul>
                         <li class="mb-4"><a href="/residente/" class="text-gray-600 hover:text-blue-500">Inicio</a></li>
                         <li class="mb-4"><a href="/pagos/" class="text-gray-600 hover:text-blue-500">Pagos</a></li> <!-- Redirige a la página de pagos -->
+                         <li class="mb-4"><a href="/Espacios/" class="text-gray-600 hover:text-blue-500">Alquiler de Espacios</a></li> 
                         <li class="mb-4"><a href="/info/" class="text-gray-600 hover:text-blue-500">Información</a></li>
                     </ul>
                 </nav>
             </div>
         </aside>`;
 }
+
+function createSidebarClientes() {
+    return `
+        <aside class="w-64 bg-white shadow-md">
+            <div class="p-6">
+                <h1 class="text-2xl font-bold">Residencial Oasis</h1>
+                <nav class="mt-6">
+                    <ul>
+                        <li class="mb-4"><a href="/Clientes/" class="text-gray-600 hover:text-blue-500">Inicio</a></li>
+                        <li class="mb-4"><a href="/Espacios/" class="text-gray-600 hover:text-blue-500">Alquiler de Espacios</a></li> 
+                    </ul>
+                </nav>
+            </div>
+        </aside>`;
+}
+
 
 
 function createCard(title, content) {
@@ -188,6 +206,19 @@ function createResidentDashboard() {
         </main>`
 }
 
+function createClienteDashboard() {
+    dashboard.innerHTML= `
+        ${createSidebarClientes()} <!-- Llama a la función para crear la barra lateral -->
+        <main class="flex-grow p-6">
+            <h2 class="text-xl font-semibold mb-4">Residente</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                ${createCard("Mis Pagos", "<p>No tienes pagos pendientes.</p>")}
+                ${createCard("Información Personal", "<p>Última visita: Hoy.</p>")}
+            </div>
+        </main>`
+}
+
 
 if(window.location.pathname === '/administrador/'){
     createAdminDashboard()
@@ -195,4 +226,6 @@ if(window.location.pathname === '/administrador/'){
     createAccountantDashboard()
 }else if(window.location.pathname === '/residente/'){
     createResidentDashboard()
+}else if(window.location.pathname === '/Clientes/'){
+    createClienteDashboard()
 }

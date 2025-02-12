@@ -27,6 +27,8 @@ app.use('/OpcionesP',express.static(path.resolve('views','OpcionesdePago')))
 app.use('/info',express.static(path.resolve('views','informacion')))
 app.use('/muroInfo',express.static(path.resolve('views','MuroInfo')))
 app.use('/estatus',express.static(path.resolve('views','status')))
+app.use('/Espacios',express.static(path.resolve('views','espacios')))
+app.use('/Clientes',express.static(path.resolve('views','cliente')))
 app.use('/img',express.static(path.resolve('img')))
 
 module.exports = app
