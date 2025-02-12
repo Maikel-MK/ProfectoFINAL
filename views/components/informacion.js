@@ -66,6 +66,40 @@ function loadInformationPage() {
     loadInformationData()
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    loadInformation();
+});
+
+function loadInformation() {
+    const informationTableBody = document.getElementById('informationTableBody');
+    informationTableBody.innerHTML = ''; // Limpiar tabla existente
+
+    // Datos ficticios para la información
+    const informationData = [
+        { title: 'Información 1', content: 'Contenido de la información 1' },
+        { title: 'Información 2', content: 'Contenido de la información 2' }
+    ];
+
+    // Llenar la tabla con los datos existentes
+    informationData.forEach(info => {
+        const row = document.createElement('tr');
+        row.classList.add('transition-transform', 'duration-300', 'hover:bg-gray-100', 'cursor-pointer');
+
+        row.innerHTML = `
+            <td class="py-2 px-4 border-b">${info.title}</td>
+            <td class="py-2 px-4 border-b">${info.content}</td>
+        `;
+
+        informationTableBody.appendChild(row);
+    });
+}
+
+// Llamar a la función para cargar la información
+loadInformation()
+
+
+
+
 function goBack() {
     history.back()
   }
@@ -108,6 +142,7 @@ function addInformation(e) {
 function loadInformationData() {
     const informationTableBody = document.getElementById('informationTableBody');
     informationTableBody.innerHTML = ''; // Limpiar tabla existente
+    
 
     // Datos ficticios para el muro de información
     const informationData = [

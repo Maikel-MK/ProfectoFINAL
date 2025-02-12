@@ -40,3 +40,16 @@ footer {
     width: 80%; /* Ancho de la modal */
     max-width: 500px; /* Ancho máximo de la modal */
 }
+
+.carousel-item {
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-item.active {
+    opacity: 1;
+    position: relative;
+}

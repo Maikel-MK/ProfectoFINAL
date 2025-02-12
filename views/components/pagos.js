@@ -1,82 +1,10 @@
-// payments.js
+document.addEventListener('DOMContentLoaded', function() {
+    loadPaymentsPage();
+    document.getElementById('payButton').addEventListener('click', payButton);
+});
 
-let paymentHistory = []; // Array para almacenar el historial de pagos
-
-// Función para crear una tarjeta de pago
-function createPaymentCard(title, amount) {
-    return `
-        <div class="bg-white rounded-lg shadow-md p-4 transition-transform transform hover:scale-105 hover:shadow-lg cursor-pointer" onclick='openPaymentModal("${title}", "${amount}")'>
-            <h3 class="font-bold text-lg">${title}</h3>
-            <p class="text-gray-600">${amount}</p>
-        </div>`;
-}
-
-// Función para abrir el modal con información del pago
-function openPaymentModal(title, amount) {
-    document.getElementById('modalTitle').innerText = title; // Establecer título del modal
-    document.getElementById('modalAmount').innerText = `Monto a Pagar: ${amount}`; // Establecer monto del modal
-    document.getElementById('paymentModal').classList.remove('hidden'); // Mostrar el modal
-}
-
-// Función para cerrar el modal.
-function closeModal() {
-    document.getElementById('paymentModal').classList.add('hidden'); // Ocultar el modal
-}
-
-// Cerrar el modal al hacer clic fuera del contenido del modal
-window.onclick = function(event) {
-    const modal = document.getElementById('paymentModal');
-    if (event.target === modal) {
-        closeModal();
-    }
-}
-
-// Función para manejar el pago y actualizar el historial
-document.getElementById('payButton').onclick = function() {
-    const title = document.getElementById('modalTitle').innerText;
-    const amount = document.getElementById('modalAmount').innerText.replace("Monto a Pagar: ", "");
-
-    // Obtener la fecha actual
-    const date = new Date().toLocaleDateString();
-
-    // Agregar pago al historial
-    paymentHistory.push({
-        date: date,
-        amount: amount,
-        description: title,
-        person: "Juan Pérez" // Puedes cambiar esto según sea necesario
-    });
-
-    alert(`Pago de ${title} realizado exitosamente!`); // Mensaje de éxito
-    closeModal(); // Ocultar el modal después del pago
-
-    updatePaymentHistory(); // Actualizar el historial de pagos
-}
-
-// Función para actualizar el historial de pagos en la tabla
-function updatePaymentHistory() {
-    const paymentHistoryTableBody = document.getElementById('paymentHistoryTableBody');
-    paymentHistoryTableBody.innerHTML = ''; // Limpiar tabla existente
-
-    paymentHistory.forEach(payment => {
-        const row = `
-            <tr>
-                <td class="py-2 px-4 border-b">${payment.date}</td>
-                <td class="py-2 px-4 border-b">${payment.amount}</td>
-                <td class="py-2 px-4 border-b">${payment.description}</td>
-                <td class="py-2 px-4 border-b">${payment.person}</td>
-            </tr>`;
-        paymentHistoryTableBody.innerHTML += row; // Añadir fila a la tabla
-    });
-}
-
-// Función para cargar la página de pagos
 function loadPaymentsPage() {
     const pago = document.getElementById('pago');
-    if (!pago) {
-        console.error('Element with id "pago" not found.');
-        return;
-    }
 
     pago.innerHTML = `
         <main class="flex-grow p-6">
@@ -119,5 +47,84 @@ function loadPaymentsPage() {
                 <a href='/opcionesP/' class='text-blue-500'>Administrar Opciones de Pago</a> <!-- Enlace a la página de gestión -->
             </div>
 
-        </main>`;
+        </main>
+
+        <button id="backButton" class="fixed bottom-5 right-5 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-200 ease-in-out" onclick="goBack()"> Go Back </button>
+        `
+}
+
+let paymentHistory = []; // Array para almacenar el historial de pagos
+
+// Función para crear una tarjeta de pago
+function createPaymentCard(title, amount) {
+    return `
+        <div class="bg-white rounded-lg shadow-md p-4 transition-transform transform hover:scale-105 hover:shadow-lg cursor-pointer" onclick='openPaymentModal("${title}", "${amount}")'>
+            <h3 class="font-bold text-lg">${title}</h3>
+            <p class="text-gray-600">${amount}</p>
+        </div>`;
+}
+
+// Función para abrir el modal con información del pago
+function openPaymentModal(title, amount) {
+    document.getElementById('modalTitle').innerText = title; // Establecer título del modal
+    document.getElementById('modalAmount').innerText = `Monto a Pagar: ${amount}`; // Establecer monto del modal
+    document.getElementById('paymentModal').classList.remove('hidden'); // Mostrar el modal
+}
+
+// Función para cerrar el modal.
+function closeModal() {
+    document.getElementById('paymentModal').classList.add('hidden'); // Ocultar el modal
+}
+
+// Cerrar el modal al hacer clic fuera del contenido del modal
+window.onclick = function(e) {
+    const modal = document.getElementById('paymentModal');
+    if (e.target === modal) {
+        closeModal()
+    }
+}
+
+// Función para manejar el pago y actualizar el historial
+function payButton(e) {
+    e.preventDefault()
+    console.log('llega pago');
+    const title = document.getElementById('modalTitle').innerText;
+    const amount = document.getElementById('modalAmount').innerText.replace("Monto a Pagar: ", "");
+
+    // Obtener la fecha actual
+    const date = new Date().toLocaleDateString();
+
+    // Agregar pago al historial
+    paymentHistory.push({
+        date: date,
+        amount: amount,
+        description: title,
+        person: "Juan Pérez" // Puedes cambiar esto según sea necesario
+    });
+
+    alert(`Pago de ${title} realizado exitosamente!`); // Mensaje de éxito
+    closeModal(); // Ocultar el modal después del pago
+
+    updatePaymentHistory(); // Actualizar el historial de pagos
+}
+
+// Función para actualizar el historial de pagos en la tabla
+function updatePaymentHistory() {
+    const paymentHistoryTableBody = document.getElementById('paymentHistoryTableBody');
+    paymentHistoryTableBody.innerHTML = ''; // Limpiar tabla existente
+
+    paymentHistory.forEach(payment => {
+        const row = `
+            <tr>
+                <td class="py-2 px-4 border-b">${payment.date}</td>
+                <td class="py-2 px-4 border-b">${payment.amount}</td>
+                <td class="py-2 px-4 border-b">${payment.description}</td>
+                <td class="py-2 px-4 border-b">${payment.person}</td>
+            </tr>`
+        paymentHistoryTableBody.innerHTML += row; // Añadir fila a la tabla
+    });
+}
+
+function goBack() {
+    history.back()
 }

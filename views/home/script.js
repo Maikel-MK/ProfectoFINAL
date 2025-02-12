@@ -6,8 +6,8 @@ const installationInterval = 6000; // Tiempo en milisegundos para el cambio auto
 function showSlide(index) {
     const items = document.querySelectorAll('.carousel-item'); // Selecciona todos los items del carrusel
     items.forEach((item, i) => {
-        // Muestra el item correspondiente y oculta los demás
-        item.style.display = i === index ? 'block' : 'none';
+        // Añadir o quitar la clase 'active' para mostrar el item correspondiente y ocultar los demás
+        item.classList.toggle('active', i === index);
     });
 }
 
@@ -28,8 +28,8 @@ function prevSlide() {
 // Inicializa el carrusel mostrando el primer elemento al cargar la página
 showSlide(currentIndex);
 
-// Cambia automáticamente cada 10 segundos usando setInterval para el primer carrusel
-setInterval(nextSlide, carouselInterval); // Llama a nextSlide cada 10 segundos
+// Configurar el carrusel para cambiar automáticamente
+setInterval(nextSlide, carouselInterval);
 
 // Lógica para mostrar/ocultar el menú hamburguesa
 const menuToggle = document.getElementById('menu-toggle'); // Selecciona el botón del menú hamburguesa
@@ -73,3 +73,23 @@ contactLink.addEventListener('click', (e) => {
 document.getElementById('close-modal').addEventListener('click', () => {
     document.getElementById('contact-modal').style.display = 'none'; // Oculta la ventana modal
 });
+
+document.getElementById('piscina').addEventListener('click', function() {
+    openModal('modalPiscina');
+});
+
+document.getElementById('salonFiestas').addEventListener('click', function() {
+    openModal('modalSalonFiestas');
+});
+
+document.getElementById('zonasVerdes').addEventListener('click', function() {
+    openModal('modalZonasVerdes');
+});
+
+function openModal(modalId) {
+    document.getElementById(modalId).classList.remove('hidden');
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.add('hidden');
+}

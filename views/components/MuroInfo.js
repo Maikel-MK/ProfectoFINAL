@@ -18,7 +18,11 @@ function loadArticlesPage() {
                 </tbody>
             </table>
 
-        </main>`;
+                <div class="flex justify-center mt-20">
+            <button id="backButton" class=" bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-200 ease-in-out" onclick="goBack()"> Go Back </button>
+    </div>
+            
+        </main>`
     
     loadPublishedArticles(); 
 }
@@ -66,4 +70,8 @@ window.onclick = function(event) {
     if (event.target == document.getElementById('articleModal')) {
         document.getElementById('articleModal').style.display = "none"; // Ocultar el modal si se hace clic fuera de él
     }
+}
+
+function goBack() {
+    history.back()
 }
