@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8"> <!-- Establece la codificación de caracteres a UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Hace que el diseño sea responsivo -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuario</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> <!-- Importa Tailwind CSS desde un CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-screen"> <!-- Establece el fondo y centra el contenido -->
+<body class="bg-gray-100 flex items-center justify-center h-screen">
 
-    <div class="bg-white p-8 rounded-lg shadow-md w-96"> <!-- Contenedor del formulario -->
+    <div class="bg-white p-8 rounded-lg shadow-md w-96"> 
+
         <h2 class="text-2xl font-semibold mb-6 text-center">Registro de Usuario</h2> <!-- Título del formulario -->
 
         <form id="formulario"> 
@@ -37,7 +38,7 @@
                 class="rounded-md p-2 bg-white mt-1 w-64  focus:outline-blue-600" placeholder="Ingresa tu contraseña">
             </div>
 
-            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200" id="BTNregistro" disabled>Registrar</button> <!-- Botón de envío -->
+            <button class="w-full bg-blue-900 text-white py-2 font-bold rounded-md hover:bg-blue-500 transition-ease-in-out disabled:opacity-50 cursor-not-allowed" id="BTNregistro" disabled>Registrar</button>
         </form>
     </div>
 
