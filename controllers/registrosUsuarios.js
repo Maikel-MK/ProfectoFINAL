@@ -5,6 +5,8 @@ const User = require('../models/registroUsuario')
 
 // router: CRUD
 
+//pfs12
+
 
 //registrar lo que envia el usuario
 usersRouter.post('/registroUsuarios',(request,response)=>{
