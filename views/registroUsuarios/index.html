@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuario</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div id="notification" class="fixed top-3 left-0 right-0"></div>
 
     <div class="bg-white p-8 rounded-lg shadow-md w-96"> 
 
@@ -16,34 +20,35 @@
             <div class="mb-4">
                 <label for="username" class="block text-sm font-medium text-gray-700">Nombre de Usuario</label>
                 <input type="text" id="username" name="username" autocomplete="off"
-                class="rounded-md p-2 bg-white mt-1 w-64  focus:outline-blue-600" placeholder="Ingresa tu nombre de usuario">
+                class="rounded-md p-2 bg-white mt-1 w-full  focus:outline-blue-600" placeholder="Ingresa tu nombre de usuario">
             </div>
 
             <div class="mb-4">
                 <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
                 <input type="email" id="email" name="email" autocomplete="off"
-                class="rounded-md p-2 bg-white mt-1 w-64  focus:outline-blue-600" placeholder="Ingresa tu correo electrónico">
+                class="rounded-md p-2 bg-white mt-1 w-full  focus:outline-blue-600" placeholder="Ingresa tu correo electrónico">
             </div>
 
             <div class="mb-4">
                 <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
                 <input type="password" id="password" name="password" autocomplete="off"
-                class="rounded-md p-2 bg-white mt-1 w-64  focus:outline-blue-600" placeholder="Ingresa tu contraseña">
+                class="rounded-md p-2 bg-white mt-1 w-full  focus:outline-blue-600" placeholder="Ingresa tu contraseña">
             </div>
 
             <div class="mb-4">
                 <label for="password2" class="block text-sm font-medium text-gray-700">Confirme Contraseña</label>
                 <input type="password" id="password2" name="password2" autocomplete="off"
-                class="rounded-md p-2 bg-white mt-1 w-64  focus:outline-blue-600" placeholder="Ingresa tu contraseña">
+                class="rounded-md p-2 bg-white mt-1 w-full  focus:outline-blue-600" placeholder="Ingresa tu contraseña">
             </div>
 
             <button 
-            class="w-full bg-blue-900 text-white py-2 font-bold rounded-md hover:bg-blue-500 transition-ease-in-out disabled:opacity-50 cursor-not-allowed" 
+            class="w-full bg-blue-900 px-4 rounded-lg font-bold text-white hover:bg-blue-400 py-2 transition ease-in-out disabled:opacity-50 disabled:cursor-not-allowed" 
             id="BTNregistro" disabled>Registrar</button>
         </form>
     </div>
 
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
+    <script type="module" src="../components/notificaciones.js"></script>
 
 </body>
 </html>

@@ -3,7 +3,11 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const path = require('path')
-// const usersRouter = require()
+const cors = require('cors')
+const cookieParser = require('cookie-parser')
+const morgan = require('morgan')
+const usersRouter = require('./controllers/registrosUsuarios')
+
 
 //conexion a la Base de datos (B.D)
 
@@ -13,6 +17,9 @@ const path = require('path')
     } catch (error) {
         console.log(error)
     }
+
+
+
 
 //Crear Rutas de FrontEND por cada carpeta creada en views se debe agregar su ruta de font-end
 app.use('/',express.static(path.resolve('views','home')))
@@ -32,13 +39,16 @@ app.use('/reservas',express.static(path.resolve('views','reservas')))
 app.use('/clientes',express.static(path.resolve('views','clientes')))
 app.use('/img',express.static(path.resolve('img')))
 
-// //Importante
+//Importante
 
-// app.use(express.json())
+app.use(express.json())
+app.use(cors())
+app.use(cookieParser())
+app.use(morgan('tiny'))
 
 
-// //rutas de BAckend
-// app.use('/api/users', usersRouter)
+//rutas de BAckend
+app.use('/api/users', usersRouter)
 
 
 
