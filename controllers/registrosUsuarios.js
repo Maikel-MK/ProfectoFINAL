@@ -6,7 +6,7 @@ const usersRouter = require('express').Router();
 
 
 //registrar lo que envia el usuario
-usersRouter.post('/registroUsuarios',(request,response)=>{
+usersRouter.post('/',(request,response)=>{
     const {nombre,correo,password,password2} = request.body
     console.log(nombre,correo,password,password2)
 
@@ -15,6 +15,32 @@ usersRouter.post('/registroUsuarios',(request,response)=>{
     }else{
         return response.status(200).json({message:'Usuario Registrado Correctamente'})
     }
+
+})
+
+//consultar un usuario
+usersRouter.get('/consultar-User',(request,response)=>{
+
+})
+
+//editar un usuario
+usersRouter.post('/Editar-user',(request,response)=>{
+
+})
+
+//eliminar un usuario
+usersRouter.post('/eliminar-User',(request,response)=>{
+
+})
+
+
+//obtener todos los usuarios
+usersRouter.get('/lista-User',(request,response)=>{
+
+})
+
+//obtener un usuario
+usersRouter.get('/Obtener-User',(request,response)=>{
 
 })
 
