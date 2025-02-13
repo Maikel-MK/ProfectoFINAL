@@ -3,6 +3,7 @@ const email = document.querySelector('#email')
 const password = document.querySelector('#password')
 const match = document.querySelector('#password2')
 const formulario = document.querySelector('#formulario')
+const registroBtn = document.querySelector('#BTNregistro')
 
 
 const emailVal = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
