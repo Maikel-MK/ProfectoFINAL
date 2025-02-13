@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const path = require('path')
+// const usersRouter = require()
 
 //conexion a la Base de datos (B.D)
 
@@ -30,5 +31,16 @@ app.use('/estatus',express.static(path.resolve('views','status')))
 app.use('/reservas',express.static(path.resolve('views','reservas')))
 app.use('/clientes',express.static(path.resolve('views','clientes')))
 app.use('/img',express.static(path.resolve('img')))
+
+// //Importante
+
+// app.use(express.json())
+
+
+// //rutas de BAckend
+// app.use('/api/users', usersRouter)
+
+
+
 
 module.exports = app
