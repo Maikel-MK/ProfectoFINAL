@@ -41,27 +41,24 @@
 
 <main class="p-5"> <!-- Contenido principal de la página -->
 
-    <!-- Carrusel de imágenes existente -->
-    <div id="carousel" class="relative mb-5">
-        <div class="carousel-inner h-64 relative"> <!-- Establecer una altura fija para el contenedor del carrusel -->
-            <!-- Cada item del carrusel se define aquí -->
-            <div class="carousel-item active w-full h-full">
-                <img src="/img/garry-ry-I-xu2F1jQmY-unsplash.jpg" alt="Imagen 1" class="w-full h-full object-contain rounded-lg"> <!-- Imagen 1 del carrusel -->
-            </div>
-            <div class="carousel-item w-full h-full">
-                <img src="/img/hannah-busing-URVe89DA5Cw-unsplash.jpg" alt="Imagen 2" class="w-full h-full object-contain rounded-lg"> <!-- Imagen 2 del carrusel -->
-            </div>
-            <div class="carousel-item w-full h-full">
-                <img src="/img/john-salib-i6wN1KFf14M-unsplash.jpg" alt="Imagen 3" class="w-full h-full object-contain rounded-lg overflow-hidden "> <!-- Imagen 3 del carrusel -->
-            </div>
+<!-- Carrusel de imágenes existente -->
+<div id="carousel" class="relative mb-5">
+    <div class="carousel-inner h-64 relative overflow-hidden"> <!-- Establecer una altura fija para el contenedor del carrusel -->
+        <!-- Cada item del carrusel se define aquí -->
+        <div class="carousel-item active w-full h-full absolute transition-opacity duration-500 ease-in-out opacity-100 bg-cover bg-center" style="background-image: url('/img/garry-ry-I-xu2F1jQmY-unsplash.jpg');">
         </div>
-
-        <!-- Controles del carrusel -->
-        <!-- Botón para ir al slide anterior -->
-        <button onclick="prevSlide()" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">❮</button>
-        <!-- Botón para ir al siguiente slide -->
-        <button onclick="nextSlide()" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">❯</button>
+        <div class="carousel-item w-full h-full absolute transition-opacity duration-500 ease-in-out opacity-0 bg-cover bg-center" style="background-image: url('/img/hannah-busing-URVe89DA5Cw-unsplash.jpg');">
+        </div>
+        <div class="carousel-item w-full h-full absolute transition-opacity duration-500 ease-in-out opacity-0 bg-cover bg-center" style="background-image: url('/img/john-salib-i6wN1KFf14M-unsplash.jpg');">
+        </div>
     </div>
+
+    <!-- Controles del carrusel -->
+    <!-- Botón para ir al slide anterior -->
+    <button onclick="prevSlide()" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">❮</button>
+    <!-- Botón para ir al siguiente slide -->
+    <button onclick="nextSlide()" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">❯</button>
+</div>
 
     <!-- Sección Acerca de -->
     <section id="about" class="mb-5">
@@ -76,45 +73,29 @@
     
             <!-- Enlaces disfrazados como botones, dispuestos uno debajo del otro-->
             <div class='flex flex-col space-y-4 mb-4'>
-                <a href='#' 
-                   class='bg-verde-suave text-white py-2 px-4 rounded hover:bg-verde-oscuro' id="piscina">Piscina</a>
-                <a href='#' 
-                   class='bg-verde-suave text-white py-2 px-4 rounded hover:bg-verde-oscuro' id="salonFiestas">Salón de Fiestas</a>
-                <a href='#' 
-                   class='bg-verde-suave text-white py-2 px-4 rounded hover:bg-verde-oscuro' id="zonasVerdes">Zonas Verdes</a>
+                <a
+                   class='bg-verde-suave text-white py-2 px-4 rounded hover:bg-verde-oscuro cursor-pointer' id="piscina">Piscina</a>
+                <a 
+                   class='bg-verde-suave text-white py-2 px-4 rounded hover:bg-verde-oscuro cursor-pointer'id="salonFiestas">Salón de Fiestas</a>
+                <a 
+                   class='bg-verde-suave text-white py-2 px-4 rounded hover:bg-verde-oscuro cursor-pointer' id="zonasVerdes">Zonas Verdes</a>
             </div>
         </div>
 
-            <!-- Slider automático para instalaciones, posicionado a la derecha-->
-            <div id='installations-slider' style='flex: 1;' class='relative ml-5'>
-                <div id='slider-inner' class='overflow-hidden'>
-                    <div id='installation-slide' class='slider-item active'>
-                        <img src='/img/thomas-park-QGdRrty4054-unsplash.jpg' alt='Instalación 1' 
-                             class='w-full h-60 rounded-lg'> 
-                    </div>
-                    <div id='installation-slide' class='slider-item'>
-                        <img src='/img/rohit-patil-noqpMNS22nY-unsplash.jpg' alt='Instalación 2' 
-                             class='w-full h-60 rounded-lg'> 
-                    </div>
-                    <div id='installation-slide' class='slider-item'>
-                        <img src='/img/photos-by-lanty-ny7CX6WdOec-unsplash.jpg' alt='Instalación 3' 
-                             class='w-full h-60 rounded-lg'> 
-                    </div>
-                </div>
-            </div>
+<!-- Slider automático para instalaciones, posicionado a la derecha -->
+<div id='installations-slider' style='flex: 1;' class='relative ml-5'>
+    <div id='slider-inner' class='overflow-hidden h-60 relative'>
+        <div class='installation-slide active w-full h-full absolute transition-opacity duration-500 ease-in-out opacity-100 bg-cover bg-center' style="background-image: url('/img/thomas-park-QGdRrty4054-unsplash.jpg');">
+        </div>
+        <div class='installation-slide w-full h-full absolute transition-opacity duration-500 ease-in-out opacity-0 bg-cover bg-center' style="background-image: url('/img/rohit-patil-noqpMNS22nY-unsplash.jpg');">
+        </div>
+        <div class='installation-slide w-full h-full absolute transition-opacity duration-500 ease-in-out opacity-0 bg-cover bg-center' style="background-image: url('/img/photos-by-lanty-ny7CX6WdOec-unsplash.jpg');">
+        </div>
+    </div>
+</div>
         </section>
-
-        <section>
-            <div>
-                <!-- pesta~a de eventos -->
-            </div>
-        </section>
-
 
     </main>
-
-    <!-- Pie de página mejorado y fijo al fondo -->
-
 
  <!-- Modales-->
  <div id="contact-modal" class="modal">
