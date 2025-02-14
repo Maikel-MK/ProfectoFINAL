@@ -1,5 +1,6 @@
 const emailInput =document.querySelector('#username')
-const password =document.querySelector('#password')
+const passwordInput =document.querySelector('#password')
+const formulario = document.querySelector('#loginForm')
 
 const datosLogin = {
     email:'',
@@ -18,4 +19,14 @@ passwordInput.addEventListener('input', e=>{
     datosLogin.password = e.target.value
 
     console.log(datosLogin.password)
+})
+
+formulario.addEventListener('submit', async e=>{
+    e.preventDefault()
+
+    if(datosLogin.email && datosLogin.password){
+        const response = await axios.get('/api/users',datosLogin)
+
+    }
+
 })

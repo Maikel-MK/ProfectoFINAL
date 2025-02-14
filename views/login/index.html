@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Residencial Oasis</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Residencial Oasis</title>
 </head>
 <body class="bg-gray-200 flex items-center justify-center h-screen"> <!-- Establece el fondo y centra el contenido -->
 
@@ -31,7 +32,7 @@
         <!-- Contenedor para los botones -->
         <div class="flex items-center justify-between">
             <!-- Botón para iniciar sesión -->
-            <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="login()">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Ingresar
             </button>
             <!-- Botón para crear un nuevo usuario -->
