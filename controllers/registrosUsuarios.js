@@ -21,6 +21,7 @@ usersRouter.post('/registroUsuarios',(request,response)=>{
         usuario.nombre = nombre
         usuario.correo = correo 
         usuario.password = password
+        usuario.rol = 'usuario'
         
 
         async function guardarUsuario() {

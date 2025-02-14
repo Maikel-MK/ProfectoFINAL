@@ -6,7 +6,7 @@ const registroUsuarioSchema = new mongoose.Schema({
     nombre:String,
     correo:String,
     password:String,
-        // tipo:String,
+    rol:String,
     verified:{
         type:Boolean,
         default:false
