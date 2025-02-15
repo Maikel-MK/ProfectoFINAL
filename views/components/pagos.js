@@ -18,13 +18,13 @@ function loadPaymentsPage() {
             </div>
 
             <!-- Modal para mostrar información del pago -->
-            <div id="paymentModal" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-                <div class="bg-white rounded-lg shadow-lg relative w-11/12 md:w-3/4 lg:w-2/5 p-6 text-center">
-                    <h3 id="modalTitle" class="font-bold text-lg mb-2"></h3>
-                    <p id="modalAmount" class="text-gray-700 mb-4"></p>
-                    <button id="payButton" class='bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded'>Pagar</button>
-                </div>
-            </div>
+     <div id="paymentModal" class="hidden fixed top-0 left-0 w-full h-full bg-gray-800/40 bg-opacity-70 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-lg relative w-11/12 md:w-3/4 lg:w-2/5 p-6 text-center">
+            <h3 id="modalTitle" class="font-bold text-lg mb-2"></h3>
+            <p id="modalAmount" class="text-gray-700 mb-4"></p>
+            <button id="payButton" onclick="payButton(e)" class="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded">Pagar</button>
+        </div>
+    </div>
 
             <!-- Historial de Pagos -->
             <h3 class="font-bold text-lg mt-6">Historial de Pagos</h3>
