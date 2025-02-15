@@ -6,11 +6,13 @@ reservas.innerHTML = `
 
             <!-- Sección Pagos Fijos -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6" id="paymentCards">
-                ${createCard("Piscina", "$100","Se alquila la piscina por un maximo de 4 horas al dia de lunes a viernes y 6 horas los fines de semana y festivos ")}   
-                ${createCard("Zonas Verdes", "$50", "Se alquila las zonas verdes por un maximo de 4 horas al dia de lunes a viernes y 6 horas los fines de semana y festivos ")}
-                ${createCard("Salon de Fiestas", "$75", "Se alquila el salon de fiestas por un maximo de 12 horas al dia de lunes a viernes ")}
+                ${createCard("Piscina", "$20","Se alquila la piscina por un maximo de 4 horas al dia de lunes a viernes y 6 horas los fines de semana y festivos ")}   
+                ${createCard("Zonas Verdes", "$60", "Se alquila las zonas verdes por un maximo de 4 horas al dia de lunes a viernes y 6 horas los fines de semana y festivos ")}
+                ${createCard("Salon de Fiestas", "$150", "Se alquila el salon de fiestas por un maximo de 12 horas al dia de lunes a viernes ")}
             </div>
 </main>
+        <button id="backButton" class="fixed bottom-5 right-5 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-200 ease-in-out" onclick="goBack()"> Go Back </button>
+
 
 `
 
@@ -63,4 +65,9 @@ function payButton(e) {
     closeModal(); // Ocultar el modal después del pago
 
     updatePaymentHistory(); // Actualizar el historial de pagos
+}
+
+
+function goBack() {
+    history.back()
 }
