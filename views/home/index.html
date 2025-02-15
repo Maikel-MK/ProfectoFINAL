@@ -6,6 +6,8 @@
     <title>Residencial Oasis</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
 </head>
 <body class="bg-gray-100 text-gray-800"> <!-- Establece el fondo y el color del texto -->
@@ -24,10 +26,10 @@
         <!-- Navegación principal (visible en pantallas medianas y grandes) -->
         <nav id="navbar" class="hidden md:flex justify-center space-x-4 mt-3">
             <ul class="flex space-x-4">
-                <li><a href="#about" class="hover:underline">Información</a></li> <!-- Enlace a la sección Acerca de -->
-                <li><a href="#" id="contact-link" class="hover:underline">Contacto</a></li> <!-- Enlace para abrir la ventana modal de contacto -->
-                <li><a href="../login/index.html" class="hover:underline">Iniciar Sesión</a></li> <!-- Enlace a la página de inicio de sesión -->
-                <li><a href="../registroUsuarios/index.html" class="hover:underline">Registro</a></li>
+                <li><a href="#about" class="hover:underline decoration-blue-800/30  bg-blue-400 text-white p-2 rounded-full cursor-pointer hover:bg-blue-800/40 transition duration-300 ease-in-out shadow-lg transform hover:scale-125">Información</a></li> <!-- Enlace a la sección Acerca de -->
+                <li><a href="#" id="contact-link" class="hover:underline decoration-blue-800/30  bg-blue-400  text-white p-2 rounded-full cursor-pointer hover:bg-blue-800/40 transition duration-300 ease-in-out shadow-lg transform hover:scale-105">Contacto</a></li> <!-- Enlace para abrir la ventana modal de contacto -->
+                <li><a href="../login/index.html" class="hover:underline decoration-blue-800/30  bg-blue-400  text-white p-2 rounded-full cursor-pointer hover:bg-blue-800/40 transition duration-300 ease-in-out shadow-lg transform hover:scale-105">Iniciar Sesión</a></li> <!-- Enlace a la página de inicio de sesión -->
+                <li><a href="../registroUsuarios/index.html" class="hover:underline decoration-blue-800/30  bg-blue-400  text-white p-2 rounded-full cursor-pointer hover:bg-blue-800/40 transition duration-300 ease-in-out shadow-lg transform hover:scale-105">Registro</a></li>
             </ul>
         </nav>
 
@@ -43,7 +45,7 @@
 
 <!-- Carrusel de imágenes existente -->
 <div id="carousel" class="relative mb-5">
-    <div class="carousel-inner h-64 relative overflow-hidden"> <!-- Establecer una altura fija para el contenedor del carrusel -->
+    <div class="carousel-inner h-100 relative overflow-hidden"> <!-- Establecer una altura fija para el contenedor del carrusel -->
         <!-- Cada item del carrusel se define aquí -->
         <div class="carousel-item active w-full h-full absolute transition-opacity duration-500 ease-in-out opacity-100 bg-cover bg-center" style="background-image: url('/img/garry-ry-I-xu2F1jQmY-unsplash.jpg');">
         </div>
@@ -55,30 +57,49 @@
 
     <!-- Controles del carrusel -->
     <!-- Botón para ir al slide anterior -->
-    <button onclick="prevSlide()" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">❮</button>
+    <button onclick="prevSlide()" class="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full cursor-pointer hover:bg-green-400 transition duration-300 ease-in-out shadow-lg transform hover:scale-125">❮</button>
     <!-- Botón para ir al siguiente slide -->
-    <button onclick="nextSlide()" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">❯</button>
+    <button onclick="nextSlide()" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full cursor-pointer hover:bg-green-400 transition duration-300 ease-in-out shadow-lg transform hover:scale-125">❯</button>
 </div>
 
     <!-- Sección Acerca de -->
     <section id="about" class="mb-5">
-        <h2 class="text-2xl font-semibold">Acerca de</h2> <!-- Título de la sección Acerca de -->
-        <p>Aquí puedes aprender más sobre nosotros y nuestra misión.</p> <!-- Descripción de la sección Acerca de -->
+        <div class="container mx-auto p-6">
+            <div class="text-center mb-10">
+                <h1 class="text-4xl font-bold text-green-600">Residencial Oasis</h1>
+                <p class="mt-2 text-lg text-gray-700">Tu Refugio Ideal</p>
+            </div>
+        
+            <section class="bg-white rounded-lg shadow-md p-6 mb-10">
+                <p class="text-1xl mb-4 text-gray-700">
+                    Bienvenido a Residencial Oasis, un exclusivo complejo residencial diseñado para ofrecerte el equilibrio perfecto entre comodidad, seguridad y naturaleza. Ubicado en una zona privilegiada, nuestro residencial se destaca por su ambiente tranquilo y acogedor, ideal para familias, parejas y profesionales que buscan un espacio donde disfrutar de la vida.
+                </p>
+            </section>
+            <section class="bg-white rounded-lg shadow-md p-6 mb-10">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Características del Residencial:</h2>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li><strong>Ubicación Estratégica:</strong> Situado cerca de escuelas, centros comerciales y áreas recreativas.</li>
+                    <li><strong>Diseño Moderno:</strong> Espacios amplios y luminosos que se adaptan a tus necesidades.</li>
+                    <li><strong>Áreas Comunes:</strong> Jardines paisajísticos, áreas de juegos infantiles, piscina y zonas de esparcimiento.</li>
+                    <li><strong>Seguridad 24/7:</strong> Vigilancia constante y sistemas de acceso controlado.</li>
+                    <li><strong>Sostenibilidad:</strong> Prácticas eco-amigables en construcción y mantenimiento.</li>
+                </ul>
+            </section>
+        </div>
     </section>
 
+    <h2 class='text-4xl font-bold text-gray-600 mb-5 text-center'>Instalaciones</h2>
     <!-- Sección Instalaciones con slider automático-->
     <section id='installations' class='mb-5 flex'>
-        <div style='flex: 1;'> 
-            <h2 class='text-2xl font-semibold'>Instalaciones</h2>
-    
+        <div style='flex: .5;'> 
             <!-- Enlaces disfrazados como botones, dispuestos uno debajo del otro-->
-            <div class='flex flex-col space-y-4 mb-4'>
+            <div class='flex flex-col space-y-4 mb-4 items-center w-full'>
                 <a
-                   class='bg-verde-suave text-white py-2 px-4 rounded hover:bg-verde-oscuro cursor-pointer' id="piscina">Piscina</a>
+                   class='bg-green-300 text-gray-700 py-2 px-4 w-full mt-5 rounded hover:bg-green-600 cursor-pointer text-center hover:text-gray-100 transition duration-300 ease-in-out shadow-lg transform hover:scale-105' id="piscina">Piscina</a>
                 <a 
-                   class='bg-verde-suave text-white py-2 px-4 rounded hover:bg-verde-oscuro cursor-pointer'id="salonFiestas">Salón de Fiestas</a>
+                   class='bg-green-300 text-gray-700 py-2 px-4 w-full mt-5 rounded hover:bg-green-600 cursor-pointer text-center hover:text-gray-100 transition duration-300 ease-in-out shadow-lg transform hover:scale-105'id="salonFiestas">Salón de Fiestas</a>
                 <a 
-                   class='bg-verde-suave text-white py-2 px-4 rounded hover:bg-verde-oscuro cursor-pointer' id="zonasVerdes">Zonas Verdes</a>
+                   class='bg-green-300 text-gray-700 py-2 px-4 w-full mt-5 rounded hover:bg-green-600 cursor-pointer text-center hover:text-gray-100 transition duration-300 ease-in-out shadow-lg transform hover:scale-105' id="zonasVerdes">Zonas Verdes</a>
             </div>
         </div>
 
@@ -100,43 +121,115 @@
  <!-- Modales-->
  <div id="contact-modal" class="modal">
     <div class="modal-content">
-        <span id="close-modal" style="cursor:pointer;">&times;</span> <!-- Botón para cerrar la modal -->
-        <h3>Formas de Contacto</h3>
-        <p><strong>Email:</strong> contacto@residencialoasis.com</p> 
-        <p><strong>Teléfono:</strong> +1234567890</p> 
-        <p><strong>Redes Sociales:</strong></p>
-        <ul>
-            <li><i class='fab fa-facebook'></i> Facebook</li>
-            <li><i class='fab fa-twitter'></i> Twitter</li>
-            <li><i class='fab fa-instagram'></i> Instagram</li>
-        </ul>
+        <div class="bg-white rounded-lg shadow-2xl p-6 relative">
+            <button id="close-modal" class="absolute top-3 right-3 text-gray-100 hover:text-gray-200 focus:outline-none bg-red-500 rounded hover:bg-red-400 p-1">
+                <i class="fas fa-times fa-lg cursor-pointer text-lg"></i>  <!-- Font Awesome Close Icon -->
+            </button>
+            <h3 class="text-xl font-semibold mb-4">Formas de Contacto</h3>
+            <div class="mb-4">
+                <p class="text-gray-700"><strong class="font-medium">Email:</strong> <a href="mailto:contacto@residencialoasis.com" class="text-blue-500 hover:underline">contacto@residencialoasis.com</a></p>
+            </div>
+            <div class="mb-4">
+                <p class="text-gray-700"><strong class="font-medium">Teléfono:</strong> <a href="tel:+1234567890" class="text-blue-500 hover:underline">+1234567890</a></p>
+            </div>
+            <div>
+                <p class="text-gray-700 font-medium mb-2">Redes Sociales:</p>
+                <ul class="flex space-x-4 justify-center">
+                    <li><a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-facebook fa-lg"></i></a></li>
+                    <li><a href="#" class="text-blue-500 hover:text-blue-800"><i class="fab fa-twitter fa-lg"></i></a></li>
+                    <li><a href="#" class="text-blue-500 hover:text-pink-700"><i class="fab fa-instagram fa-lg"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        
     </div>
   </div>
 
   <div id="modalPiscina" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
     <div class="bg-cover bg-center w-full h-full absolute" style="background-image: url('/img/clark-tai-nq18MYhxdGs-unsplash.jpg');"></div>
-    <div class="bg-white bg-opacity-75 rounded-lg shadow-lg relative w-11/12 md:w-3/4 lg:w-2/5 p-6 text-center">
+    <div class="bg-white/80 bg-opacity-75 rounded-lg shadow-lg relative w-11/12 md:w-3/4 lg:w-2/5 p-6 text-center">
         <h3 class="font-bold text-lg mb-2">Piscina</h3>
-        <p class="text-gray-700 mb-4">Detalles sobre la piscina...</p>
-        <button class='bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded' onclick="closeModal('modalPiscina')">Cerrar</button>
+        <div class="overflow-y-auto max-h-[80vh]">
+        <p class="text-gray-700 mb-4">
+            Descubre la Piscina de Nuestro Residencial<br>
+            <br>
+Sumérgete en la experiencia de relajación y diversión en nuestra espectacular piscina, diseñada para ser el corazón de nuestro residencial. Con un diseño moderno y elegante, la piscina cuenta con amplias áreas de baño y zonas de descanso, perfectas para disfrutar de un día soleado.<br>
+<br>
+Características Destacadas:<br>
+<br>
+- Tamaño Generoso: Disfruta de un amplio espacio para nadar y jugar, ideal para todas las edades.<br><br>
+- Zona de Chapoteo: Los más pequeños pueden divertirse en un área segura y poco profunda, diseñada especialmente para ellos.<br><br>
+- Terraza Soleada: Relájate en nuestras cómodas tumbonas y sombrillas, perfectas para tomar el sol o disfrutar de un buen libro.<br><br>
+- Ambiente Natural: Rodeada de exuberantes jardines y plantas tropicales, nuestra piscina ofrece un oasis de tranquilidad.<br><br>
+- Iluminación Nocturna: Disfruta de mágicas noches bajo las estrellas con nuestra iluminación ambiental que transforma la piscina en un lugar encantador.<br><br>
+
+Ya sea que busques un lugar para hacer ejercicio, relajarte o compartir momentos inolvidables con amigos y familiares, nuestra piscina es el lugar perfecto. ¡Ven y descubre todo lo que tenemos para ofrecerte!
+
+            </p>
+        </div>
+        <button class='bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded cursor-pointer' onclick="closeModal('modalPiscina')">Cerrar</button>
     </div>
 </div>
 
 <div id="modalSalonFiestas" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
     <div class="bg-cover bg-center w-full h-full absolute" style="background-image: url('/img/hannah-busing-URVe89DA5Cw-unsplash.jpg');"></div>
-    <div class="bg-white bg-opacity-75 rounded-lg shadow-lg relative w-11/12 md:w-3/4 lg:w-2/5 p-6 text-center">
-        <h3 class="font-bold text-lg mb-2">Salón de Fiestas</h3>
-        <p class="text-gray-700 mb-4">Detalles sobre el salón de fiestas...</p>
-        <button class='bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded' onclick="closeModal('modalSalonFiestas')">Cerrar</button>
+    <div class="bg-white/80 bg-opacity-75 rounded-lg shadow-lg relative w-11/12 md:w-3/4 lg:w-2/5 p-6 text-center">
+        <h3 class="font-bold text-lg mb-2">Salon de Fiestas</h3>
+        <div class="overflow-y-auto max-h-[80vh]">
+        <p class="text-gray-700 mb-4">
+            Un Espacio para Celebrar Momentos Inolvidables<br>
+            <br>
+Bienvenido al elegante salón de fiestas de nuestro residencial, un lugar diseñado para hacer de cada celebración una experiencia única y memorable. Con un ambiente acogedor y sofisticado, nuestro salón es el escenario perfecto para todo tipo de eventos, desde cumpleaños y aniversarios hasta reuniones familiares y eventos corporativos.<br>
+<br>
+Características Destacadas:<br>
+<br>
+- Amplio Espacio: Con capacidad para [número] de personas, nuestro salón ofrece un amplio espacio que se adapta a tus necesidades, permitiendo una distribución flexible para banquetes, conferencias o fiestas.<br>
+<br>
+- Decoración Elegante: El salón cuenta con una decoración moderna y versátil, que incluye iluminación ambiental ajustable y elementos decorativos que se pueden personalizar según el tema de tu evento.<br>
+<br>
+- Cocina Equiparada: Disfruta de la comodidad de un área de cocina completamente equipada, ideal para catering o preparación de alimentos, asegurando que tus invitados disfruten de deliciosos platillos.<br>
+<br>
+- Tecnología de Punta: Equipado con sistemas de sonido de alta calidad y pantallas para presentaciones, nuestro salón es perfecto para eventos que requieren tecnología audiovisual.<br>
+<br>
+- Acceso a Áreas Comunes: Los huéspedes del salón pueden disfrutar de acceso a áreas comunes como jardines y terrazas, ideales para momentos de esparcimiento antes o después del evento.<br>
+<br>
+- Estacionamiento Privado: Ofrecemos estacionamiento seguro y conveniente para tus invitados, asegurando que su llegada y salida sea sin complicaciones.<br>
+<br>
+Ya sea que estés planeando una celebración íntima o un gran evento, nuestro salón de fiestas es el lugar ideal para crear recuerdos inolvidables. ¡Contáctanos para más información y reserva tu fecha hoy mismo!
+            </p>
+        </div>
+        <button class='bg-orange-200 hover:bg-sky-100 text-black px-4 py-2 rounded cursor-pointer' onclick="closeModal('modalSalonFiestas')">Cerrar</button>
     </div>
-</div>
+    </div>
 
 <div id="modalZonasVerdes" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
     <div class="bg-cover bg-center w-full h-full absolute" style="background-image: url('/img/oleksii-piekhov-TgWFFM9qLIw-unsplash.jpg');"></div>
-    <div class="bg-white bg-opacity-75 rounded-lg shadow-lg relative w-11/12 md:w-3/4 lg:w-2/5 p-6 text-center">
+    <div class="bg-white/80 bg-opacity-75 rounded-lg shadow-lg relative w-11/12 md:w-3/4 lg:w-2/5 p-6 text-center">
         <h3 class="font-bold text-lg mb-2">Zonas Verdes</h3>
-        <p class="text-gray-700 mb-4">Detalles sobre las zonas verdes...</p>
-        <button class='bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded' onclick="closeModal('modalZonasVerdes')">Cerrar</button>
+        <div class="overflow-y-auto max-h-[80vh]">
+            <p class="text-gray-700 mb-4">
+                Un Oasis de Naturaleza y Relax<br>
+                <br>
+En nuestro residencial, las zonas verdes son un verdadero refugio de paz y belleza natural, diseñadas para ofrecer a nuestros residentes un espacio donde disfrutar del aire libre y conectar con la naturaleza. Con una cuidadosa planificación paisajística, cada rincón está pensado para brindar un ambiente sereno y acogedor.<br>
+<br>
+Características Destacadas:<br>
+<br>
+- Jardines Exuberantes: Disfruta de amplias áreas ajardinadas, llenas de plantas autóctonas y flores de temporada que aportan color y frescura durante todo el año. Estos jardines son perfectos para pasear, meditar o simplemente relajarse.<br>
+<br>
+- Senderos Naturales: Nuestros senderos peatonales invitan a dar agradables paseos, rodeados de la belleza de la naturaleza. Ideales para caminatas matutinas o paseos en familia, estos caminos están diseñados para ser accesibles y seguros.<br>
+<br>
+- Áreas de Recreación: Las zonas verdes cuentan con espacios destinados a la recreación, incluyendo áreas de juegos para niños, donde los más pequeños pueden disfrutar de actividades al aire libre en un entorno seguro y divertido.<br>
+<br>
+- Espacios para el Deporte: Para los amantes del ejercicio, ofrecemos zonas equipadas para actividades deportivas, como canchas de fútbol, baloncesto o áreas para yoga, fomentando un estilo de vida activo y saludable.<br>
+<br>
+- Áreas de Descanso: Relájate en nuestras cómodas bancas y áreas de descanso, perfectas para disfrutar de un buen libro o simplemente contemplar la belleza del entorno. Las zonas de sombra, proporcionadas por árboles frondosos, son ideales para escapar del calor del sol.<br>
+<br>
+- Eventos Comunitarios: Las zonas verdes también son el escenario perfecto para eventos comunitarios, picnics y celebraciones, fomentando la convivencia y el sentido de comunidad entre los residentes.<br>
+<br>
+Nuestras zonas verdes son más que solo espacios al aire libre; son un lugar donde la naturaleza y la comunidad se encuentran, ofreciendo un estilo de vida equilibrado y saludable. ¡Ven y descubre el oasis que hemos creado para ti!
+
+        </div>
+        <button class='bg-rose-200 hover:bg-stone-100 text-black px-4 py-2 rounded cursor-pointer' onclick="closeModal('modalZonasVerdes')">Cerrar</button>
     </div>
 </div>
 
