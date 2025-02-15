@@ -1,3 +1,13 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+    });
+});
+
+// Carrusel de imágenes
 let currentIndex = 0; // Índice actual del slide visible
 const carouselInterval = 10000; // Tiempo en milisegundos para el cambio automático del primer carrusel (10 segundos)
 

@@ -13,14 +13,15 @@
 </head>
 <body class="bg-gray-100 text-gray-800"> <!-- Establece el fondo y el color del texto -->
 
+  
     <header class="bg-blue-300 text-white p-5 text-center"> <!-- Encabezado de la página -->
         
         <a href="../home/index.html"><h1 class="text-3xl font-bold">Residencial Oasis</h1></a>
         
         <!-- Botón para el menú hamburguesa (visible solo en móviles) -->
-        <div class="md:hidden flex justify-end">
-            <button id="menu-toggle" class="focus:outline-none"> <!-- Botón para mostrar/ocultar el menú móvil -->
-                <i class="fas fa-bars text-2xl"></i> <!-- Ícono de hamburguesa -->
+        <div class="md:hidden flex justify-end z-60">
+            <button id="menu-toggle" class="focus:outline-none  z-60 "> <!-- Botón para mostrar/ocultar el menú móvil -->
+                <i class="fas fa-bars text-2xl hover:bg-blue-400 p-2 rounded cursor-pointer"></i> <!-- Ícono de hamburguesa -->
             </button>
         </div>
 
@@ -36,9 +37,21 @@
 
         <!-- Menú desplegable para móviles (inicialmente oculto) -->
         <nav id="mobile-menu" class="md:hidden hidden flex-col items-center mt-3 space-y-2">
-<a href="#about" class="hover:underline">Información</a> <!-- Enlace a la sección Acerca de -->
-<a href="#" id="contact-link-mobile" class="hover:underline">Contacto</a> <!-- Enlace para abrir la ventana modal de contacto -->
-<a href="login.html" class="hover:underline">Iniciar Sesión</a> <!-- Enlace a la página de inicio de sesión -->
+            <div class="bg-gray-600/60 fixed top-0 right-0 left-0 bottom-0 justify-center text-center flex-col gap-4 z-50">
+                <ul class="list-none flex justify-center aling-center flex-col mt-20">
+                    <li class="my-2">
+                        <a href="../login/index.html" class="block mx-auto w-48 hover:underline decoration-blue-800/30 bg-blue-400 text-white p-2 rounded-full cursor-pointer hover:bg-blue-800/40 transition duration-300 ease-in-out shadow-lg transform hover:scale-105">
+                            Iniciar Sesión
+                        </a>
+                    </li>
+                    <li class="my-2">
+                        <a href="../registroUsuarios/index.html" class="block mx-auto w-48 hover:underline decoration-blue-800/30 bg-blue-400 text-white p-2 rounded-full cursor-pointer hover:bg-blue-800/40 transition duration-300 ease-in-out shadow-lg transform hover:scale-105">
+                            Registro
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
 </nav>
 </header>
 
