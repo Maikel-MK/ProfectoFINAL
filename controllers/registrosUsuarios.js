@@ -41,6 +41,7 @@ usersRouter.post('/registroUsuarios',(request,response)=>{
 usersRouter.get('/consultar-User', async (request, response) => {
     try {
         const { id, correo } = request.query;
+        console.log('Parámetros recibidos:', { id, correo }); // Depuración
 
         // Validar que se proporcione al menos un parámetro (id o correo)
         if (!id && !correo) {
@@ -51,10 +52,14 @@ usersRouter.get('/consultar-User', async (request, response) => {
 
         // Buscar el usuario por ID o correo
         if (id) {
+            console.log('Buscando usuario por ID:', id); // Depuración
             usuario = await User.findById(id);
         } else if (correo) {
+            console.log('Buscando usuario por correo:', correo); // Depuración
             usuario = await User.findOne({ correo: correo });
         }
+
+        console.log('Usuario encontrado:', usuario); // Depuración
 
         // Verificar si el usuario fue encontrado
         if (!usuario) {

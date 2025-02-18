@@ -16,8 +16,8 @@ async function loadUsers() {
                         <td class="py-2 px-4 border-b">${user.correo}</td>
                         <td class="py-2 px-4 border-b">${user.rol}</td>
                         <td class="py-2 px-4 border-b">
-                            <button onclick='editUser("${user._id}")' class='text-blue-500 hover:text-blue-700'>Editar</button>
-                            <button onclick='deleteUser("${user._id}")' class='text-red-500 hover:text-red-700 ml-2'>Eliminar</button>
+                            <button onclick='editUser("${user.id}")' class='text-blue-500 hover:text-blue-700'>Editar</button>
+                            <button onclick='deleteUser("${user.id}")' class='text-red-500 hover:text-red-700 ml-2'>Eliminar</button>
                         </td>
                     </tr>`;
                 usersTableBody.innerHTML += row; // Añadir fila a la tabla
@@ -52,60 +52,85 @@ function closeEditModal() {
 
 async function editUser(userId) {
     try {
-        // Obtener los datos del usuario desde la API
-        const response = await axios.get(`/api/users/consultar-User`);
-        const user = response.data;
+        console.log('Obteniendo datos del usuario con ID:', userId); // Depuración
 
-        // Abrir el modal con los datos del usuario
-        openEditModal(user);
+        // Verificar que el userId no sea undefined
+        if (!userId) {
+            alert('ID de usuario no válido.');
+            return;
+        }
 
-        // Manejar el envío del formulario del modal
-        document.getElementById('editUserForm').onsubmit = async (e) => {
-            e.preventDefault();
+        // Hacer la solicitud a la ruta /consultar-User
+        const response = await axios.get('/api/users/consultar-User', {
+            params: { id: userId } // Pasar el ID como parámetro
+        });
 
-            const newName = document.getElementById('editName').value;
-            const newEmail = document.getElementById('editEmail').value;
-            const newPassword = document.getElementById('editPassword').value;
-            const confirmPassword = document.getElementById('editConfirmPassword').value;
-            const newRol = document.getElementById('editRol').value;
+        console.log('Respuesta del servidor:', response.data); // Depuración
 
-            if (newName && newEmail && newPassword && confirmPassword && newRol) {
-                if (newPassword !== confirmPassword) {
-                    alert('Las contraseñas no coinciden.');
-                    return;
-                }
+        if (response.data.textOk) {
+            const user = response.data.data; // Datos del usuario
+            openEditModal(user); // Abrir el modal con los datos del usuario
 
-                try {
-                    const response = await axios.post('/api/users/editar-user', {
-                        id: userId,
-                        nombre: newName,
-                        correo: newEmail,
-                        password: newPassword,
-                        password2: confirmPassword,
-                        rol: newRol
-                    });
+            // Manejar el envío del formulario del modal
+            document.getElementById('editUserForm').onsubmit = async (e) => {
+                e.preventDefault();
 
-                    if (response.status === 200) {
-                        alert(response.data.message); // Mostrar mensaje de éxito
-                        closeEditModal(); // Cerrar el modal
-                        loadUsers(); // Recargar la lista de usuarios
-                    } else {
-                        alert(response.data.error); // Mostrar mensaje de error del servidor
+                const newName = document.getElementById('editName').value;
+                const newEmail = document.getElementById('editEmail').value;
+                const newPassword = document.getElementById('editPassword').value;
+                const confirmPassword = document.getElementById('editConfirmPassword').value;
+                const newRol = document.getElementById('editRol').value;
+
+                if (newName && newEmail && newPassword && confirmPassword && newRol) {
+                    if (newPassword !== confirmPassword) {
+                        alert('Las contraseñas no coinciden.');
+                        return;
                     }
-                } catch (error) {
-                    console.error('Error al editar usuario:', error);
-                    if (error.response) {
-                        alert(error.response.data.error || 'Error al editar el usuario.');
-                    } else {
-                        alert('No se pudo conectar al servidor.');
+
+                    try {
+                        const response = await axios.post('/api/users/editar-user', {
+                            id: userId,
+                            nombre: newName,
+                            correo: newEmail,
+                            password: newPassword,
+                            password2: confirmPassword,
+                            rol: newRol
+                        });
+
+                        if (response.status === 200) {
+                            alert(response.data.message); // Mostrar mensaje de éxito
+                            closeEditModal(); // Cerrar el modal
+                            loadUsers(); // Recargar la lista de usuarios
+                        } else {
+                            alert(response.data.error); // Mostrar mensaje de error del servidor
+                        }
+                    } catch (error) {
+                        console.error('Error al editar usuario:', error);
+                        if (error.response) {
+                            alert(error.response.data.error || 'Error al editar el usuario.');
+                        } else {
+                            alert('No se pudo conectar al servidor.');
+                        }
                     }
+                } else {
+                    alert('Todos los campos son obligatorios.');
                 }
-            } else {
-                alert('Todos los campos son obligatorios.');
-            }
-        };
+            };
+        } else {
+            alert('No se pudieron cargar los datos del usuario.');
+        }
     } catch (error) {
         console.error('Error al obtener datos del usuario:', error);
-        alert('No se pudo cargar la información del usuario.');
+        if (error.response) {
+            // Error de respuesta del servidor (ej: 404, 500)
+            console.error('Respuesta del servidor:', error.response.data); // Depuración
+            alert(error.response.data.error || 'Error al obtener el usuario.');
+        } else if (error.request) {
+            // Error de conexión (no se recibió respuesta)
+            alert('No se pudo conectar al servidor.');
+        } else {
+            // Error en la configuración de la solicitud
+            alert('Error al enviar la solicitud.');
+        }
     }
 }
