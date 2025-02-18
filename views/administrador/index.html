@@ -4,14 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="website icon" href="../../img/favicon_io/favicon-16x16.png" type="png">
-    <title>Administrador</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Administrador</title>
 </head>
 <body class="bg-gray-200">
 
     <div id="dashboard" class="flex"></div>
     
+
+    <!-- Modal para editar usuario -->
+<div id="editUserModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-xl font-bold mb-4">Editar Usuario</h2>
+        <form id="editUserForm">
+            <div class="mb-4">
+                <label class="block text-gray-700">Nombre</label>
+                <input type="text" id="editName" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700">Correo</label>
+                <input type="email" id="editEmail" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700">Contraseña</label>
+                <input type="password" id="editPassword" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700">Confirmar Contraseña</label>
+                <input type="password" id="editConfirmPassword" class="w-full p-2 border rounded">
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700">Rol</label>
+                <input type="text" id="editRol" class="w-full p-2 border rounded">
+            </div>
+            <div class="flex justify-end">
+                <button type="button" onclick="closeEditModal()" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancelar</button>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
 
     <script src="administrador.js"></script>
     <script src="../components/Dashboards.js"></script>

@@ -88,7 +88,6 @@ function createAdminDashboard() {
             <h2 class="text-xl font-semibold mb-4 text-center">Administrador</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                ${createCard("Pagos Pendientes", "<p>Total: $</p><p>Pagos vencidos: - -</p>")}
                 ${createCard("Usuarios", "<p><button onclick='manageUsers()' class='text-blue-500 hover:text-blue-700 transition duration-200'>Administrar Usuarios</button></p>")}
                 ${createCard("Alicuotas", `<button onclick='manageAlicuotas()' class='text-blue-500 hover:text-blue-700 transition duration-200'>Gestionar Alicuotas</button>`)}
             </div>
@@ -109,6 +108,23 @@ function createAdminDashboard() {
                     </tbody>
                 </table>
             </div>
+
+            <div id="usersSection" class="mt-6 hidden">
+    <h3 class="font-bold text-lg mb-2">Gestión de Usuarios</h3>
+    <table class="min-w-full bg-white border border-gray-300">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 border-b">Nombre</th>
+                <th class="py-2 px-4 border-b">Correo</th>
+                <th class="py-2 px-4 border-b">Rol</th>
+                <th class="py-2 px-4 border-b">Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="usersTableBody">
+            <!-- Aquí se cargarán los usuarios -->
+        </tbody>
+    </table>
+</div>
 
         </main>`;
 }
@@ -163,9 +179,11 @@ function editAlicuota(propietario) {
  }
  
  function manageUsers() {
-    alert('Aquí puedes administrar a los demás usuarios.'); // Muestra un mensaje de alerta
-    // Aquí puedes agregar lógica adicional para gestionar usuarios, como abrir un modal o redirigir a otra página
+    const usersSection = document.getElementById('usersSection');
+    usersSection.classList.toggle('hidden'); 
+    loadUsers()
  }
+
 
 
 // Función que crea el dashboard para el contador

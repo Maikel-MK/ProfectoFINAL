@@ -8,10 +8,10 @@ const User = require('../models/registroUsuario')
 
 //registrar lo que envia el usuario
 usersRouter.post('/registroUsuarios',(request,response)=>{
-    const {nombre,correo,password,password2} = request.body
-    console.log(nombre,correo,password,password2)
+    const {nombre,correo,password,password2,rol} = request.body
+    console.log(nombre,correo,password,password2,rol)
 
-    if(!nombre || !correo || !password || !password2){
+    if(!nombre || !correo || !password || !password2 || !rol){
 
         return response.status(400).json({error:'Los datos no pueden estar Incompletos'})
     }else{
@@ -21,7 +21,7 @@ usersRouter.post('/registroUsuarios',(request,response)=>{
         usuario.nombre = nombre
         usuario.correo = correo 
         usuario.password = password
-        usuario.rol = 'usuario'
+        usuario.rol = rol
         
 
         async function guardarUsuario() {
@@ -42,29 +42,30 @@ usersRouter.get('/consultar-User', async (request, response) => {
     try {
         const { id, correo } = request.query;
 
+        // Validar que se proporcione al menos un parámetro (id o correo)
+        if (!id && !correo) {
+            return response.status(400).json({ error: 'Se requiere el ID o el correo del usuario.' });
+        }
+
+        let usuario;
+
+        // Buscar el usuario por ID o correo
         if (id) {
             usuario = await User.findById(id);
         } else if (correo) {
             usuario = await User.findOne({ correo: correo });
         }
 
-        // Buscar el usuario por su ID en la base de datos
-        const usuario = await User.findById(id);
-
+        // Verificar si el usuario fue encontrado
         if (!usuario) {
-            return response.status(404).json({ error: 'Usuario no encontrado' });
+            return response.status(404).json({ error: 'Usuario no encontrado.' });
         }
 
-        const usuarioC = await User.findOne({ correo: correo });
-        if (!usuarioC) {
-            return response.status(404).json({ error: 'Usuario no encontrado' });
-        }
-        
         // Devolver el usuario encontrado
         return response.status(200).json({ textOk: true, data: usuario });
     } catch (error) {
         console.error('Error al consultar el usuario:', error);
-        return response.status(500).json({ error: 'Error interno del servidor' });
+        return response.status(500).json({ error: 'Error interno del servidor.' });
     }
 });
 
@@ -72,13 +73,13 @@ usersRouter.get('/consultar-User', async (request, response) => {
 usersRouter.post('/editar-user', async(request,response)=>{
 
     try {
-        const {id,nombre,correo,password,password2} = request.body
+        const {id,nombre,correo,password,password2,rol} = request.body
 
-        if(!nombre && !correo && !password && !password2){
+        if(!nombre && !correo && !password && !password2 && !rol){
 
             return response.status(400).json({error:'Todos los campos son obligatorios'})
         }else{
-            const updateUser = await User.findByIdAndUpdate({_id:id},{nombre:nombre,correo:correo,password:password})
+            const updateUser = await User.findByIdAndUpdate({_id:id},{nombre:nombre,correo:correo,password:password,rol:rol})
 
             await updateUser.save()
 
@@ -105,7 +106,6 @@ usersRouter.post('/eliminar-User',async (request,response)=>{
     }
 })
 
-
 //obtener todos los usuarios
 usersRouter.get('/lista-User',async (request,response)=>{
 
@@ -119,10 +119,7 @@ usersRouter.get('/lista-User',async (request,response)=>{
     }
 })
 
-//obtener un usuario
-usersRouter.get('/Obtener-User',(request,response)=>{
 
-})
 
 //verificar el Registro
 usersRouter.get('/validar-confirmacion/:correo',async (request,response)=>{
