@@ -17,71 +17,110 @@ let valpassword = false
 let valMatch = false
 let valName = false
 
-userName.addEventListener('input', e=>{
-        valName = nameVal.test(e.target.value)
-        validar(userName,valName)
-        console.log('nombre',valName)
+const errorMessages = {
+    nombre: "El nombre solo puede contener letras y espacios y no puede terminar en espacio.",
+    correo: "Ingresa un correo electrónico válido.",
+    password: "La contraseña debe tener entre 8 y 16 caracteres, incluir una mayúscula, una minúscula, un signo y un número.",
+    match: "Las contraseñas no coinciden."
+}
 
+function mostrarError(input, mensaje) {
+    const errorElement = input.nextElementSibling //para los span
+    errorElement.textContent = mensaje
+    errorElement.style.display = 'block'
+}
+
+function ocultarError(input) {
+    const errorElement = input.nextElementSibling;
+    errorElement.textContent = ''
+    errorElement.style.display = 'none'
+}
+
+userName.addEventListener('input', e => {
+    valName = nameVal.test(e.target.value);
+    validar(userName, valName);
+    if (!valName) {
+        mostrarError(userName, errorMessages.nombre)
+    } else {
+        ocultarError(userName)
+    }
 })
 
+
 email.addEventListener('input', e=>{
-        valemail = emailVal.test(e.target.value)
-        // console.log(valemail)
-        validar(email, valemail) 
-        console.log('email',valemail)
-    })
+    valemail = emailVal.test(e.target.value)
+    // console.log(valemail)
+    validar(email, valemail) 
+    if (!valemail) {
+        mostrarError(email, errorMessages.correo)
+    } else {
+        ocultarError(email)
+    }
+})
 
 password.addEventListener('input', e=>{
-        // console.log(e.target.value)
-        valpassword = passwordVal.test(e.target.value)
-        validar(password,valpassword)
-        validar(match,valMatch)
-        console.log('password',valpassword)
-    })
+    // console.log(e.target.value)
+    valpassword = passwordVal.test(e.target.value)
+    validar(password,valpassword)
+    validar(match,valMatch)
+    if (!valpassword) {
+        mostrarError(password, errorMessages.password)
+    } else {
+        ocultarError(password)
+    }
+})
 
-    match.addEventListener('input', e=>{
-        valMatch = e.target.value === password.value
 
-        validar(match,valMatch)
-        validar(password,valpassword)
+match.addEventListener('input', e=>{
+    valMatch = e.target.value === password.value
 
-        console.log('match',valMatch)
-    })
+    validar(match,valMatch)
+    validar(password,valpassword)
+    if (!valMatch) {
+        mostrarError(match, errorMessages.match)
+    } else {
+        ocultarError(match)
+    }
+})
 
-    formulario.addEventListener('submit',async e=>{
-        e.preventDefault()
 
-        try {
-            const newUser = {
-                nombre:userName.value,
-                correo:email.value,
-                password:password.value,
-                password2:match.value
-            }
-            console.log(newUser)
-            if(valName && valemail && valpassword && valMatch){
-                const response =await axios.post('/api/users/registroUsuarios',newUser)
+formulario.addEventListener('submit', async e => {
+    e.preventDefault()
 
-                createNotification(false,'Usuario Registrado Correctamente')
-setTimeout(() => {
-    notification.innerHTML = ''
-}, 5000)
+    // Mostrar ícono de carga
+    registroBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Registrando...'
+    registroBtn.disabled = true
 
-                console.log(response)
-            }else{
-                createNotification(true,'Los datos no pueden estar Incompletos')
-setTimeout(() => {
-    notification.innerHTML = ''
-}, 5000)
-        } 
-    }catch (error) {
-            createNotification(true,error.response.data.error)
-setTimeout(() => {
-    notification.innerHTML = ''
-}, 5000)
-
-            console.log(error.response.data.error)
+    try {
+        const newUser = {
+            nombre: userName.value,
+            correo: email.value,
+            password: password.value,
+            password2: match.value
         }
+
+        if (valName && valemail && valpassword && valMatch) {
+            const response = await axios.post('/api/users/registroUsuarios', newUser)
+            createNotification(false, 'Usuario Registrado Correctamente')
+            setTimeout(() => {
+                notification.innerHTML = ''
+            }, 5000);
+        } else {
+            createNotification(true, 'Los datos no pueden estar Incompletos')
+            setTimeout(() => {
+                notification.innerHTML = ''
+            }, 5000);
+        }
+    } catch (error) {
+        createNotification(true, error.response.data.error)
+        setTimeout(() => {
+            notification.innerHTML = ''
+        }, 5000);
+    } finally {
+        // Restaurar el botón
+        registroBtn.innerHTML = 'Registrarse'
+        registroBtn.disabled = false
+    }
 })
 
 
