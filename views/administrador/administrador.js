@@ -139,27 +139,33 @@ async function deleteUser(userId) {
     const confirmDelete = confirm('¿Está seguro de que desea eliminar este usuario?');
     if (confirmDelete) {
         try {
-            const response = await fetch('/eliminar-User', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: userId })
+            // Enviar la solicitud para eliminar el usuario
+            const response = await axios.post('/api/users/eliminar-User', {
+                id: userId
             });
 
-            const data = await response.json();
-
-            if (response.ok) {
-                alert(data.message); // "Usuario eliminado correctamente"
+            // Verificar si la solicitud fue exitosa
+            if (response.status === 200) {
+                alert(response.data.message); // Mostrar mensaje de éxito
                 loadUsers(); // Recargar la lista de usuarios
             } else {
-                alert(data.error); // "No se pudo eliminar el usuario"
+                alert(response.data.error); // Mostrar mensaje de error del servidor
             }
         } catch (error) {
             console.error('Error al eliminar usuario:', error);
-            alert('No se pudo eliminar el usuario.');
+            if (error.response) {
+                // Error de respuesta del servidor (ej: 404, 500)
+                alert(error.response.data.error || 'Error al eliminar el usuario.');
+            } else if (error.request) {
+                // Error de conexión (no se recibió respuesta)
+                alert('No se pudo conectar al servidor.');
+            } else {
+                // Error en la configuración de la solicitud
+                alert('Error al enviar la solicitud.');
+            }
         }
     }
 }
-
 
 
 async function loadUsuariosSinAlicuota() {
