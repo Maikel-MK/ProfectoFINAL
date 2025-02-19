@@ -35,7 +35,7 @@ pagoRouter.post('/', async (req, res) => {
         }
 
         // Crear un nuevo pago fijo
-        const newPayment = new FixedPayment({ descripcion, monto });
+        const newPayment = new pago({ descripcion, monto });
         await newPayment.save();
 
         res.status(201).json({ textOk: true, data: newPayment });
@@ -57,7 +57,7 @@ pagoRouter.put('/editarPago', async (req, res) => {
         }
 
         // Buscar y actualizar el pago fijo
-        const updatedPayment = await FixedPayment.findByIdAndUpdate(
+        const updatedPayment = await pago.findByIdAndUpdate(
             id,
             { descripcion, monto },
             { new: true } // Devolver el documento actualizado
@@ -80,7 +80,7 @@ pagoRouter.delete('/eliminarPago', async (req, res) => {
         const { id } = req.params;
 
         // Buscar y eliminar el pago fijo
-        const deletedPayment = await FixedPayment.findByIdAndDelete(id);
+        const deletedPayment = await pago.findByIdAndDelete(id);
 
         if (!deletedPayment) {
             return res.status(404).json({ error: 'Pago fijo no encontrado.' });

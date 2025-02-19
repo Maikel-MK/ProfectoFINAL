@@ -20,8 +20,8 @@ async function loadManagePayments() {
                         <td class="py-2 px-4 border-b">$${item.monto}</td> <!-- Monto del pago -->
                         <td class="py-2 px-4 border-b">
                             <!-- Botones para editar y eliminar -->
-                            <button onclick='editFixedPayment("${item._id}")' class='text-blue-500'>Editar</button> 
-                            <button onclick='deleteFixedPayment("${item._id}")' class='text-red-500 ml-2'>Eliminar</button> 
+                            <button onclick='editFixedPayment("${item.id}")' class='text-blue-500'>Editar</button> 
+                            <button onclick='deleteFixedPayment("${item.id}")' class='text-red-500 ml-2'>Eliminar</button> 
                         </td>
                     </tr>`;
                 managePaymentsTableBody.innerHTML += row; // Añadir fila a la tabla
@@ -74,12 +74,13 @@ async function addFixedPayment(e) {
 // Función para editar un pago fijo
 async function editFixedPayment(id) {
     const newAmount = prompt("Ingrese el nuevo monto para el pago:");
-    if (newAmount !== null) {
+    const newdescripcion = prompt("Ingrese su nueva descripcion")
+    if (newAmount !== null || newdescripcion !== null) {
         try {
             // Enviar la solicitud para actualizar el pago fijo
-            const response = await axios.put('/api/pagos/editarPago', {
-                id: id,
-                monto: newAmount
+            const response = await axios.put(`/api/pagos/editarPago/`, {
+                monto: newAmount,
+                descripcion: newdescripcion
             });
 
             if (response.status === 200) {
@@ -105,9 +106,7 @@ async function deleteFixedPayment(id) {
     if (confirmDelete) {
         try {
             // Enviar la solicitud para eliminar el pago fijo
-            const response = await axios.delete('/api/pagos/eliminarPago', {
-                data: { id: id } // Enviar el ID en el cuerpo de la solicitud
-            });
+            const response = await axios.delete(`/api/pagos/eliminarPago/`);
 
             if (response.status === 200) {
                 alert('Pago fijo eliminado correctamente.');
