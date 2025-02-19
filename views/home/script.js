@@ -1,12 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    menuToggle.addEventListener('click', function() {
-        mobileMenu.classList.toggle('hidden');
-    });
-});
-
 // Carrusel de imágenes
 let currentIndex = 0; // Índice actual del slide visible
 const carouselInterval = 10000; // Tiempo en milisegundos para el cambio automático del primer carrusel (10 segundos)
@@ -40,6 +31,34 @@ showSlide(currentIndex);
 
 // Configurar el carrusel para cambiar automáticamente
 setInterval(nextSlide, carouselInterval);
+
+
+// Slider de instalaciones
+let currentInstallationIndex = 0; // Índice actual del slide visible
+const installationInterval = 5000; // Tiempo en milisegundos para el cambio automático del slider de instalaciones (5 segundos)
+
+// Función para mostrar el slide correspondiente
+function showInstallationSlide(index) {
+    const installationSlides = document.querySelectorAll('.installation-slide'); // Selecciona todos los items del slider de instalaciones
+    installationSlides.forEach((slide, i) => {
+        // Añadir o quitar la clase 'active' para mostrar el item correspondiente y ocultar los demás
+        slide.classList.toggle('opacity-100', i === index);
+        slide.classList.toggle('opacity-0', i !== index);
+    });
+}
+
+// Función para ir al siguiente slide
+function nextInstallationSlide() {
+    const installationSlides = document.querySelectorAll('.installation-slide');
+    currentInstallationIndex = (currentInstallationIndex + 1) % installationSlides.length; // Incrementa el índice y lo reinicia si supera el número de slides
+    showInstallationSlide(currentInstallationIndex); // Muestra el nuevo slide
+}
+
+// Inicializa el slider de instalaciones mostrando el primer elemento al cargar la página
+showInstallationSlide(currentInstallationIndex);
+
+// Configurar el slider de instalaciones para cambiar automáticamente
+setInterval(nextInstallationSlide, installationInterval);
 
 // Funciones para abrir y cerrar la ventana modal
 const contactLink = document.getElementById('contact-link'); // Selecciona el enlace Contacto
