@@ -170,34 +170,7 @@ function manageAlicuotas() {
  // Función que carga las alícuotas en la tabla
  function loadAlicuotas() {
      const alicuotasTableBody = document.getElementById('alicuotasTableBody');
-     alicuotasTableBody.innerHTML = ''; // Limpiar tabla existente
- 
-     // Datos de ejemplo para 10 residentes
-     const alicuotasData = [
-         { propietario: 'Juan Pérez', alicuota: 30 },
-         { propietario: 'María Gómez', alicuota: 20 },
-         { propietario: 'Carlos López', alicuota: 15 },
-         { propietario: 'Ana Torres', alicuota: 25 },
-         { propietario: 'Luis Martínez', alicuota: 10 },
-         { propietario: 'Sofía Rodríguez', alicuota: 35 },
-         { propietario: 'Pedro Sánchez', alicuota: 40 },
-         { propietario: 'Laura Fernández', alicuota: 22 },
-         { propietario: 'Javier Castro', alicuota: 18 },
-         { propietario: 'Patricia Ruiz', alicuota: 28 }
-     ];
- 
-     // Llenar la tabla con los datos de los residentes
-     alicuotasData.forEach(item => {
-         const row = `
-             <tr>
-                 <td class="py-2 px-4 border-b">${item.propietario}</td> <!-- Nombre del propietario -->
-                 <td class="py-2 px-4 border-b">${item.alicuota}%</td> <!-- Porcentaje de alícuota -->
-                 <td class="py-2 px-4 border-b">
-                     <button onclick='editAlicuota("${item.propietario}")' class='text-blue-500'>Editar</button> <!-- Botón para editar -->
-                 </td>
-             </tr>`;
-         alicuotasTableBody.innerHTML += row; // Añadir fila a la tabla
-     });
+
  }
 
  // Función que permite editar la alícuota de un propietario
@@ -215,6 +188,174 @@ function editAlicuota(propietario) {
     usersSection.classList.toggle('hidden'); 
     loadUsers()
  }
+
+ 
+async function loadUsers() {
+    const usersTableBody = document.getElementById('usersTableBody');
+    usersTableBody.innerHTML = ''; // Limpiar la tabla
+
+    try {
+        const response = await axios.get('/api/users/lista-User');
+        console.log('Respuesta del servidor:', response.data);
+
+        if (response.data.textOk) {
+            // Llenar la tabla con los usuarios
+            response.data.data.forEach(user => {
+                const row = `
+                    <tr>
+                        <td class="py-2 px-4 border-b">${user.nombre}</td>
+                        <td class="py-2 px-4 border-b">${user.correo}</td>
+                        <td class="py-2 px-4 border-b">${user.rol}</td>
+                        <td class="py-2 px-4 border-b">
+                            <button onclick='editUser("${user.id}")' class='text-blue-500 hover:text-blue-700'>Editar</button>
+                            <button onclick='deleteUser("${user.id}")' class='text-red-500 hover:text-red-700 ml-2'>Eliminar</button>
+                        </td>
+                    </tr>`;
+                usersTableBody.innerHTML += row; // Añadir fila a la tabla
+            });
+        } else {
+            alert('No se pudieron cargar los usuarios.');
+        }
+    } catch (error) {
+        console.error('Error al cargar usuarios:', error);
+        alert('No se pudieron cargar los usuarios.');
+    }
+}
+
+// Función para abrir el modal
+function openEditModal(user) {
+    const modal = document.getElementById('editUserModal');
+    document.getElementById('editName').value = user.nombre;
+    document.getElementById('editEmail').value = user.correo;
+    document.getElementById('editPassword').value = '';
+    document.getElementById('editConfirmPassword').value = '';
+    document.getElementById('editRol').value = user.rol;
+    modal.classList.remove('hidden');
+}
+
+// Función para cerrar el modal
+function closeEditModal() {
+    const modal = document.getElementById('editUserModal');
+    modal.classList.add('hidden');
+}
+
+async function editUser(userId) {
+    try {
+        console.log('Obteniendo datos del usuario con ID:', userId); // Depuración
+
+        // Verificar que el userId no sea undefined
+        if (!userId) {
+            alert('ID de usuario no válido.');
+            return;
+        }
+
+        // Hacer la solicitud a la ruta /consultar-User
+        const response = await axios.get('/api/users/consultar-User', {
+            params: { id: userId } // Pasar el ID como parámetro
+        });
+
+        console.log('Respuesta del servidor:', response.data); // Depuración
+
+        if (response.data.textOk) {
+            const user = response.data.data; // Datos del usuario
+            openEditModal(user); // Abrir el modal con los datos del usuario
+
+            // Manejar el envío del formulario del modal
+            document.getElementById('editUserForm').onsubmit = async (e) => {
+                e.preventDefault();
+
+                const newName = document.getElementById('editName').value;
+                const newEmail = document.getElementById('editEmail').value;
+                const newPassword = document.getElementById('editPassword').value;
+                const confirmPassword = document.getElementById('editConfirmPassword').value;
+                const newRol = document.getElementById('editRol').value;
+
+                if (newName && newEmail && newPassword && confirmPassword && newRol) {
+                    if (newPassword !== confirmPassword) {
+                        alert('Las contraseñas no coinciden.');
+                        return;
+                    }
+
+                    try {
+                        const response = await axios.post('/api/users/editar-user', {
+                            id: userId,
+                            nombre: newName,
+                            correo: newEmail,
+                            password: newPassword,
+                            password2: confirmPassword,
+                            rol: newRol
+                        });
+
+                        if (response.status === 200) {
+                            alert(response.data.message); // Mostrar mensaje de éxito
+                            closeEditModal(); // Cerrar el modal
+                            loadUsers(); // Recargar la lista de usuarios
+                        } else {
+                            alert(response.data.error); // Mostrar mensaje de error del servidor
+                        }
+                    } catch (error) {
+                        console.error('Error al editar usuario:', error);
+                        if (error.response) {
+                            alert(error.response.data.error || 'Error al editar el usuario.');
+                        } else {
+                            alert('No se pudo conectar al servidor.');
+                        }
+                    }
+                } else {
+                    alert('Todos los campos son obligatorios.');
+                }
+            };
+        } else {
+            alert('No se pudieron cargar los datos del usuario.');
+        }
+    } catch (error) {
+        console.error('Error al obtener datos del usuario:', error);
+        if (error.response) {
+            // Error de respuesta del servidor (ej: 404, 500)
+            console.error('Respuesta del servidor:', error.response.data); // Depuración
+            alert(error.response.data.error || 'Error al obtener el usuario.');
+        } else if (error.request) {
+            // Error de conexión (no se recibió respuesta)
+            alert('No se pudo conectar al servidor.');
+        } else {
+            // Error en la configuración de la solicitud
+            alert('Error al enviar la solicitud.');
+        }
+    }
+}
+
+async function deleteUser(userId) {
+    const confirmDelete = confirm('¿Está seguro de que desea eliminar este usuario?');
+    if (confirmDelete) {
+        try {
+            // Enviar la solicitud para eliminar el usuario
+            const response = await axios.post('/api/users/eliminar-User', {
+                id: userId
+            });
+
+            // Verificar si la solicitud fue exitosa
+            if (response.status === 200) {
+                alert(response.data.message); // Mostrar mensaje de éxito
+                loadUsers(); // Recargar la lista de usuarios
+            } else {
+                alert(response.data.error); // Mostrar mensaje de error del servidor
+            }
+        } catch (error) {
+            console.error('Error al eliminar usuario:', error);
+            if (error.response) {
+                // Error de respuesta del servidor (ej: 404, 500)
+                alert(error.response.data.error || 'Error al eliminar el usuario.');
+            } else if (error.request) {
+                // Error de conexión (no se recibió respuesta)
+                alert('No se pudo conectar al servidor.');
+            } else {
+                // Error en la configuración de la solicitud
+                alert('Error al enviar la solicitud.');
+            }
+        }
+    }
+}
+
 
 
 

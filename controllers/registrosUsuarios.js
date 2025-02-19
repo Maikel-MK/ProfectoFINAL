@@ -124,8 +124,6 @@ usersRouter.get('/lista-User',async (request,response)=>{
     }
 })
 
-
-
 //verificar el Registro
 usersRouter.get('/validar-confirmacion/:correo',async (request,response)=>{
 
@@ -162,7 +160,7 @@ usersRouter.get('/validar-confirmacion/:correo',async (request,response)=>{
 usersRouter.get('/usuarios-sin-alicuota', async (request, response) => {
     try {
         // Buscar usuarios donde alicuota sea null o no exista
-        const usuarios = await User.find({ alicuota: { $exists: false } })
+        const usuarios = await User.find({ alicuota: { $exists: false }, alicuota: null}, )
 
         // Devolver los usuarios encontrados
         return response.status(200).json({ textOk: true, data: usuarios })
@@ -206,7 +204,8 @@ usersRouter.post('/asignar-alicuota', async (request, response) => {
         }
 
         // Devolver el usuario actualizado
-        return response.status(200).json({ textOk: true, data: usuario })
+        return response.status(200).json({ textOk: true, data: usuario,message:'Alicuota asignada correctamente'})
+
     } catch (error) {
         console.error('Error al asignar alícuota:', error)
         return response.status(500).json({ error: 'Error interno del servidor.' })
