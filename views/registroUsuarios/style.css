@@ -1,0 +1,12 @@
+.bg-formulario {
+    background-image: url('/img/Registro/writing-7901174_1280.webp'); /* Ajusta la ruta de la imagen según sea necesario */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px; /* Ajusta el padding según sea necesario */
+    border-radius: 10px; /* Ajusta el borde redondeado según sea necesario */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajusta la sombra según sea necesario */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
