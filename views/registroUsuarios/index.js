@@ -2,6 +2,7 @@ const userName = document.querySelector('#username')
 const email = document.querySelector('#email')
 const password = document.querySelector('#password')
 const match = document.querySelector('#password2')
+const rol = document.querySelector('#rol')
 const formulario = document.querySelector('#formulario')
 const registroBtn = document.querySelector('#BTNregistro')
 import {createNotification} from '../components/notificaciones.js'
@@ -16,12 +17,14 @@ let valemail = false
 let valpassword = false
 let valMatch = false
 let valName = false
+let valRol = false
 
 const errorMessages = {
     nombre: "El nombre solo puede contener letras y espacios y no puede terminar en espacio.",
     correo: "Ingresa un correo electrónico válido.",
     password: "La contraseña debe tener entre 8 y 16 caracteres, incluir una mayúscula, una minúscula, un signo y un número.",
-    match: "Las contraseñas no coinciden."
+    match: "Las contraseñas no coinciden.",
+    rol: "Selecciona un rol." // Nuevo: Mensaje de error para el rol
 }
 
 function mostrarError(input, mensaje) {
@@ -83,6 +86,16 @@ match.addEventListener('input', e=>{
     }
 })
 
+rol.addEventListener('change', e => {
+    valRol = e.target.value !== '' // Verifica si se ha seleccionado algo
+    validar(rol, valRol);
+    if (!valRol) {
+        mostrarError(rol, errorMessages.rol);
+    } else {
+        ocultarError(rol);
+    }
+})
+
 
 formulario.addEventListener('submit', async e => {
     e.preventDefault()
@@ -96,11 +109,16 @@ formulario.addEventListener('submit', async e => {
             nombre: userName.value,
             correo: email.value,
             password: password.value,
-            password2: match.value
+            password2: match.value,
+            rol: rol.value
         }
+        console.log(newUser.correo, newUser.password, newUser.password2, newUser.nombre, newUser)
+        
 
         if (valName && valemail && valpassword && valMatch) {
+            console.log('entro')
             const response = await axios.post('/api/users/registroUsuarios', newUser)
+            console.log(response)
             createNotification(false, 'Usuario Registrado Correctamente')
             setTimeout(() => {
                 notification.innerHTML = ''
@@ -112,6 +130,7 @@ formulario.addEventListener('submit', async e => {
             }, 5000);
         }
     } catch (error) {
+        console.log(error.response.data.error)
         createNotification(true, error.response.data.error)
         setTimeout(() => {
             notification.innerHTML = ''

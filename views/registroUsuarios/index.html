@@ -47,6 +47,16 @@
                 <span></span>
             </div>
 
+            <div class="mb-4">
+                <label for="rol" class="block text-sm font-medium text-gray-700">Rol</label>
+                <select id="rol" name="rol" class="rounded-md p-2 bg-white mt-1 w-full focus:outline-blue-600">
+                    <option value="" disabled selected>Selecciona un rol</option>
+                    <option value="contador">Contador</option>
+                    <option value="residente">Residente</option>
+                </select>
+                <span class="text-red-500 text-xs italic" id="rol-error"></span>
+            </div>
+
             <button 
             class="w-full bg-blue-900 px-4 rounded-lg font-bold  text-white font-bold hover:bg-blue-400 py-2 transition ease-in-out disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-900 cursor-pointer" 
             id="BTNregistro" disabled>Registrar</button>
