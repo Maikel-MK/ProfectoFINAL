@@ -7,6 +7,10 @@ const registroUsuarioSchema = new mongoose.Schema({
     correo:String,
     password:String,
     rol:String,
+    alicuota: {
+        type: Number,
+        default: null // Alícuota opcional
+    },
     verified:{
         type:Boolean,
         default:false
@@ -29,3 +33,4 @@ const User = mongoose.model('User', registroUsuarioSchema)
 //debemos exportar
 
 module.exports = User
+

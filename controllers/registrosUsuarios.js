@@ -1,6 +1,6 @@
-const { request, response } = require('../app');
+const { request, response } = require('../app')
 
-const usersRouter = require('express').Router();
+const usersRouter = require('express').Router()
 const User = require('../models/registroUsuario')
 
 // router: CRUD
@@ -40,39 +40,39 @@ usersRouter.post('/registroUsuarios',(request,response)=>{
 //consultar un usuario
 usersRouter.get('/consultar-User', async (request, response) => {
     try {
-        const { id, correo } = request.query;
-        console.log('Parámetros recibidos:', { id, correo }); // Depuración
+        const { id, correo } = request.query
+        console.log('Parámetros recibidos:', { id, correo }) // Depuración
 
         // Validar que se proporcione al menos un parámetro (id o correo)
         if (!id && !correo) {
-            return response.status(400).json({ error: 'Se requiere el ID o el correo del usuario.' });
+            return response.status(400).json({ error: 'Se requiere el ID o el correo del usuario.' })
         }
 
-        let usuario;
+        let usuario
 
         // Buscar el usuario por ID o correo
         if (id) {
-            console.log('Buscando usuario por ID:', id); // Depuración
-            usuario = await User.findById(id);
+            console.log('Buscando usuario por ID:', id) // Depuración
+            usuario = await User.findById(id)
         } else if (correo) {
-            console.log('Buscando usuario por correo:', correo); // Depuración
-            usuario = await User.findOne({ correo: correo });
+            console.log('Buscando usuario por correo:', correo) // Depuración
+            usuario = await User.findOne({ correo: correo })
         }
 
-        console.log('Usuario encontrado:', usuario); // Depuración
+        console.log('Usuario encontrado:', usuario) // Depuración
 
         // Verificar si el usuario fue encontrado
         if (!usuario) {
-            return response.status(404).json({ error: 'Usuario no encontrado.' });
+            return response.status(404).json({ error: 'Usuario no encontrado.' })
         }
 
         // Devolver el usuario encontrado
-        return response.status(200).json({ textOk: true, data: usuario });
+        return response.status(200).json({ textOk: true, data: usuario })
     } catch (error) {
-        console.error('Error al consultar el usuario:', error);
-        return response.status(500).json({ error: 'Error interno del servidor.' });
+        console.error('Error al consultar el usuario:', error)
+        return response.status(500).json({ error: 'Error interno del servidor.' })
     }
-});
+})
 
 //editar un usuario
 usersRouter.post('/editar-user', async(request,response)=>{
@@ -159,6 +159,59 @@ usersRouter.get('/validar-confirmacion/:correo',async (request,response)=>{
     }
 })
 
+usersRouter.get('/usuarios-sin-alicuota', async (request, response) => {
+    try {
+        // Buscar usuarios donde alicuota sea null o no exista
+        const usuarios = await User.find({ alicuota: { $exists: false } })
+
+        // Devolver los usuarios encontrados
+        return response.status(200).json({ textOk: true, data: usuarios })
+    } catch (error) {
+        console.error('Error al obtener usuarios sin alícuota:', error)
+        return response.status(500).json({ error: 'Error interno del servidor.' })
+    }
+})
+
+usersRouter.get('/usuarios-con-alicuota', async (request, response) => {
+    try {
+        // Buscar usuarios donde alicuota no sea null
+        const usuarios = await User.find({ alicuota: { $exists: true, $ne: null } })
+
+        // Devolver los usuarios encontrados
+        return response.status(200).json({ textOk: true, data: usuarios })
+    } catch (error) {
+        console.error('Error al obtener usuarios con alícuota:', error)
+        return response.status(500).json({ error: 'Error interno del servidor.' })
+    }
+})
+
+usersRouter.post('/asignar-alicuota', async (request, response) => {
+    try {
+        const { userId, alicuota } = request.body
+
+        // Validar que se proporcionen userId y alicuota
+        if (!userId || !alicuota) {
+            return response.status(400).json({ error: 'Se requiere el ID del usuario y la alícuota.' })
+        }
+
+        // Buscar y actualizar el usuario
+        const usuario = await User.findByIdAndUpdate(
+            userId,
+            { alicuota: alicuota },
+            { new: true } // Devolver el usuario actualizado
+        )
+
+        if (!usuario) {
+            return response.status(404).json({ error: 'Usuario no encontrado.' })
+        }
+
+        // Devolver el usuario actualizado
+        return response.status(200).json({ textOk: true, data: usuario })
+    } catch (error) {
+        console.error('Error al asignar alícuota:', error)
+        return response.status(500).json({ error: 'Error interno del servidor.' })
+    }
+})
 
 
 module.exports = usersRouter

@@ -88,23 +88,55 @@ function createAdminDashboard() {
             <h2 class="text-xl font-semibold mb-4 text-center">Administrador</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                ${createCard("Usuarios", "<p><button onclick='manageUsers()' class='text-blue-500 hover:text-blue-700 transition duration-200'>Administrar Usuarios</button></p>")}
-                ${createCard("Alicuotas", `<button onclick='manageAlicuotas()' class='text-blue-500 hover:text-blue-700 transition duration-200'>Gestionar Alicuotas</button>`)}
+                ${createCard("Usuarios", "<p><button onclick='manageUsers()' class='text-blue-500 hover:text-blue-700 transition duration-200 cursor-pointer hover:scale-105'>Administrar Usuarios</button></p>")}
+                ${createCard("Alicuotas", `<button onclick='manageAlicuotas()' class='text-blue-500 hover:text-blue-700 transition duration-200 cursor-pointer hover:scale-105'>Gestionar Alicuotas</button>`)}
             </div>
 
             <!-- Sección para gestionar alícuotas -->
             <div id="alicuotasSection" class="mt-6 hidden">
-                <h3 class="font-bold text-lg mb-2">Gestión de Alicuotas</h3>
+                <div class="flex space-x-4 mb-6">
+                    <button onclick="mostrarUsuariosSinAlicuota()" class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:scale-105">
+                        Mostrar Usuarios sin Alícuota
+                    </button>
+                    <button onclick="mostrarUsuariosConAlicuota()" class="bg-green-500 text-white px-4 py-2 rounded cursor-pointer hover:scale-105">
+                        Mostrar Usuarios con Alícuota
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sección para asignar alícuotas (oculta inicialmente) -->
+            <div id="asignarAlicuotaSection" class="mt-6 hidden">
+                <h3 class="font-bold text-lg mb-2">Asignar Alícuotas</h3>
                 <table class="min-w-full bg-white border border-gray-300">
                     <thead>
                         <tr>
-                            <th class="py-2 px-4 border-b">Propietario</th>
-                            <th class="py-2 px-4 border-b">Alicuota (%)</th>
+                            <th class="py-2 px-4 border-b">Nombre</th>
+                            <th class="py-2 px-4 border-b">Correo</th>
+                            <th class="py-2 px-4 border-b">Rol</th>
                             <th class="py-2 px-4 border-b">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="alicuotasTableBody">
-                        <button onclick='#' class='text-blue-500'>Agregar Alicuota</button>
+                    <tbody id="usuariosSinAlicuotaTableBody">
+                        <!-- Aquí se cargarán los usuarios sin alícuota -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Sección para ver usuarios con alícuotas (oculta inicialmente) -->
+            <div id="usuariosConAlicuotaSection" class="mt-6 hidden">
+                <h3 class="font-bold text-lg mb-2">Usuarios con Alícuotas</h3>
+                <table class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b">Nombre</th>
+                            <th class="py-2 px-4 border-b">Correo</th>
+                            <th class="py-2 px-4 border-b">Rol</th>
+                            <th class="py-2 px-4 border-b">Alícuota (%)</th>
+                            <th class="py-2 px-4 border-b">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usuariosConAlicuotaTableBody">
+                        <!-- Aquí se cargarán los usuarios con alícuota -->
                     </tbody>
                 </table>
             </div>
