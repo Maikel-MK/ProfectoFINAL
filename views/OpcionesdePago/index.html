@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrar Pagos - Condominio</title>
+    <title>Administrar Pagos</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="website icon" href="../../img/favicon_io/favicon-16x16.png" type="png">
 
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 text-gray-800">
+    <div id="opcPagos" class="container mx-auto p-6">
+        <!-- El contenido se cargará dinámicamente aquí -->
+    </div>
 
-    <div id="app" class="flex"></div>
-
+    <script src="index.js"></script>
     <script src="../components/opcionesP.js"></script>
-    <script>
-        // Cargar la vista de administración de pagos
-        loadManagePaymentsPage();
-    </script>
+    <script> loadManagePaymentsPage();</script>
 </body>
 </html>

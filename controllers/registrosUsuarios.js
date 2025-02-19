@@ -211,6 +211,7 @@ usersRouter.post('/asignar-alicuota', async (request, response) => {
         return response.status(500).json({ error: 'Error interno del servidor.' })
     }
 })
+
 usersRouter.post('/eliminar-alicuota', async (request, response) => {
     try {
         const { userId } = request.body
