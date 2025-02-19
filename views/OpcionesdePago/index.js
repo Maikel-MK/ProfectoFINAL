@@ -1,106 +1,134 @@
-// Definir la variable fixedPaymentsData con algunos datos de ejemplo
-let fixedPaymentsData = [
-    { id: 1, descripcion: 'Pago de Mantenimiento', monto: 50.00 },
-    { id: 2, descripcion: 'Pago de Seguridad', monto: 30.00 },
-    { id: 3, descripcion: 'Pago de Agua', monto: 20.00 }
-];
+
+let fixedPaymentsData = []
 
 // Función para cargar y mostrar las opciones de pago
-function loadManagePayments() {
+async function loadManagePayments() {
     const managePaymentsTableBody = document.getElementById('managePaymentsTableBody');
     managePaymentsTableBody.innerHTML = ''; // Limpiar tabla existente
 
-    fixedPaymentsData.forEach(item => {
-        const row = `
-            <tr class="hover:bg-gray-100">
-                <td class="py-2 px-4 border-b">${item.descripcion}</td>
-                <td class="py-2 px-4 border-b">${item.monto}</td>
-                <td class="py-2 px-4 border-b">
-                    <button onclick='editFixedPayment(${item.id})' class='text-blue-500'>Editar</button> 
-                    <button onclick='deleteFixedPayment(${item.id})' class='text-red-500 ml-2'>Eliminar</button> 
-                </td>
-            </tr>`;
-        managePaymentsTableBody.innerHTML += row; // Añadir fila a la tabla
-    });
+    try {
+        // Obtener los pagos fijos desde la API
+        const response = await axios.get('/api/pagos/lista-pagos');
+        console.log('Respuesta del servidor:', response.data);
+
+        if (response.data.textOk) {
+            // Llenar la tabla con los pagos fijos
+            response.data.data.forEach(item => {
+                const row = `
+                    <tr>
+                        <td class="py-2 px-4 border-b">${item.descripcion}</td> <!-- Descripción del pago -->
+                        <td class="py-2 px-4 border-b">$${item.monto}</td> <!-- Monto del pago -->
+                        <td class="py-2 px-4 border-b">
+                            <!-- Botones para editar y eliminar -->
+                            <button onclick='editFixedPayment("${item._id}")' class='text-blue-500'>Editar</button> 
+                            <button onclick='deleteFixedPayment("${item._id}")' class='text-red-500 ml-2'>Eliminar</button> 
+                        </td>
+                    </tr>`;
+                managePaymentsTableBody.innerHTML += row; // Añadir fila a la tabla
+            });
+        } else {
+            alert('No se pudieron cargar los pagos fijos.');
+        }
+    } catch (error) {
+        console.error('Error al cargar pagos fijos:', error);
+        alert('No se pudieron cargar los pagos fijos.');
+    }
 }
 
 // Función para agregar un nuevo pago fijo
-function addFixedPayment(e) {
-    // Prevenir el comportamiento por defecto del formulario
-    e.preventDefault();
+async function addFixedPayment(e) {
+    e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
 
-    // Obtener referencias a los campos del formulario
-    const descriptionInput = document.getElementById('newDescription');
-    const amountInput = document.getElementById('newAmount');
+    const description = document.getElementById('newDescription').value; // Obtener descripción
+    const newAmount = document.getElementById('newAmount').value; // Obtener monto
 
-    // Obtener los valores de los campos
-    const description = descriptionInput.value.trim(); // Eliminar espacios en blanco al inicio y al final
-    const amount = parseFloat(amountInput.value);
-
-    // Validar los campos
-    if (!description) {
-        alert("Por favor, introduce una descripción.");
+    if (!description || !newAmount) {
+        alert('Descripción y monto son obligatorios.');
         return;
     }
 
-    if (isNaN(amount) || amount <= 0) {
-        alert("Por favor, introduce un monto válido y mayor que cero.");
-        return;
+    try {
+        // Enviar la solicitud para agregar un nuevo pago fijo
+        const response = await axios.post('/api/pagos', {
+            descripcion: description,
+            monto: newAmount
+        });
+
+        if (response.status === 201) {
+            alert('Pago fijo agregado correctamente.');
+            document.getElementById('addPaymentForm').reset(); // Reiniciar formulario
+            loadManagePayments(); // Recargar la lista de pagos fijos
+        } else {
+            alert(response.data.error); // Mostrar mensaje de error del servidor
+        }
+    } catch (error) {
+        console.error('Error al agregar pago fijo:', error);
+        if (error.response) {
+            alert(error.response.data.error || 'Error al agregar pago fijo.');
+        } else {
+            alert('No se pudo conectar al servidor.');
+        }
     }
-
-    // Crear el objeto con los datos validados
-    const newPago = {
-        id: fixedPaymentsData.length + 1, // Generar un ID único
-        descripcion: description,
-        monto: amount
-    };
-
-    // Mostrar el objeto en la consola (para verificar)
-    console.log("Nuevo pago a agregar:", newPago);
-
-    // Agregar el nuevo pago a la lista de pagos fijos
-    fixedPaymentsData.push(newPago);
-
-    // Recargar la tabla de pagos para mostrar el nuevo pago
-    loadManagePayments();
-
-    // Reiniciar el formulario
-    document.getElementById('addPaymentForm').reset();
-
-    // Mostrar un mensaje de éxito
-    alert(`Nuevo pago fijo agregado: ${description} por un monto de ${amount}`);
 }
 
 // Función para editar un pago fijo
-function editFixedPayment(id) {
-    const monto = prompt("Ingrese el nuevo monto para el pago ID " + id + ":");
-    if (monto !== null) {
-        // Actualizar el monto del pago en fixedPaymentsData
-        const pago = fixedPaymentsData.find(p => p.id === id);
-        if (pago) {
-            pago.monto = parseFloat(monto);
-            alert(`Pago ID ${id} actualizado a ${monto}.`);
-            loadManagePayments(); // Recargar las opciones después de editar
-        } else {
-            alert(`Pago ID ${id} no encontrado.`);
+async function editFixedPayment(id) {
+    const newAmount = prompt("Ingrese el nuevo monto para el pago:");
+    if (newAmount !== null) {
+        try {
+            // Enviar la solicitud para actualizar el pago fijo
+            const response = await axios.put('/api/pagos/editarPago', {
+                id: id,
+                monto: newAmount
+            });
+
+            if (response.status === 200) {
+                alert('Pago fijo actualizado correctamente.');
+                loadManagePayments(); // Recargar la lista de pagos fijos
+            } else {
+                alert(response.data.error); // Mostrar mensaje de error del servidor
+            }
+        } catch (error) {
+            console.error('Error al editar pago fijo:', error);
+            if (error.response) {
+                alert(error.response.data.error || 'Error al editar pago fijo.');
+            } else {
+                alert('No se pudo conectar al servidor.');
+            }
         }
     }
 }
 
 // Función para eliminar un pago fijo
-function deleteFixedPayment(id) {
-    const confirmDelete = confirm("¿Estás seguro que deseas eliminar el pago ID " + id + "?");
+async function deleteFixedPayment(id) {
+    const confirmDelete = confirm("¿Estás seguro que deseas eliminar este pago fijo?");
     if (confirmDelete) {
-        // Eliminar el pago de fixedPaymentsData
-        fixedPaymentsData = fixedPaymentsData.filter(p => p.id !== id);
-        alert(`Pago ID ${id} eliminado.`);
-        loadManagePayments(); // Recargar las opciones después de eliminar
+        try {
+            // Enviar la solicitud para eliminar el pago fijo
+            const response = await axios.delete('/api/pagos/eliminarPago', {
+                data: { id: id } // Enviar el ID en el cuerpo de la solicitud
+            });
+
+            if (response.status === 200) {
+                alert('Pago fijo eliminado correctamente.');
+                loadManagePayments(); // Recargar la lista de pagos fijos
+            } else {
+                alert(response.data.error); // Mostrar mensaje de error del servidor
+            }
+        } catch (error) {
+            console.error('Error al eliminar pago fijo:', error);
+            if (error.response) {
+                alert(error.response.data.error || 'Error al eliminar pago fijo.');
+            } else {
+                alert('No se pudo conectar al servidor.');
+            }
+        }
     }
 }
 
 // Función para volver atrás
 function goBack() {
-    history.back();
+    history.back()
 }
 
 // Función para cargar la página de administración de pagos
@@ -135,18 +163,18 @@ function loadManagePaymentsPage() {
             </div>
 
             <button id="backButton" class="fixed bottom-5 right-5 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-200 ease-in-out">Go Back</button>
-        </main>`;
+        </main>`
 
-    loadManagePayments();
+    loadManagePayments()
 
     // Agregar evento al formulario utilizando addEventListener
-    const addPaymentForm = document.getElementById('addPaymentForm');
-    addPaymentForm.addEventListener('submit', addFixedPayment);
+    const addPaymentForm = document.getElementById('addPaymentForm')
+    addPaymentForm.addEventListener('submit', addFixedPayment)
 
     // Agregar evento al botón de volver atrás
-    const backButton = document.getElementById('backButton');
-    backButton.addEventListener('click', goBack);
+    const backButton = document.getElementById('backButton')
+    backButton.addEventListener('click', goBack)
 }
 
 // Cargar la página de administración de pagos al cargar la página
-document.addEventListener('DOMContentLoaded', loadManagePaymentsPage);
+document.addEventListener('DOMContentLoaded', loadManagePaymentsPage)

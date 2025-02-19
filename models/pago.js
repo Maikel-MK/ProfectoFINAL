@@ -20,8 +20,8 @@ pagoSchema.set('toJSON', {
 
 //registrar el modelo y elegir el nombre
 
-const Pago = mongoose.model('Pagos',pagoSchema)
+const pago = mongoose.model('Pagos',pagoSchema)
 
 //debemos exportar
 
-module.exports = Pago
+module.exports = pago
