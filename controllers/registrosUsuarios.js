@@ -211,6 +211,33 @@ usersRouter.post('/asignar-alicuota', async (request, response) => {
         return response.status(500).json({ error: 'Error interno del servidor.' })
     }
 })
+usersRouter.post('/eliminar-alicuota', async (request, response) => {
+    try {
+        const { userId } = request.body;
+
+        // Validar que se proporcione el ID
+        if (!userId) {
+            return response.status(400).json({ error: 'Se requiere el ID del usuario.' });
+        }
+
+        // Buscar y actualizar el usuario para eliminar la alícuota
+        const usuarioActualizado = await User.findByIdAndUpdate(
+            userId,
+            { $unset: { alicuota: 1 } }, // Eliminar el campo alicuota
+            { new: true } // Devolver el documento actualizado
+        );
+
+        if (!usuarioActualizado) {
+            return response.status(404).json({ error: 'Usuario no encontrado.' });
+        }
+
+        // Devolver mensaje de éxito
+        return response.status(200).json({ message: 'Alícuota eliminada correctamente.', data: usuarioActualizado });
+    } catch (error) {
+        console.error('Error al eliminar alícuota:', error);
+        return response.status(500).json({ error: 'Error interno del servidor.' });
+    }
+});
 
 
 module.exports = usersRouter

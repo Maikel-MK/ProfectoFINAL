@@ -1,5 +1,3 @@
-
-
 async function loadUsuariosSinAlicuota() {
     const usuariosSinAlicuotaTableBody = document.getElementById('usuariosSinAlicuotaTableBody');
     usuariosSinAlicuotaTableBody.innerHTML = ''; // Limpiar la tabla
@@ -12,12 +10,12 @@ async function loadUsuariosSinAlicuota() {
             // Llenar la tabla con los usuarios sin alícuota
             response.data.data.forEach(user => {
                 const row = `
-                    <tr>
+                    <tr class="hover:bg-gray-100">
                         <td class="py-2 px-4 border-b">${user.nombre}</td>
                         <td class="py-2 px-4 border-b">${user.correo}</td>
                         <td class="py-2 px-4 border-b">${user.rol}</td>
                         <td class="py-2 px-4 border-b">
-                            <button onclick='asignarAlicuota("${user.id}")' class='text-blue-500 hover:text-blue-700'>Asignar Alícuota</button>
+                            <button onclick='asignarAlicuota("${user.id}")' class='bg-blue-400 hover:bg-blue-600 hover:text-white hover:scale-110 text-black font-semibold p-1 rounded cursor-pointer'>Asignar Alícuota</button>
                         </td>
                     </tr>`;
                 usuariosSinAlicuotaTableBody.innerHTML += row; // Añadir fila a la tabla
@@ -58,7 +56,7 @@ async function asignarAlicuota(id) {
             }
         }
     } else {
-        console.log('La alícuota cancelada.');
+        console.log('La alícuota es obligatoria.');
     }
 }
 
@@ -74,14 +72,14 @@ async function loadUsuariosConAlicuota() {
             // Llenar la tabla con los usuarios con alícuota
             response.data.data.forEach(user => {
                 const row = `
-                    <tr>
+                    <tr class="hover:bg-gray-100">
                         <td class="py-2 px-4 border-b">${user.nombre}</td>
                         <td class="py-2 px-4 border-b">${user.correo}</td>
                         <td class="py-2 px-4 border-b">${user.rol}</td>
                         <td class="py-2 px-4 border-b">${user.alicuota}%</td>
                         <td class="py-2 px-4 border-b">
-                            <button onclick='editarAlicuota("${user.id}")' class='text-blue-500 hover:text-blue-700'>Editar</button>
-                            <button onclick='eliminarAlicuota("${user.id}")' class='text-red-500 hover:text-red-700 ml-2'>Eliminar</button>
+                            <button onclick='editarAlicuota("${user.id}")' class='bg-yellow-500 hover:bg-yellow-700 hover:text-black hover:scale-110 text-white font-semibold p-1 rounded cursor-pointer'>Editar</button>
+                            <button onclick='eliminarAlicuota("${user.id}")' class='bg-red-500 hover:bg-red-700 hover:text-black hover:scale-110 text-white font-semibold p-1 rounded cursor-pointer'>Eliminar</button>
                         </td>
                     </tr>`;
                 usuariosConAlicuotaTableBody.innerHTML += row; // Añadir fila a la tabla
@@ -123,36 +121,6 @@ function mostrarUsuariosConAlicuota() {
 
     // Cargar los usuarios con alícuota
     loadUsuariosConAlicuota();
-}
-
-async function asignarAlicuota(userId) {
-    const alicuota = prompt('Ingrese la alícuota para este usuario:');
-
-    if (alicuota) {
-        try {
-            const response = await axios.post('/api/users/asignar-alicuota', {
-                userId: userId,
-                alicuota: alicuota
-            });
-
-            if (response.status === 200) {
-                alert(response.data.message); // Mostrar mensaje de éxito
-                loadUsuariosSinAlicuota(); 
-                loadUsuariosConAlicuota(); 
-            } else {
-                alert(response.data.error); // Mostrar mensaje de error del servidor
-            }
-        } catch (error) {
-            console.error('Error al asignar alícuota:', error);
-            if (error.response) {
-                alert(error.response.data.error || 'Error al asignar alícuota.');
-            } else {
-                alert('No se pudo conectar al servidor.');
-            }
-        }
-    } else {
-        alert('La alícuota es obligatoria.');
-    }
 }
 
 async function editarAlicuota(userId) {
