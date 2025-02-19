@@ -17,7 +17,7 @@ function createSidebarAdmin() {
                     </ul>
                 </nav>
             </div>
-        </aside>`;
+        </aside>`
 }
 
 function createSidebarCont() {
@@ -33,7 +33,7 @@ function createSidebarCont() {
                     </ul>
                 </nav>
             </div>
-        </aside>`;
+        </aside>`
 }
 
 function createSidebarRes() {
@@ -50,7 +50,7 @@ function createSidebarRes() {
                     </ul>
                 </nav>
             </div>
-        </aside>`;
+        </aside>`
 }
 
 function createSidebarClientes() {
@@ -65,7 +65,7 @@ function createSidebarClientes() {
                     </ul>
                 </nav>
             </div>
-        </aside>`;
+        </aside>`
 }
 
 
@@ -158,45 +158,28 @@ function createAdminDashboard() {
     </table>
 </div>
 
-        </main>`;
+        </main>`
 }
 
 function manageAlicuotas() {
-    const alicuotasSection = document.getElementById('alicuotasSection');
-    alicuotasSection.classList.toggle('hidden'); // Muestra u oculta la sección de alícuotas
-    loadAlicuotas(); // Carga las alícuotas cuando se muestra la sección
- }
- 
- // Función que carga las alícuotas en la tabla
- function loadAlicuotas() {
-     const alicuotasTableBody = document.getElementById('alicuotasTableBody');
-
- }
-
- // Función que permite editar la alícuota de un propietario
-function editAlicuota(propietario) {
-    const newAlicuota = prompt(`Ingrese nueva alícuota para ${propietario}:`); // Solicita nueva alícuota
-    if (newAlicuota !== null) {
-        alert(`La alícuota de ${propietario} ha sido actualizada a ${newAlicuota}%.`);
-        // Aquí puedes agregar lógica para actualizar la alícuota en la base de datos o API
-        loadAlicuotas(); // Recargar las alícuotas después de editar
-    }
+    const alicuotasSection = document.getElementById('alicuotasSection')
+    alicuotasSection.classList.toggle('hidden') // Muestra u oculta la sección de alícuotas
  }
  
  function manageUsers() {
-    const usersSection = document.getElementById('usersSection');
-    usersSection.classList.toggle('hidden'); 
+    const usersSection = document.getElementById('usersSection')
+    usersSection.classList.toggle('hidden') 
     loadUsers()
  }
 
  
 async function loadUsers() {
-    const usersTableBody = document.getElementById('usersTableBody');
-    usersTableBody.innerHTML = ''; // Limpiar la tabla
+    const usersTableBody = document.getElementById('usersTableBody')
+    usersTableBody.innerHTML = '' // Limpiar la tabla
 
     try {
-        const response = await axios.get('/api/users/lista-User');
-        console.log('Respuesta del servidor:', response.data);
+        const response = await axios.get('/api/users/lista-User')
+        console.log('Respuesta del servidor:', response.data)
 
         if (response.data.textOk) {
             // Llenar la tabla con los usuarios
@@ -210,70 +193,70 @@ async function loadUsers() {
                             <button onclick='editUser("${user.id}")' class='text-blue-500 hover:text-blue-700'>Editar</button>
                             <button onclick='deleteUser("${user.id}")' class='text-red-500 hover:text-red-700 ml-2'>Eliminar</button>
                         </td>
-                    </tr>`;
-                usersTableBody.innerHTML += row; // Añadir fila a la tabla
-            });
+                    </tr>`
+                usersTableBody.innerHTML += row // Añadir fila a la tabla
+            })
         } else {
-            alert('No se pudieron cargar los usuarios.');
+            alert('No se pudieron cargar los usuarios.')
         }
     } catch (error) {
-        console.error('Error al cargar usuarios:', error);
-        alert('No se pudieron cargar los usuarios.');
+        console.error('Error al cargar usuarios:', error)
+        alert('No se pudieron cargar los usuarios.')
     }
 }
 
 // Función para abrir el modal
 function openEditModal(user) {
-    const modal = document.getElementById('editUserModal');
-    document.getElementById('editName').value = user.nombre;
-    document.getElementById('editEmail').value = user.correo;
-    document.getElementById('editPassword').value = '';
-    document.getElementById('editConfirmPassword').value = '';
-    document.getElementById('editRol').value = user.rol;
-    modal.classList.remove('hidden');
+    const modal = document.getElementById('editUserModal')
+    document.getElementById('editName').value = user.nombre
+    document.getElementById('editEmail').value = user.correo
+    document.getElementById('editPassword').value = ''
+    document.getElementById('editConfirmPassword').value = ''
+    document.getElementById('editRol').value = user.rol
+    modal.classList.remove('hidden')
 }
 
 // Función para cerrar el modal
 function closeEditModal() {
-    const modal = document.getElementById('editUserModal');
-    modal.classList.add('hidden');
+    const modal = document.getElementById('editUserModal')
+    modal.classList.add('hidden')
 }
 
 async function editUser(userId) {
     try {
-        console.log('Obteniendo datos del usuario con ID:', userId); // Depuración
+        console.log('Obteniendo datos del usuario con ID:', userId) // Depuración
 
         // Verificar que el userId no sea undefined
         if (!userId) {
-            alert('ID de usuario no válido.');
-            return;
+            alert('ID de usuario no válido.')
+            return
         }
 
         // Hacer la solicitud a la ruta /consultar-User
         const response = await axios.get('/api/users/consultar-User', {
             params: { id: userId } // Pasar el ID como parámetro
-        });
+        })
 
-        console.log('Respuesta del servidor:', response.data); // Depuración
+        console.log('Respuesta del servidor:', response.data) // Depuración
 
         if (response.data.textOk) {
-            const user = response.data.data; // Datos del usuario
-            openEditModal(user); // Abrir el modal con los datos del usuario
+            const user = response.data.data // Datos del usuario
+            openEditModal(user) // Abrir el modal con los datos del usuario
 
             // Manejar el envío del formulario del modal
             document.getElementById('editUserForm').onsubmit = async (e) => {
-                e.preventDefault();
+                e.preventDefault()
 
-                const newName = document.getElementById('editName').value;
-                const newEmail = document.getElementById('editEmail').value;
-                const newPassword = document.getElementById('editPassword').value;
-                const confirmPassword = document.getElementById('editConfirmPassword').value;
-                const newRol = document.getElementById('editRol').value;
+                const newName = document.getElementById('editName').value
+                const newEmail = document.getElementById('editEmail').value
+                const newPassword = document.getElementById('editPassword').value
+                const confirmPassword = document.getElementById('editConfirmPassword').value
+                const newRol = document.getElementById('editRol').value
 
                 if (newName && newEmail && newPassword && confirmPassword && newRol) {
                     if (newPassword !== confirmPassword) {
-                        alert('Las contraseñas no coinciden.');
-                        return;
+                        alert('Las contraseñas no coinciden.')
+                        return
                     }
 
                     try {
@@ -284,73 +267,73 @@ async function editUser(userId) {
                             password: newPassword,
                             password2: confirmPassword,
                             rol: newRol
-                        });
+                        })
 
                         if (response.status === 200) {
-                            alert(response.data.message); // Mostrar mensaje de éxito
-                            closeEditModal(); // Cerrar el modal
-                            loadUsers(); // Recargar la lista de usuarios
+                            alert(response.data.message) // Mostrar mensaje de éxito
+                            closeEditModal() // Cerrar el modal
+                            loadUsers() // Recargar la lista de usuarios
                         } else {
-                            alert(response.data.error); // Mostrar mensaje de error del servidor
+                            alert(response.data.error) // Mostrar mensaje de error del servidor
                         }
                     } catch (error) {
-                        console.error('Error al editar usuario:', error);
+                        console.error('Error al editar usuario:', error)
                         if (error.response) {
-                            alert(error.response.data.error || 'Error al editar el usuario.');
+                            alert(error.response.data.error || 'Error al editar el usuario.')
                         } else {
-                            alert('No se pudo conectar al servidor.');
+                            alert('No se pudo conectar al servidor.')
                         }
                     }
                 } else {
-                    alert('Todos los campos son obligatorios.');
+                    alert('Todos los campos son obligatorios.')
                 }
-            };
+            }
         } else {
-            alert('No se pudieron cargar los datos del usuario.');
+            alert('No se pudieron cargar los datos del usuario.')
         }
     } catch (error) {
-        console.error('Error al obtener datos del usuario:', error);
+        console.error('Error al obtener datos del usuario:', error)
         if (error.response) {
             // Error de respuesta del servidor (ej: 404, 500)
-            console.error('Respuesta del servidor:', error.response.data); // Depuración
-            alert(error.response.data.error || 'Error al obtener el usuario.');
+            console.error('Respuesta del servidor:', error.response.data) // Depuración
+            alert(error.response.data.error || 'Error al obtener el usuario.')
         } else if (error.request) {
             // Error de conexión (no se recibió respuesta)
-            alert('No se pudo conectar al servidor.');
+            alert('No se pudo conectar al servidor.')
         } else {
             // Error en la configuración de la solicitud
-            alert('Error al enviar la solicitud.');
+            alert('Error al enviar la solicitud.')
         }
     }
 }
 
 async function deleteUser(userId) {
-    const confirmDelete = confirm('¿Está seguro de que desea eliminar este usuario?');
+    const confirmDelete = confirm('¿Está seguro de que desea eliminar este usuario?')
     if (confirmDelete) {
         try {
             // Enviar la solicitud para eliminar el usuario
             const response = await axios.post('/api/users/eliminar-User', {
                 id: userId
-            });
+            })
 
             // Verificar si la solicitud fue exitosa
             if (response.status === 200) {
-                alert(response.data.message); // Mostrar mensaje de éxito
-                loadUsers(); // Recargar la lista de usuarios
+                alert(response.data.message) // Mostrar mensaje de éxito
+                loadUsers() // Recargar la lista de usuarios
             } else {
-                alert(response.data.error); // Mostrar mensaje de error del servidor
+                alert(response.data.error) // Mostrar mensaje de error del servidor
             }
         } catch (error) {
-            console.error('Error al eliminar usuario:', error);
+            console.error('Error al eliminar usuario:', error)
             if (error.response) {
                 // Error de respuesta del servidor (ej: 404, 500)
-                alert(error.response.data.error || 'Error al eliminar el usuario.');
+                alert(error.response.data.error || 'Error al eliminar el usuario.')
             } else if (error.request) {
                 // Error de conexión (no se recibió respuesta)
-                alert('No se pudo conectar al servidor.');
+                alert('No se pudo conectar al servidor.')
             } else {
                 // Error en la configuración de la solicitud
-                alert('Error al enviar la solicitud.');
+                alert('Error al enviar la solicitud.')
             }
         }
     }
