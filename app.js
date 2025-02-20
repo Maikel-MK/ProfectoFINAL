@@ -7,7 +7,8 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
 const usersRouter = require('./controllers/registrosUsuarios')
-const pagoRouter   = require('./controllers/pagos')
+const pagoRouter = require('./controllers/pagos')
+const infoRouter = require('./controllers/inforM')
 
 
 //conexion a la Base de datos (B.D)
@@ -51,6 +52,7 @@ app.use(morgan('tiny'))
 //rutas de BAckend
 app.use('/api/users', usersRouter)
 app.use('/api/pagos', pagoRouter)
+app.use('/api/infoM', infoRouter)
 
 
 
