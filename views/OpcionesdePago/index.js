@@ -81,7 +81,8 @@ async function editFixedPayment(id) {
             // Enviar la solicitud para actualizar el pago
             const response = await axios.put('/api/pagos/editarPago', {
                 id: id, // Enviar el ID en el cuerpo de la solicitud
-                monto: newAmount
+                monto: newAmount,
+                descripcion: newdescripcion
             })
 
             if (response.status === 200) {

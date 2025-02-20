@@ -48,10 +48,10 @@ pagoRouter.post('/', async (req, res) => {
 // Editar un Pago existente
 pagoRouter.put('/editarPago', async (req, res) => {
     try {
-        const { id, monto } = req.body
+        const { id, monto, descripcion } = req.body
 
         // Validar que se proporcionen id y monto
-        if (!id || !monto) {
+        if (!id || !monto || !descripcion) {
             return res.status(400).json({ error: 'ID y monto son obligatorios.' })
         }
 
@@ -59,6 +59,7 @@ pagoRouter.put('/editarPago', async (req, res) => {
         const updatedPayment = await pago.findByIdAndUpdate(
             id,
             { monto: monto },
+            { descripcion: descripcion },
             { new: true } // Devolver el documento actualizado
         )
 
