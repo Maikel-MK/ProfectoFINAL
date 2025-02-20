@@ -75,14 +75,13 @@ async function addFixedPayment(e) {
 // Función para editar un pago
 async function editFixedPayment(id) {
     const newAmount = prompt("Ingrese el nuevo monto para el pago:")
-    const newdescripcion = prompt("Ingrese su nueva descripcion")
+    // const newdescripcion = prompt("Ingrese su nueva descripcion")
     if (newAmount !== null || newdescripcion !== null) {
         try {
             // Enviar la solicitud para actualizar el pago
             const response = await axios.put('/api/pagos/editarPago', {
                 id: id, // Enviar el ID en el cuerpo de la solicitud
-                monto: newAmount,
-                descripcion: newdescripcion
+                monto: newAmount
             })
 
             if (response.status === 200) {
