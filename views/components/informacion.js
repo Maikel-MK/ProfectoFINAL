@@ -1,4 +1,3 @@
-b
 function loadInformationPage() {
     document.getElementById('Informacion').innerHTML = `
         <main class="flex-grow p-6">
@@ -15,7 +14,7 @@ function loadInformationPage() {
                     <textarea id='content' required placeholder='Escribe la información aquí...' class='border rounded p-2 mb-4 w-full'></textarea>
 
                     <div class="flex justify-around">
-                        <button type='submit' onclick='addInformation(e)' class='bg-green-500 text-white px-4 py-2 rounded'>Agregar Información</button> 
+                        <button type='submit' class='bg-green-500 text-white px-4 py-2 rounded'>Agregar Información</button> 
                         <a href="/muroInfo/" class="bg-blue-500 text-white px-4 py-2 rounded">Muro de Informacion</a> 
                     </div>
                 </form>
@@ -53,148 +52,18 @@ function loadInformationPage() {
                     <label for='emailBody' class='block mb-1'>Mensaje:</label>
                     <textarea id='emailBody' required placeholder='Escribe tu mensaje aquí...' class='border rounded p-2 mb-4 w-full'></textarea>
 
-                    <button type='submit' onclick='sendEmail(e)' class='bg-blue-500 text-white px-4 py-2 rounded'>Enviar Correo</button> 
+                    <button type='submit' class='bg-blue-500 text-white px-4 py-2 rounded'>Enviar Correo</button> 
                 </form>
 
             </div>
             
-            <button id="backButton" class="fixed bottom-5 right-5 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-200 ease-in-out" onclick="goBack()"> Go Back </button>
-
-
+            <button id="backButton" class="fixed bottom-5 right-5 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-200 ease-in-out">Go Back</button>
         </main>`;
     
-    loadInformationData()
-}
+    loadInformationData();
 
-document.addEventListener('DOMContentLoaded', function() {
-    loadInformation();
-});
-
-function loadInformation() {
-    const informationTableBody = document.getElementById('informationTableBody');
-    informationTableBody.innerHTML = ''; // Limpiar tabla existente
-
-    // Datos ficticios para la información
-    const informationData = [
-        { title: 'Información 1', content: 'Contenido de la información 1' },
-        { title: 'Información 2', content: 'Contenido de la información 2' }
-    ];
-
-    // Llenar la tabla con los datos existentes
-    informationData.forEach(info => {
-        const row = document.createElement('tr');
-        row.classList.add('transition-transform', 'duration-300', 'hover:bg-gray-100', 'cursor-pointer');
-
-        row.innerHTML = `
-            <td class="py-2 px-4 border-b">${info.title}</td>
-            <td class="py-2 px-4 border-b">${info.content}</td>
-        `;
-
-        informationTableBody.appendChild(row);
-    });
-}
-
-// Llamar a la función para cargar la información
-loadInformation()
-
-
-
-
-function goBack() {
-    history.back()
-  }
-
-
-// Función para ver los artículos publicados
-function viewArticles() {
-    const articles = [
-        { title: 'Reunión Mensual', content: 'La próxima reunión será el 10 de febrero.' },
-        { title: 'Mantenimiento Programado', content: 'El mantenimiento se realizará el 15 de febrero.' }
-    ];
-
-    let articlesList = 'Artículos Publicados:\n\n';
-    
-    articles.forEach(article => {
-        articlesList += `Título: ${article.title}\nContenido: ${article.content}\n\n`;
-    });
-
-    alert(articlesList); // Mostrar los artículos en un alert (puedes cambiar esto por un modal o una nueva sección)
-}
-
-// Función para agregar información 
-function addInformation(e) {
-    e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
-
-    const title = document.getElementById('title').value; // Obtener título
-    const content = document.getElementById('content').value; // Obtener contenido
-
-    // Aquí puedes manejar la subida del archivo (imagen o video) si es necesario
-
-    alert(`Información agregada:\nTítulo: ${title}\nContenido: ${content}`);
-    
-    // Reiniciar formulario
-    document.getElementById('infoForm').reset();
-
-    loadInformationData(); // Recargar la tabla con la nueva información
-}
-
-// Función para cargar la información existente en el muro
-function loadInformationData() {
-    const informationTableBody = document.getElementById('informationTableBody');
-    informationTableBody.innerHTML = ''; // Limpiar tabla existente
-    
-
-    // Datos ficticios para el muro de información
-    const informationData = [
-        { title: 'Reunión Mensual', content: 'La próxima reunión será el 10 de febrero.', id: 1 },
-        { title: 'Mantenimiento Programado', content: 'El mantenimiento se realizará el 15 de febrero.', id: 2 }
-    ];
-
-    // Llenar la tabla con los datos existentes
-    informationData.forEach(item => {
-        const row = `
-            <tr>
-                <td class="py-2 px-4 border-b">${item.title}</td> 
-                <td class="py-2 px-4 border-b">${item.content}</td> 
-                <td class="py-2 px-4 border-b">
-                    <!-- Botones para editar y eliminar -->
-                    <button onclick='editInformation(${item.id})' class='text-blue-500'>Editar</button> 
-                    <button onclick='deleteInformation(${item.id})' class='text-red-500 ml-2'>Eliminar</button> 
-                </td>
-            </tr>`;
-        informationTableBody.innerHTML += row; // Añadir fila a la tabla
-    });
-}
-
-// Función para enviar un correo electrónico
-function sendEmail(e) {
-    e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
-
-    const recipient = document.getElementById('recipient').value; // Obtener destinatario
-    const subject = document.getElementById('emailSubject').value; // Obtener asunto
-    const body = document.getElementById('emailBody').value; // Obtener mensaje
-
-    alert(`Correo enviado a: ${recipient}\nAsunto: ${subject}\nMensaje: ${body}`);
-
-    // Reiniciar formulario
-    document.getElementById('emailForm').reset();
-}
-
-// Función para editar una entrada existente en el muro
-function editInformation(id) {
-   const newTitle = prompt("Ingrese el nuevo título:");
-   const newContent = prompt("Ingrese el nuevo contenido:");
-   if (newTitle !== null && newContent !== null) {
-       alert(`Información ID ${id} actualizada:\nTítulo: ${newTitle}\nContenido: ${newContent}`);
-       loadInformationData(); // Recargar la tabla después de editar (en un sistema real, aquí se debería hacer una llamada a una API)
-   }
-}
-
-// Función para eliminar una entrada existente en el muro
-function deleteInformation(id) {
-   const confirmDelete = confirm("¿Estás seguro que deseas eliminar la información ID " + id + "?");
-   if (confirmDelete) {
-       alert(`Información ID ${id} eliminada.`);
-       loadInformationData(); // Recargar la tabla después de eliminar (en un sistema real, aquí se debería hacer una llamada a una API)
-   }
+    // Agregar eventos a los formularios
+    document.getElementById('infoForm').addEventListener('submit', addInformation);
+    document.getElementById('emailForm').addEventListener('submit', sendEmail);
+    document.getElementById('backButton').addEventListener('click', goBack);
 }
