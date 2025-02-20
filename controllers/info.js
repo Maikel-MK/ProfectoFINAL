@@ -17,27 +17,29 @@ infoRouter.get('/informacion-listado', async (req, res) => {
 });
 
 //guardar informacion
-infoRouter.post('/informacion',(req, res)=>{
-    const {titulo, contenido, fecha,} = req.body
+infoRouter.post('/informacion', async (req, res) => {
+    const { titulo, contenido, fecha } = req.body;
 
-    if(!titulo || !contenido || !fecha){
-
-        return res.status(400).json({error:'datos incompletos'})
-    }else{
-        let Muroinfo = new Informacion()
-
-        Muroinfo.titulo = titulo
-        Muroinfo.contenido = contenido
-        Muroinfo.fecha = fecha
-
-        async function guardarInfo() {
-            await Muroinfo.save()
-            const registros = await Informacion.find()
-            console.log(registros)
-        }
-
-        guardarInfo().catch(console.error)
-
-        return response.status().json({message:'Informacion Guardada Correctamente'})
+    // Validar que se proporcionen todos los campos
+    if (!titulo || !contenido || !fecha) {
+        return res.status(400).json({ error: 'Datos incompletos.' });
     }
-})
+
+    try {
+        // Crear una nueva instancia de Informacion
+        const Muroinfo = new Informacion({
+            titulo,
+            contenido,
+            fecha
+        });
+
+        // Guardar la información en la base de datos
+        await Muroinfo.save();
+
+        // Devolver una respuesta exitosa
+        return res.status(201).json({ message: 'Información guardada correctamente.', data: Muroinfo });
+    } catch (error) {
+        console.error('Error al guardar información:', error);
+        return res.status(500).json({ error: 'Error interno del servidor.' });
+    }
+});
