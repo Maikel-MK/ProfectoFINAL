@@ -17,29 +17,26 @@ const Informacion = require('../models/informacion')
 // });
 
 //guardar informacion
-infoRouter.post('/informacion', async (req, res) => {
-    const { titulo, contenido, fecha } = req.body;
 
-    // Validar que se proporcionen todos los campos
-    if (!titulo || !contenido || !fecha) {
-        return res.status(400).json({ error: 'Datos incompletos.' });
-    }
+infoRouter.post('/', async (req, res) => {
+    const { titulo, contenido } = req.body; // No se recibe la fecha desde el frontend
 
     try {
-        // Crear una nueva instancia de Informacion
-        const Muroinfo = new Informacion({
+        // Crear un nuevo documento de Informacion con la fecha actual
+        const nuevaInformacion = new Informacion({
             titulo,
             contenido,
-            fecha
+            fecha: new Date() // Agregar la fecha actual automáticamente
         });
 
-        // Guardar la información en la base de datos
-        await Muroinfo.save();
+        // Guardar el documento en la base de datos
+        const informacionGuardada = await nuevaInformacion.save();
 
-        // Devolver una respuesta exitosa
-        return res.status(201).json({ message: 'Información guardada correctamente.', data: Muroinfo });
+        // Enviar una respuesta exitosa con el documento guardado
+        res.status(201).json(informacionGuardada);
     } catch (error) {
-        console.error('Error al guardar información:', error);
-        return res.status(500).json({ error: 'Error interno del servidor.' });
+        // Manejar errores
+        res.status(500).json({ error: 'Error al guardar la información', details: error.message });
     }
 });
+module.exports = infoRouter

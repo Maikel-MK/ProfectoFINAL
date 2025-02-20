@@ -37,19 +37,20 @@ async function addInformation(e) {
     const title = document.getElementById('title').value; // Obtener título
     const content = document.getElementById('content').value; // Obtener contenido
 
-    alert(`Información agregada${Date}:\nTítulo: ${title}\nContenido: ${content}`);
+    // Mostrar alerta con la información y la fecha actual
+    alert(`Información agregada el ${new Date().toLocaleString()}:\nTítulo: ${title}\nContenido: ${content}`);
 
     // Validar que todos los campos sean obligatorios
-    if (!titulo || !contenido) {
+    if (!title || !content) {
         alert('Todos los campos son obligatorios.');
         return; // Detener la ejecución si hay campos vacíos
     }
 
     try {
         // Enviar la solicitud POST al backend sin la fecha
-        const response = await axios.post('/informacion', {
-            titulo,
-            contenido
+        const response = await axios.post('/api/infoM/', {
+            titulo: title, // Usar las variables correctas
+            contenido: content
             // No se envía la fecha, ya que se generará en el backend
         });
 
@@ -59,10 +60,10 @@ async function addInformation(e) {
             console.log('Información guardada:', response.data); // Mostrar datos en consola
 
             // Reiniciar el formulario después de guardar
-            document.getElementById('formularioInformacion').reset();
+            document.getElementById('infoForm').reset();
 
-            // Aquí puedes llamar a una función para recargar la lista de información, si es necesario
-            loadInformationData(); // Recargar la tabla o lista con los nuevos datos
+            // Recargar la tabla o lista con los nuevos datos
+            loadInformationData();
         } else {
             alert(response.data.error || 'Error al guardar información.'); // Mostrar mensaje de error del servidor
         }
@@ -76,9 +77,6 @@ async function addInformation(e) {
             alert('No se pudo conectar al servidor.'); // Mensaje de error de conexión
         }
     }
-
-
-    loadInformationData(); // Recargar la tabla con la nueva información
 }
 
 // Función para enviar un correo electrónico
