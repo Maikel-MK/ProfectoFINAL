@@ -55,7 +55,7 @@ pagoRouter.put('/editarPago', async (req, res) => {
             return res.status(400).json({ error: 'ID y monto son obligatorios.' });
         }
 
-        // Buscar y actualizar el pago fijo
+        // Buscar y actualizar el Pago
         const updatedPayment = await pago.findByIdAndUpdate(
             id,
             { monto: monto },
@@ -63,37 +63,38 @@ pagoRouter.put('/editarPago', async (req, res) => {
         );
 
         if (!updatedPayment) {
-            return res.status(404).json({ error: 'Pago fijo no encontrado.' });
+            return res.status(404).json({ error: 'Pago no encontrado.' });
         }
 
         res.status(200).json({ textOk: true, data: updatedPayment });
     } catch (error) {
-        console.error('Error al editar pago fijo:', error);
+        console.error('Error al editar Pago:', error);
         res.status(500).json({ error: 'Error interno del servidor.' });
     }
 });
 
 // Eliminar un Pago existente
 pagoRouter.delete('/eliminarPago', async (req, res) => {
+    const { id } = req.body;
+
+    // Validar que se proporcione el ID
+    if (!id) {
+        return res.status(400).json({ error: 'ID es obligatorio.' });
+    }
+
     try {
-        const { id } = req.body;
+        // Buscar y eliminar el Pago
+        const deletedPayment = await pago.deleteOne({ _id: id });
 
-        // Validar que se proporcione el ID
-        if (!id) {
-            return res.status(400).json({ error: 'ID es obligatorio.' });
+        // Verificar si se eliminó algún documento
+        if (deletedPayment.deletedCount === 0) {
+            return res.status(404).json({ error: 'Pago no encontrado.' });
         }
 
-        // Buscar y eliminar el pago fijo
-        const deletedPayment = await pago.findByIdAndDelete(id);
-
-        if (!deletedPayment) {
-            return res.status(404).json({ error: 'Pago fijo no encontrado.' });
-        }
-
-        res.status(200).json({ textOk: true, message: 'Pago fijo eliminado correctamente.' });
+        return res.status(200).json({ message: 'Pago eliminado correctamente.' });
     } catch (error) {
-        console.error('Error al eliminar pago fijo:', error);
-        res.status(500).json({ error: 'Error interno del servidor.' });
+        console.error('Error al eliminar Pago:', error);
+        return res.status(500).json({ error: 'Error interno del servidor.' });
     }
 });
 

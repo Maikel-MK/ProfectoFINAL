@@ -103,27 +103,31 @@ async function editFixedPayment(id) {
 // Función para eliminar un pago fijo
 async function deleteFixedPayment(id) {
     const confirmDelete = confirm("¿Estás seguro que deseas eliminar este pago fijo?");
+    
     if (confirmDelete) {
         try {
             // Enviar la solicitud para eliminar el pago fijo
-            const response = await axios.delete(`/api/pagos/eliminarPago/`);
+            const response = await axios.delete(`/api/pagos/eliminarPago`, {
+                data: { id } // Enviar el ID del pago en el cuerpo de la solicitud
+            });
 
             if (response.status === 200) {
                 alert('Pago fijo eliminado correctamente.');
                 loadManagePayments(); // Recargar la lista de pagos fijos
             } else {
-                alert(response.data.error); // Mostrar mensaje de error del servidor
+                alert(response.data.error || 'Error al eliminar el pago fijo.'); // Mostrar mensaje de error del servidor
             }
         } catch (error) {
             console.error('Error al eliminar pago fijo:', error);
             if (error.response) {
-                alert(error.response.data.error || 'Error al eliminar pago fijo.');
+                alert(error.response.data.error || 'Error al eliminar el pago fijo.');
             } else {
                 alert('No se pudo conectar al servidor.');
             }
         }
     }
 }
+
 
 // Función para volver atrás
 function goBack() {
