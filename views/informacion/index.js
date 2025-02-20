@@ -79,6 +79,88 @@ async function addInformation(e) {
     }
 }
 
+async function loadInformationData() {
+    const manageinfoTableBody = document.getElementById('informationTableBody');
+    manageinfoTableBody.innerHTML = ''; // Limpiar tabla existente
+    try {
+        const response = await axios.get('/api/infoM/lista-informacion');
+        if (response.status === 200) {
+            response.data.data.forEach(item => {
+                const row = document.createElement('tr');
+                
+                // Truncar contenido
+                const truncatedContent = item.contenido.length > 20 
+                    ? item.contenido.substring(0, 20) + '... ' 
+                    : item.contenido;
+
+                row.innerHTML = `
+                    <td class="py-2 px-4 border-b">${item.titulo}</td> 
+                    <td class="py-2 px-4 border-b">
+                        ${truncatedContent}
+                        ${item.contenido.length > 20 ? `<button class='view-more-btn text-blue-500' data-content='${item.contenido}'>Ver más</button>` : ''}
+                    </td> 
+                    <td class="py-2 px-4 border-b">
+                        <!-- Botones para editar y eliminar -->
+                        <button class='edit-btn text-blue-500' data-id='${item.id}'>Editar</button> 
+                        <button class='delete-btn text-red-500 ml-2' data-id='${item.id}'>Eliminar</button> 
+                    </td>
+                `;
+                manageinfoTableBody.appendChild(row);
+            });
+
+            // Agregar evento para los botones "Ver más"
+            document.querySelectorAll('.view-more-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const fullContent = this.dataset.content;
+                    showModal(fullContent); // Llamar a la función para mostrar el modal
+                });
+            });
+        } else {
+            alert('No se pudieron cargar las informaciones.');
+        }
+
+    } catch (error) {
+        console.error('Error al cargar la informacion:', error);
+        alert('No se pudo cargar la informacion.');
+    }
+}
+
+// Función para mostrar el modal
+function showModal(content) {
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black/70 bg-opacity-50';
+    modal.innerHTML = `
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-lg mx-auto my-6">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 class="text-lg font-semibold">Contenido Completo</h3>
+                <button type="button" class="close-btn text-gray-400 hover:text-gray-600">&times;</button>
+            </div>
+            <div class="p-6 overflow-y-auto" style="max-height: 400px;">
+                <p>${content}</p>
+            </div>
+            <div class="flex justify-end p-4 border-t">
+                <button type="button" class="close-btn text-blue-500">Cerrar</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+
+    // Cerrar el modal al hacer clic en 'X' o en 'Cerrar'
+    modal.querySelectorAll('.close-btn').forEach(btn => {
+        btn.onclick = function() {
+            document.body.removeChild(modal);
+        };
+    });
+
+    // Cerrar el modal al hacer clic fuera del contenido
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            document.body.removeChild(modal);
+        }
+    };
+}
+
 // Función para enviar un correo electrónico
 function sendEmail(e) {
     e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
