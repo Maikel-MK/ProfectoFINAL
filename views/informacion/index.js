@@ -160,7 +160,7 @@ async function editInformation(id) {
     if (newTitle !== null && newContent !== null) {
         try {
             // Enviar la solicitud PUT al servidor para actualizar la información
-            const response = await axios.put(`/api/infoM/editar-informacion`, {
+            const response = await axios.put(`/api/infoM/editarInformacion`, {
                 titulo: newTitle,
                 contenido: newContent
             });
@@ -172,9 +172,9 @@ async function editInformation(id) {
                 alert(response.data.error || 'Error al actualizar la información.');
             }
         } catch (error) {
-            console.error('Error al editar pago:', error)
+            console.error('Error al editar informacion:', error)
             if (error.response) {
-                alert(error.response.data.error || 'Error al editar pago.')
+                alert(error.response.data.error || 'Error al editar informacion.')
             } else {
                 alert('No se pudo conectar al servidor.')
             }

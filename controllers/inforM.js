@@ -44,31 +44,36 @@ infoRouter.post('/', async (req, res) => {
 // Editar un informacion existente
 infoRouter.put('/editarInformacion', async (req, res) => {
     try {
-        const { titulo, contenido } = req.body
+        const { id, titulo, contenido } = req.body;
 
-        // Validar que se proporcionen titulo y contenido
+        // Validar que se proporcionen id, titulo y contenido
         if (!titulo || !contenido) {
-            return res.status(400).json({ error: 'titulo y contenido son obligatorios.' })
+            return res.status(400).json({ error: 'id, titulo y contenido son obligatorios.' });
         }
 
-        // Buscar y actualizar 
+        // Buscar y actualizar la información
         const updatedInfo = await Informacion.findByIdAndUpdate(
-            id,
-            { titulo: titulo },
-            { contenido: contenido },
-           { fecha: new Date()}
-        )
+            id, // ID de la información a editar
+            { 
+                titulo: titulo, 
+                contenido: contenido,
+                fecha: new Date() // Actualizar la fecha automáticamente
+            },
+            { new: true } // Devuelve el documento actualizado
+        );
 
+        // Verificar si la información fue encontrada y actualizada
         if (!updatedInfo) {
-            return res.status(404).json({ error: 'informacion no encontrada.' })
+            return res.status(404).json({ error: 'Información no encontrada.' });
         }
 
-        res.status(200).json({ textOk: true, data: updatedInfo })
+        // Respuesta exitosa
+        res.status(200).json({ textOk: true, data: updatedInfo });
     } catch (error) {
-        console.error('Error al editar Informacion:', error)
-        res.status(500).json({ error: 'Error interno del servidor.' })
+        console.error('Error al editar Información:', error);
+        res.status(500).json({ error: 'Error interno del servidor.' });
     }
-})
+});
 
 // Ruta para eliminar información
 infoRouter.delete('/eliminar-informacion', async (req, res) => {
