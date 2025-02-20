@@ -36,9 +36,15 @@
                 <input type="password" id="editConfirmPassword" class="w-full p-2 border rounded">
             </div>
             <div class="mb-4">
-                <label class="block text-gray-700">Rol</label>
-                <input type="text" id="editRol" class="w-full p-2 border rounded">
-            </div>
+                <label for="rol" class="block text-sm font-medium text-gray-700">Rol</label>
+                <select id="editRol" name="rol" class="rounded-md p-2 bg-white mt-1 w-full focus:outline-blue-600">
+                    <option value="" disabled selected>Selecciona un rol</option>
+                    <option value="contador">Contador</option>
+                    <option value="residente">Residente</option>
+                    <option value="usuario">Cliente</option>
+                </select>
+                <span class="text-red-500 text-xs italic" id="rol-error"></span>
+            </div> 
             <div class="flex justify-end">
                 <button type="button" onclick="closeEditModal()" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancelar</button>
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
