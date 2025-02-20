@@ -24,7 +24,7 @@ pagoRouter.get('/lista-pagos', async (req, res) => {
     }
 });
 
-// Agregar un nuevo pago fijo
+// Agregar un nuevo Pago
 pagoRouter.post('/', async (req, res) => {
     try {
         const { descripcion, monto } = req.body;
@@ -34,32 +34,31 @@ pagoRouter.post('/', async (req, res) => {
             return res.status(400).json({ error: 'Descripción y monto son obligatorios.' });
         }
 
-        // Crear un nuevo pago fijo
+        // Crear un nuevo Pago
         const newPayment = new pago({ descripcion, monto });
         await newPayment.save();
 
         res.status(201).json({ textOk: true, data: newPayment });
     } catch (error) {
-        console.error('Error al agregar pago fijo:', error);
+        console.error('Error al agregar Pago:', error);
         res.status(500).json({ error: 'Error interno del servidor.' });
     }
 });
 
-// Editar un pago fijo existente
+// Editar un Pago existente
 pagoRouter.put('/editarPago', async (req, res) => {
     try {
-        const { id } = req.params;
-        const { descripcion, monto } = req.body;
+        const { id, monto } = req.body;
 
-        // Validar que se proporcionen descripción y monto
-        if (!descripcion || !monto) {
-            return res.status(400).json({ error: 'Descripción y monto son obligatorios.' });
+        // Validar que se proporcionen id y monto
+        if (!id || !monto) {
+            return res.status(400).json({ error: 'ID y monto son obligatorios.' });
         }
 
         // Buscar y actualizar el pago fijo
         const updatedPayment = await pago.findByIdAndUpdate(
             id,
-            { descripcion, monto },
+            { monto: monto },
             { new: true } // Devolver el documento actualizado
         );
 
@@ -74,10 +73,15 @@ pagoRouter.put('/editarPago', async (req, res) => {
     }
 });
 
-// Eliminar un pago fijo existente
+// Eliminar un Pago existente
 pagoRouter.delete('/eliminarPago', async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.body;
+
+        // Validar que se proporcione el ID
+        if (!id) {
+            return res.status(400).json({ error: 'ID es obligatorio.' });
+        }
 
         // Buscar y eliminar el pago fijo
         const deletedPayment = await pago.findByIdAndDelete(id);

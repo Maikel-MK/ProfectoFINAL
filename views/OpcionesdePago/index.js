@@ -78,9 +78,9 @@ async function editFixedPayment(id) {
     if (newAmount !== null || newdescripcion !== null) {
         try {
             // Enviar la solicitud para actualizar el pago fijo
-            const response = await axios.put(`/api/pagos/editarPago/`, {
-                monto: newAmount,
-                descripcion: newdescripcion
+            const response = await axios.put('/api/pagos/editarPago', {
+                id: id, // Enviar el ID en el cuerpo de la solicitud
+                monto: newAmount
             });
 
             if (response.status === 200) {
