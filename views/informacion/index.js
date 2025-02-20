@@ -1,35 +1,3 @@
-function loadInformationData() {
-    const informationTableBody = document.getElementById('informationTableBody');
-    informationTableBody.innerHTML = ''; // Limpiar tabla existente
-
-    // Datos ficticios para el muro de información
-    let informationData = []
-
-    // Llenar la tabla con los datos existentes
-    informationData.forEach(item => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td class="py-2 px-4 border-b">${item.title}</td> 
-            <td class="py-2 px-4 border-b">${item.content}</td> 
-            <td class="py-2 px-4 border-b">
-                <!-- Botones para editar y eliminar -->
-                <button class='edit-btn text-blue-500' data-id='${item.id}'>Editar</button> 
-                <button class='delete-btn text-red-500 ml-2' data-id='${item.id}'>Eliminar</button> 
-            </td>
-        `;
-        informationTableBody.appendChild(row);
-    });
-
-    // Agregar eventos a los botones de editar y eliminar
-    document.querySelectorAll('.edit-btn').forEach(button => {
-        button.addEventListener('click', () => editInformation(button.dataset.id));
-    });
-
-    document.querySelectorAll('.delete-btn').forEach(button => {
-        button.addEventListener('click', () => deleteInformation(button.dataset.id));
-    });
-}
-
 // Función para agregar información 
 async function addInformation(e) {
     e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
@@ -108,6 +76,15 @@ async function loadInformationData() {
                 manageinfoTableBody.appendChild(row);
             });
 
+                    // Agregar eventos a los botones de editar y eliminar
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', () => editInformation(button.dataset.id));
+        });
+
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', () => deleteInformation(button.dataset.id));
+        });
+
             // Agregar evento para los botones "Ver más"
             document.querySelectorAll('.view-more-btn').forEach(button => {
                 button.addEventListener('click', function() {
@@ -175,24 +152,64 @@ function sendEmail(e) {
     document.getElementById('emailForm').reset();
 }
 
-// Función para editar una entrada existente en el muro
-function editInformation(id) {
+// Función para editar una entrada existente
+async function editInformation(id) {
     const newTitle = prompt("Ingrese el nuevo título:");
     const newContent = prompt("Ingrese el nuevo contenido:");
+
     if (newTitle !== null && newContent !== null) {
-        alert(`Información ID ${id} actualizada:\nTítulo: ${newTitle}\nContenido: ${newContent}`);
-        loadInformationData(); // Recargar la tabla después de editar (en un sistema real, aquí se debería hacer una llamada a una API)
+        try {
+            // Enviar la solicitud PUT al servidor para actualizar la información
+            const response = await axios.put(`/api/infoM/editar-informacion`, {
+                titulo: newTitle,
+                contenido: newContent
+            });
+
+            if (response.status === 200) {
+                alert(`Información ID ${id} actualizada:\nTítulo: ${newTitle}\nContenido: ${newContent}`);
+                loadInformationData(); // Recargar la tabla después de editar
+            } else {
+                alert(response.data.error || 'Error al actualizar la información.');
+            }
+        } catch (error) {
+            console.error('Error al editar pago:', error)
+            if (error.response) {
+                alert(error.response.data.error || 'Error al editar pago.')
+            } else {
+                alert('No se pudo conectar al servidor.')
+            }
+        }
     }
 }
 
-// Función para eliminar una entrada existente en el muro
-function deleteInformation(id) {
+// Función para eliminar una entrada existente
+async function deleteInformation(id) {
     const confirmDelete = confirm("¿Estás seguro que deseas eliminar la información ID " + id + "?");
+
     if (confirmDelete) {
-        alert(`Información ID ${id} eliminada.`);
-        loadInformationData(); // Recargar la tabla después de eliminar (en un sistema real, aquí se debería hacer una llamada a una API)
+        try {
+            // Enviar la solicitud DELETE al servidor para eliminar la información
+            const response = await axios.delete(`/api/infoM/eliminar-informacion`, {
+                data: { id } // Enviar el ID en el cuerpo de la solicitud
+            });
+
+            if (response.status === 200) {
+                alert(`Información eliminada.`);
+                loadInformationData(); // Recargar la tabla después de eliminar
+            } else {
+                alert(response.data.error || 'Error al eliminar la información.');
+            }
+        } catch (error) {
+            console.error('Error al eliminar pago:', error)
+            if (error.response) {
+                alert(error.response.data.error || 'Error al eliminar el pago.')
+            } else {
+                alert('No se pudo conectar al servidor.')
+            }
+        }
     }
 }
+
 
 function goBack() {
     history.back();
