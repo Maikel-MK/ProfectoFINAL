@@ -1,6 +1,5 @@
-
 function loadStatusPage() {
-    const status = document.querySelector('#status')
+    const status = document.querySelector('#status');
 
     status.innerHTML = `
         <main class="flex-grow p-6">
@@ -9,13 +8,14 @@ function loadStatusPage() {
             <!-- Sección para Residentes -->
             <div class="mb-6">
                 <h3 class="font-bold text-lg">Estatus de Residentes</h3>
-                <table class="min-w-full bg-white border border-gray-300 mb-4">
+                <table class="min-w-full bg-white border border-gray-300 mb-4 mx-auto max-w-4xl">
                     <thead>
                         <tr>
                             <th class="py-2 px-4 border-b">Nombre</th>
                             <th class="py-2 px-4 border-b">Pagos Pendientes</th>
                             <th class="py-2 px-4 border-b">Estado de Morosidad</th>
                             <th class="py-2 px-4 border-b">Alquiler Zonas</th>
+                            <th class="py-2 px-4 border-b">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="residentStatusTableBody">
@@ -24,15 +24,16 @@ function loadStatusPage() {
                 </table>
             </div>
             
-                        <!-- Sección para Visitantes -->
+            <!-- Sección para Visitantes -->
             <div class="mb-6">
                 <h3 class="font-bold text-lg">Estatus de Visitantes</h3>
-                <table class="min-w-full bg-white border border-gray-300 mb-4">
+                <table class="min-w-full bg-white border border-gray-300 mb-4 mx-auto max-w-4xl">
                     <thead>
                         <tr>
                             <th class="py-2 px-4 border-b">Nombre</th>
                             <th class="py-2 px-4 border-b">Pagos Pendientes</th>
                             <th class="py-2 px-4 border-b">Alquiler Zonas</th>
+                            <th class="py-2 px-4 border-b">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="visitorStatusTableBody">
@@ -59,7 +60,7 @@ function loadStatusPage() {
 
                     <!-- Campos adicionales según el tipo -->
                     <label for='pendingPayments' class='block mb-1'>Pagos Pendientes:</label>
-                    <input type='number' id='pendingPayments' required placeholder='$0.00' class='border rounded p-2 mb-4 w-full'/>
+                    <input type='number' id='pendingPayments' required placeholder='1~10' class='border rounded p-2 mb-4 w-full'/>
                     
                     <!-- Estado de morosidad solo para residentes -->
                     <div id='morositySection'>
@@ -75,91 +76,52 @@ function loadStatusPage() {
                     <input type='text' id='rentedAreas' placeholder='Zonas alquiladas (separadas por comas)' class='border rounded p-2 mb-4 w-full'/>
 
                     <!-- Botón para agregar o editar -->
-                    <button type='submit' onclick='manageStatus(event)' class='bg-green-500 text-white px-4 py-2 rounded'>Guardar Estatus</button> 
+                    <button type='submit' onclick='manageStatus(event)' class='bg-green-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-green-600 '>Guardar Estatus</button> 
                 </form>
-
             </div>
 
-              <button id="backButton" class="fixed bottom-5 right-5 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-200 ease-in-out" onclick="goBack()"> Go Back </button>
+            <!-- Botón para regresar -->
+            <button id="backButton" class="fixed bottom-5 right-5 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-200 ease-in-out cursor-pointer" onclick="goBack()"> Go Back </button>
 
-        </main>`;
+            <!-- Modal para editar/eliminar -->
+            <div id="editModal" class="fixed inset-0 bg-gray-500/40 hidden flex justify-center items-center">
+                <div class="bg-white p-6 rounded-lg w-11/12 max-w-md">
+                    <h3 class="text-xl font-bold mb-4">Editar Estatus</h3>
+                    <form id="editStatusForm">
+                        <label for="editName" class="block mb-1">Nombre:</label>
+                        <input type="text" id="editName" required class="border rounded p-2 mb-4 w-full"/>
+                        
+                        <label for="editPendingPayments" class="block mb-1">Pagos Pendientes:</label>
+                        <input type="number" id="editPendingPayments" required class="border rounded p-2 mb-4 w-full"/>
+                        
+                        <label for="editType" class="block mb-1">Tipo:</label>
+                        <select id="editType" required class="border rounded p-2 mb-4 w-full">
+                            <option value="residente">Residente</option>
+                            <option value="usuario">Visitante</option>
+                        </select>
+
+                        <div id="editMorositySection">
+                            <label for="editMorosity" class="block mb-1">Estado de Morosidad:</label>
+                            <select id="editMorosity" class="border rounded p-2 mb-4 w-full">
+                                <option value="alDia">Al Día</option>
+                                <option value="moroso">Moroso</option>
+                            </select>
+                        </div>
+
+                        <label for="editRentedAreas" class="block mb-1">Alquiler Zonas:</label>
+                        <input type="text" id="editRentedAreas" class="border rounded p-2 mb-4 w-full"/>
+
+                        <div class="flex justify-end gap-4">
+                            <button type="button" onclick="closeModal()" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition duration-200 ease-in-out cursor-pointer">Cancelar</button>
+                            <button type="button" onclick="deleteStatus()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-200 ease-in-out cursor-pointer">Eliminar</button>
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 ease-in-out cursor-pointer">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+</main>`;
     
     loadResidentStatus(); // Cargar los estatus de residentes al cargar la página
     loadVisitorStatus(); // Cargar los estatus de visitantes
 }
-
-// Función para cargar los estatus de residentes
-function loadResidentStatus() {
-    const residentStatusTableBody = document.getElementById('residentStatusTableBody');
-    residentStatusTableBody.innerHTML = ''; // Limpiar tabla existente
-
-    // Datos ficticios del estado de residentes
-    const residentData = [
-        { nombre: 'Juan Pérez', pagosPendientes: '$100', morosidad: 'Al Día', alquiler: 'Zona A' },
-        { nombre: 'María Gómez', pagosPendientes: '$50', morosidad: 'Moroso', alquiler: 'Ninguno' },
-        { nombre: 'Carlos López', pagosPendientes: '$0', morosidad: 'Al Día', alquiler: 'Zona B' }
-    ];
-
-    // Llenar la tabla con los datos del estado de residentes
-    residentData.forEach(item => {
-        const row = `
-            <tr>
-                <td class="py-2 px-4 border-b">${item.nombre}</td> 
-                <td class="py-2 px-4 border-b">${item.pagosPendientes}</td> 
-                <td class="py-2 px-4 border-b">${item.morosidad}</td> 
-                <td class="py-2 px-4 border-b">${item.alquiler}</td> 
-            </tr>`;
-        residentStatusTableBody.innerHTML += row; // Añadir fila a la tabla
-    });
-}
-
-// Función para cargar los estatus de visitantes
-function loadVisitorStatus() {
-    const visitorStatusTableBody = document.getElementById('visitorStatusTableBody');
-    visitorStatusTableBody.innerHTML = ''; // Limpiar tabla existente
-
-    // Datos ficticios del estado de visitantes
-    const visitorData = [
-        { nombre: 'Pedro Sánchez', pagosPendientes: '$0', alquiler: 'Zona C' },
-        { nombre: 'Laura Fernández', pagosPendientes: '$25', alquiler: 'Ninguno' }
-    ];
-
-    // Llenar la tabla con los datos del estado de visitantes
-    visitorData.forEach(item => {
-        const row = `
-            <tr>
-                <td class="py-2 px-4 border-b">${item.nombre}</td> 
-                <td class="py-2 px-4 border-b">${item.pagosPendientes}</td> 
-                <td class="py-2 px-4 border-b">${item.alquiler}</td> 
-            </tr>`;
-        visitorStatusTableBody.innerHTML += row; // Añadir fila a la tabla
-    });
-}
-
-// Función para manejar el envío del formulario y gestionar el estatus
-function manageStatus(event) {
-    event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
-
-    const name = document.getElementById('name').value; // Obtener nombre
-    const type = document.getElementById('type').value; // Obtener tipo (residente o visitante)
-    const pendingPayments = document.getElementById('pendingPayments').value; // Obtener pagos pendientes
-
-    let morosity = '';
-    if (type === 'resident') {
-        morosity = document.getElementById('morosity').value; // Obtener estado de morosidad si es residente
-    }
-
-    const rentedAreas = document.getElementById('rentedAreas').value; // Obtener zonas alquiladas
-
-    alert(`Estatus guardado:\nNombre: ${name}\nTipo: ${type}\nPagos Pendientes: ${pendingPayments}\nMorosidad: ${morosity}\nZonas Alquiladas: ${rentedAreas}`);
-    
-    // Aquí deberías agregar lógica para guardar estos datos en una base de datos o API
-
-    // Reiniciar formulario
-    document.getElementById('manageStatusForm').reset();
-}
-
-
-function goBack() {
-    history.back()
-  }

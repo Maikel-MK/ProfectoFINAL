@@ -16,13 +16,13 @@ async function loadManagePayments() {
             // Llenar la tabla con los pagos fijos
             response.data.data.forEach(item => {
                 const row = `
-                    <tr>
+                    <tr class="hover:bg-gray-200">
                         <td class="py-2 px-4 border-b">${item.descripcion}</td> <!-- Descripción del pago -->
                         <td class="py-2 px-4 border-b">$${item.monto}</td> <!-- Monto del pago -->
                         <td class="py-2 px-4 border-b">
                             <!-- Botones para editar y eliminar -->
-                            <button onclick='editFixedPayment("${item.id}")' class='text-blue-500'>Editar</button> 
-                            <button onclick='deleteFixedPayment("${item.id}")' class='text-red-500 ml-2'>Eliminar</button> 
+                            <button onclick='editFixedPayment("${item.id}")' class='text-white bg-blue-500 rounded p-2 cursor-pointer hover:bg-blue-600'>Editar</button> 
+                            <button onclick='deleteFixedPayment("${item.id}")' class='text-white bg-red-500 rounded p-2 cursor-pointer hover:bg-red-600 ml-2'>Eliminar</button> 
                         </td>
                     </tr>`
                 managePaymentsTableBody.innerHTML += row // Añadir fila a la tabla
@@ -74,30 +74,32 @@ async function addFixedPayment(e) {
 
 // Función para editar un pago
 async function editFixedPayment(id) {
-    const newAmount = prompt("Ingrese el nuevo monto para el pago:")
-    // const newdescripcion = prompt("Ingrese su nueva descripcion")
-    if (newAmount !== null || newdescripcion !== null) {
+    const newAmount = prompt("Ingrese el nuevo monto para el pago:");
+
+    if (newAmount !== null && !isNaN(newAmount)) {
         try {
             // Enviar la solicitud para actualizar el pago
             const response = await axios.put('/api/pagos/editarPago', {
                 id: id, // Enviar el ID en el cuerpo de la solicitud
                 monto: newAmount
-            })
+            });
 
             if (response.status === 200) {
-                alert('pago actualizado correctamente.')
-                loadManagePayments() // Recargar la lista de pagos fijos
+                alert('Pago actualizado correctamente.');
+                loadManagePayments(); // Recargar la lista de pagos fijos
             } else {
-                alert(response.data.error) // Mostrar mensaje de error del servidor
+                alert(response.data.error); // Mostrar mensaje de error del servidor
             }
         } catch (error) {
-            console.error('Error al editar pago:', error)
+            console.error('Error al editar pago:', error);
             if (error.response) {
-                alert(error.response.data.error || 'Error al editar pago.')
+                alert(error.response.data.error || 'Error al editar pago.');
             } else {
-                alert('No se pudo conectar al servidor.')
+                alert('No se pudo conectar al servidor.');
             }
         }
+    } else {
+        alert("Por favor, ingrese un monto válido.");
     }
 }
 

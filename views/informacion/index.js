@@ -62,15 +62,15 @@ async function loadInformationData() {
                     : item.contenido;
 
                 row.innerHTML = `
-                    <td class="py-2 px-4 border-b">${item.titulo}</td> 
-                    <td class="py-2 px-4 border-b">
+                    <td class="py-2 px-4 border-b bg-gray-100  ">${item.titulo}</td> 
+                    <td class="py-2 px-4 border-b bg-gray-100  ">
                         ${truncatedContent}
                         ${item.contenido.length > 20 ? `<button class='view-more-btn text-blue-500' data-content='${item.contenido}'>Ver más</button>` : ''}
                     </td> 
-                    <td class="py-2 px-4 border-b">
+                    <td class="py-2 px-4 border-b bg-gray-100 ">
                         <!-- Botones para editar y eliminar -->
-                        <button class='edit-btn text-blue-500' data-id='${item.id}'>Editar</button> 
-                        <button class='delete-btn text-red-500 ml-2' data-id='${item.id}'>Eliminar</button> 
+                    <button class='edit-btn text-blue-500 hover:text-blue-700 transition-colors duration-200 cursor-pointer' data-id='${item.id}' data-title='${item.titulo}' data-content='${item.contenido}'>Editar</button>
+                    <button class='delete-btn text-red-500 ml-2 cursor-pointer' data-id='${item.id}'>Eliminar</button> 
                     </td>
                 `;
                 manageinfoTableBody.appendChild(row);
@@ -78,8 +78,13 @@ async function loadInformationData() {
 
                     // Agregar eventos a los botones de editar y eliminar
         document.querySelectorAll('.edit-btn').forEach(button => {
-            button.addEventListener('click', () => editInformation(button.dataset.id));
-        });
+            button.addEventListener('click', () => {
+                const id = button.dataset.id;
+                const title = button.dataset.title;
+                const content = button.dataset.content;
+                    openEditModal(id, title, content); // Abrir el modal de edición
+                                });
+                            });
 
         document.querySelectorAll('.delete-btn').forEach(button => {
             button.addEventListener('click', () => deleteInformation(button.dataset.id));
@@ -139,52 +144,92 @@ function showModal(content) {
 }
 
 // Función para enviar un correo electrónico
-function sendEmail(e) {
-    e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+// function sendEmail(e) {
+//     e.preventDefault(); // Prevenir el comportamiento por defecto del formulario
 
-    const recipient = document.getElementById('recipient').value; // Obtener destinatario
-    const subject = document.getElementById('emailSubject').value; // Obtener asunto
-    const body = document.getElementById('emailBody').value; // Obtener mensaje
+//     const recipient = document.getElementById('recipient').value; // Obtener destinatario
+//     const subject = document.getElementById('emailSubject').value; // Obtener asunto
+//     const body = document.getElementById('emailBody').value; // Obtener mensaje
 
-    alert(`Correo enviado a: ${recipient}\nAsunto: ${subject}\nMensaje: ${body}`);
+//     alert(`Correo enviado a: ${recipient}\nAsunto: ${subject}\nMensaje: ${body}`);
 
-    // Reiniciar formulario
-    document.getElementById('emailForm').reset();
-}
+//     // Reiniciar formulario
+//     document.getElementById('emailForm').reset();
+// }
 
-// Función para editar una entrada existente
-async function editInformation(id) {
-    const newTitle = prompt("Ingrese el nuevo título:");
-    const newContent = prompt("Ingrese el nuevo contenido:");
+// Función para abrir el modal de edición
+function openEditModal(id, currentTitle, currentContent) {
+    const editModal = document.getElementById('editModal');
+    const editTitle = document.getElementById('editTitle');
+    const editContent = document.getElementById('editContent');
 
-    if (newTitle !== null && newContent !== null) {
-        try {
-            // Enviar la solicitud PUT al servidor para actualizar la información
-            const response = await axios.put(`/api/infoM/editarInformacion`, {
-                titulo: newTitle,
-                contenido: newContent
-            });
+    // Llenar el modal con los datos actuales
+    editTitle.value = currentTitle;
+    editContent.value = currentContent;
 
-            if (response.status === 200) {
-                alert(`Información ID ${id} actualizada:\nTítulo: ${newTitle}\nContenido: ${newContent}`);
-                loadInformationData(); // Recargar la tabla después de editar
-            } else {
-                alert(response.data.error || 'Error al actualizar la información.');
+    // Mostrar el modal
+    editModal.classList.remove('hidden');
+
+    // Manejar el envío del formulario
+    const editForm = document.getElementById('editForm');
+    editForm.onsubmit = async (e) => {
+        e.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
+
+        const newTitle = editTitle.value;
+        const newContent = editContent.value;
+
+        if (newTitle && newContent) {
+            try {
+                // Enviar la solicitud PUT al servidor para actualizar la información
+                const response = await axios.put(`/api/infoM/editarInformacion`, {
+                    id: id,
+                    titulo: newTitle,
+                    contenido: newContent
+                });
+
+                if (response.status === 200) {
+                    alert(`Información ID ${id} actualizada:\nTítulo: ${newTitle}\nContenido: ${newContent}`);
+                    loadInformationData(); // Recargar la tabla después de editar
+                    editModal.classList.add('hidden'); // Cerrar el modal
+                } else {
+                    alert(response.data.error || 'Error al actualizar la información.');
+                }
+            } catch (error) {
+                console.error('Error al editar informacion:', error);
+                if (error.response) {
+                    alert(error.response.data.error || 'Error al editar informacion.');
+                } else {
+                    alert('No se pudo conectar al servidor.');
+                }
             }
-        } catch (error) {
-            console.error('Error al editar informacion:', error)
-            if (error.response) {
-                alert(error.response.data.error || 'Error al editar informacion.')
-            } else {
-                alert('No se pudo conectar al servidor.')
-            }
+        } else {
+            alert('Por favor, complete todos los campos.');
         }
-    }
+    };
+
+    // Manejar el botón de cancelar
+    const cancelEdit = document.getElementById('cancelEdit');
+    cancelEdit.onclick = () => {
+        editModal.classList.add('hidden'); // Cerrar el modal
+    };
 }
+
+// Función para cerrar el modal de edición
+document.getElementById('closeEditModal').onclick = function() {
+    document.getElementById('editModal').classList.add('hidden');
+};
+
+// Cerrar el modal de edición al hacer clic fuera del contenido del modal
+window.onclick = function(event) {
+    const editModal = document.getElementById('editModal');
+    if (event.target == editModal) {
+        editModal.classList.add('hidden');
+    }
+};
 
 // Función para eliminar una entrada existente
 async function deleteInformation(id) {
-    const confirmDelete = confirm("¿Estás seguro que deseas eliminar la información ID " + id + "?");
+    const confirmDelete = confirm("¿Estás seguro que deseas eliminar la Informacion?");
 
     if (confirmDelete) {
         try {

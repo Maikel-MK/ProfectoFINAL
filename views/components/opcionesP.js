@@ -24,10 +24,10 @@ function loadManagePaymentsPage() {
                     <input type='text' id='newDescription' required placeholder='Descripción del pago' class='border rounded p-2 mb-4 w-full'/>
                     <label for='newAmount' class='block mb-1'>Monto:</label>
                     <input type='number' id='newAmount' required placeholder='$0.00' class='border rounded p-2 mb-4 w-full' min="0" step="0.01"/>
-                    <button type='submit' id='addPaymentButton' class='bg-green-500 text-white px-4 py-2 rounded'>Agregar Pago Fijo</button> 
+                    <button type='submit' id='addPaymentButton' class='bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 cursor-pointer'>Agregar Pago Fijo</button> 
                 </form>
             </div>
 
-            <button id="backButton" class="fixed bottom-5 right-5 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-200 ease-in-out">Go Back</button>
+        <button id="backButton" class="fixed bottom-5 right-5 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-200 ease-in-out cursor-pointer" onclick="goBack()">Go Back</button>
         </main>`
 }

@@ -4,15 +4,6 @@ const pagoRouter = require('express').Router()
 const pago = require('../models/pago')
 
 
-
-//registrar la informacion de los pagos
-// pagoRouter.post('/', async (request, response) => {
-
-//     const { descripcion, monto } = request.body
-
-// console.log(descripcion, monto)
-// })
-
 // Obtener todos los pagos fijos
 pagoRouter.get('/lista-pagos', async (req, res) => {
     try {

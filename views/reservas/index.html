@@ -8,19 +8,41 @@
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
 </head>
-<body>
+<body class="bg-gray-200">
 
     <div id="reservas" class="flex"></div>
 
-    <!-- modal -->
-    <div id="paymentModal" class="hidden fixed top-0 left-0 w-full h-full bg-blue-400/10 bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white rounded-lg shadow-lg relative w-11/12 md:w-3/4 lg:w-2/5 p-6">
-            <h3 id="modalTitle" class="font-bold text-lg mb-2"></h3>
-            <p id="modalAmount" class="text-gray-700 mb-4"></p>
-            <button id="payButton" onclick="payButton(e)" class='bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded'>Pagar</button>
+    <!-- Modal de pago -->
+    <div id="paymentModal" class="fixed inset-0 bg-blue-500/40 bg-opacity-70 hidden flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md">
+            <h2 id="modalTitle" class="text-xl font-bold mb-4"></h2>
+            <p id="modalAmount" class="text-gray-700 mb-6"></p>
+            <div id="paypal-button-container" class="mb-4"></div>
+            <button onclick="closeModal()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
+                Cerrar
+            </button>
         </div>
     </div>
 
+    <!-- Tabla de historial de pagos -->
+    <div class="container mx-auto p-4">
+        <h2 class="text-2xl font-bold mb-4">Historial de Pagos</h2>
+        <table class="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="py-3 px-4 text-left">Fecha</th>
+                    <th class="py-3 px-4 text-left">Monto</th>
+                    <th class="py-3 px-4 text-left">Descripción</th>
+                    <th class="py-3 px-4 text-left">Persona</th>
+                </tr>
+            </thead>
+            <tbody id="paymentHistoryTableBody" class="divide-y divide-gray-200">
+                <!-- Filas del historial de pagos se insertarán aquí -->
+            </tbody>
+        </table>
+    </div>
+
     <script src="../components/reservas.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

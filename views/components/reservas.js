@@ -2,7 +2,7 @@ const reservas = document.querySelector('#reservas')
 
 reservas.innerHTML = `
         <main class="flex-grow p-6">
-            <h2 class="text-xl font-semibold mb-4">Gestión de Pagos</h2>
+            <h2 class="text-xl font-semibold mb-4">Gestión de Reservas</h2>
 
             <!-- Sección Pagos Fijos -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6" id="paymentCards">
@@ -11,7 +11,7 @@ reservas.innerHTML = `
                 ${createCard("Salon de Fiestas", "$150", "Se alquila el salon de fiestas por un maximo de 12 horas al dia de lunes a viernes ")}
             </div>
 </main>
-        <button id="backButton" class="fixed bottom-5 right-5 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-200 ease-in-out" onclick="goBack()"> Go Back </button>
+        <button id="backButton" class="fixed bottom-5 right-5 bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-200 ease-in-out cursor-pointer" onclick="goBack()"> Go Back </button>
 
 
 `
@@ -23,51 +23,4 @@ function createCard(title, monto, descripcion) {
             <p class="text-gray-600">${monto}</p>
              <p class="text-gray-600">${descripcion}</p>
         </div>`;
-}
-
-function openModal(title, monto) {
-    document.getElementById('modalTitle').innerText = title; // Establecer título del modal
-    document.getElementById('modalAmount').innerText = `Monto a Pagar: ${monto}`; // Establecer monto del modal
-    document.getElementById('paymentModal').classList.remove('hidden'); // Mostrar el modal
-}
-
-// Función para cerrar el modal.
-function closeModal() {
-    document.getElementById('paymentModal').classList.add('hidden'); // Ocultar el modal
-}
-
-// Cerrar el modal al hacer clic fuera del contenido del modal
-window.onclick = function(e) {
-    const modal = document.getElementById('paymentModal');
-    if (e.target === modal) {
-        closeModal()
-    }
-}
-// Función para manejar el pago y actualizar el historial
-function payButton(e) {
-    e.preventDefault()
-    console.log('llega pago');
-    const title = document.getElementById('modalTitle').innerText;
-    const amount = document.getElementById('modalAmount').innerText.replace("Monto a Pagar: ", "");
-
-    // Obtener la fecha actual
-    const date = new Date().toLocaleDateString();
-
-    // Agregar pago al historial
-    paymentHistory.push({
-        date: date,
-        amount: amount,
-        description: title,
-        person: "Juan Pérez" // Puedes cambiar esto según sea necesario
-    });
-
-    alert(`Pago de ${title} realizado exitosamente!`); // Mensaje de éxito
-    closeModal(); // Ocultar el modal después del pago
-
-    updatePaymentHistory(); // Actualizar el historial de pagos
-}
-
-
-function goBack() {
-    history.back()
 }

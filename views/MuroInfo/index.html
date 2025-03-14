@@ -4,22 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muro de Informacion</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="website icon" href="../../img/favicon_io/favicon-16x16.png" type="png">
 
 </head>
-<body>
+<body class="bg-green-100">
     
     <div id="Muro" class="flex"></div>
 
-    <!-- Modal para mostrar contenido extenso -->
-    <div id="articleModal" class="modal">
-        <div class="modal-content">
-            <span id="closeModal" class="float-right cursor-pointer">&times;</span>
-            <h3 id="modalTitle" class="font-bold text-lg"></h3>
-            <p id="modalContent"></p>
-        </div>
+<!-- Modal para mostrar contenido extenso -->
+<div id="articleModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-blue-800/40 bg-opacity-70">
+    <div class="bg-white rounded-lg p-6 w-11/12 max-w-lg mx-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h3 id="modalTitle" class="text-xl font-bold"></h3>
+        <button id="closeModal" class="text-gray-100 hover:text-gray-200 focus:outline-none bg-red-500 rounded hover:bg-red-400 p-1">
+            <i class="fas fa-times fa-lg cursor-pointer text-lg"></i>  <!-- Font Awesome Close Icon -->
+        </button>        </div>
+        <p id="modalContent" class="text-gray-700"></p>
     </div>
+</div>
 
 
 

@@ -9,10 +9,34 @@
     <link rel="website icon" href="../../img/favicon_io/favicon-16x16.png" type="png">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="bg-gray-200">
     
     <div id="Informacion"></div>
     
+    <!-- Modal para editar información -->
+<div id="editModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 bg-opacity-70">
+    <div class="bg-white rounded-lg p-6 w-11/12 max-w-lg mx-auto">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold">Editar Información</h3>
+            <span id="closeEditModal" class="cursor-pointer text-gray-700 hover:text-gray-900">&times;</span>
+        </div>
+        <form id="editForm">
+            <div class="mb-4">
+                <label for="editTitle" class="block text-sm font-medium text-gray-700">Título</label>
+                <input type="text" id="editTitle" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="editContent" class="block text-sm font-medium text-gray-700">Contenido</label>
+                <textarea id="editContent" rows="4" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></textarea>
+            </div>
+            <div class="flex justify-end">
+                <button type="button" id="cancelEdit" class="mr-2 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition duration-200">Cancelar</button>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
     <script src="../components/informacion.js"></script>
     <!-- <script type="module" src="../components/notificaciones.js"></script> -->
     <script src="index.js"></script>

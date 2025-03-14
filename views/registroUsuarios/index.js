@@ -122,7 +122,8 @@ formulario.addEventListener('submit', async e => {
             createNotification(false, 'Usuario Registrado Correctamente')
             setTimeout(() => {
                 notification.innerHTML = ''
-            }, 5000);
+            }, 5000)
+            window.location.href = '/login/'
         } else {
             createNotification(true, 'Los datos no pueden estar Incompletos')
             setTimeout(() => {

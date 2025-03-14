@@ -4,173 +4,253 @@ const dashboard = document.querySelector('#dashboard')
 // Función para crear la barra lateral de navegación
 function createSidebarAdmin() {
     return `
-        <aside class="w-64 bg-white shadow-md">
+        <aside class="w-64 bg-white shadow-lg fixed h-screen overflow-y-auto">
             <div class="p-6">
-                <h1 class="text-2xl font-bold">Residencial Oasis</h1>
+                <h1 class="text-2xl font-bold text-gray-800">Residencial Oasis</h1>
                 <nav class="mt-6">
                     <ul>
-                        <li class="mb-4"><a href="/administrador/" class="text-gray-600 hover:text-blue-500">Inicio</a></li>
-                        <li class="mb-4"><a href="/pagos/" class="text-gray-600 hover:text-blue-500">Pagos</a></li> <!-- Redirige a la página de pagos -->
-                        <li class="mb-4"><a href="/reservas/" class="text-gray-600 hover:text-blue-500">Alquiler de Espacios</a></li>
-                        <li class="mb-4"><a href="/estatus/" class="text-gray-600 hover:text-blue-500">Estatus</a></li> <!-- Redirige a la página de estatus -->
-                        <li class="mb-4"><a href="/info/" class="text-gray-600 hover:text-blue-500">Información</a></li>
+                        <li class="mb-4">
+                            <a href="/administrador/" class="flex items-center text-gray-600 hover:text-blue-500 transition duration-200">
+                                <span class="mr-2">🏠</span> Inicio
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="/pagos/" class="flex items-center text-gray-600 hover:text-blue-500 transition duration-200">
+                                <span class="mr-2">💵</span> Pagos
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="/reservas/" class="flex items-center text-gray-600 hover:text-blue-500 transition duration-200">
+                                <span class="mr-2">📅</span> Alquiler de Espacios
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="/estatus/" class="flex items-center text-gray-600 hover:text-blue-500 transition duration-200">
+                                <span class="mr-2">📊</span> Estatus
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="/info/" class="flex items-center text-gray-600 hover:text-blue-500 transition duration-200">
+                                <span class="mr-2">ℹ️</span> Información
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
-        </aside>`
+        </aside>`;
 }
-
 function createSidebarCont() {
     return `
-        <aside class="w-64 bg-white shadow-md">
+        <aside class="w-64 bg-white shadow-lg fixed h-screen overflow-y-auto">
             <div class="p-6">
-                <h1 class="text-2xl font-bold">Residencial Oasis</h1>
+                <h1 class="text-2xl font-bold text-gray-800">Residencial Oasis</h1>
                 <nav class="mt-6">
                     <ul>
-                        <li class="mb-4"><a href="/contador/" class="text-gray-600 hover:text-blue-500">Inicio</a></li>
-                        <li class="mb-4"><a href="/estatus/" class="text-gray-600 hover:text-blue-500">Estatus</a></li> <!-- Redirige a la página de estatus -->
-                        <li class="mb-4"><a href="/info/" class="text-gray-600 hover:text-blue-500">Información</a></li>
+                        <li class="mb-4">
+                            <a href="/contador/" class="flex items-center text-gray-600 hover:text-blue-500 transition duration-200">
+                                <span class="mr-2">🏠</span> Inicio
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="/estatus/" class="flex items-center text-gray-600 hover:text-blue-500 transition duration-200">
+                                <span class="mr-2">📊</span> Estatus
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="/info/" class="flex items-center text-gray-600 hover:text-blue-500 transition duration-200">
+                                <span class="mr-2">ℹ️</span> Información
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
-        </aside>`
+        </aside>`;
 }
 
 function createSidebarRes() {
     return `
-        <aside class="w-64 bg-white shadow-md">
+        <aside class="w-64 bg-white shadow-lg fixed h-screen overflow-y-auto">
             <div class="p-6">
-                <h1 class="text-2xl font-bold">Residencial Oasis</h1>
+                <h1 class="text-2xl font-bold text-gray-800">Residencial Oasis</h1>
                 <nav class="mt-6">
                     <ul>
-                        <li class="mb-4"><a href="/residente/" class="text-gray-600 hover:text-blue-500">Inicio</a></li>
-                        <li class="mb-4"><a href="/pagos/" class="text-gray-600 hover:text-blue-500">Pagos</a></li> <!-- Redirige a la página de pagos -->
-                         <li class="mb-4"><a href="/reservas/" class="text-gray-600 hover:text-blue-500">Alquiler de Espacios</a></li> 
-                        <li class="mb-4"><a href="/info/" class="text-gray-600 hover:text-blue-500">Información</a></li>
+                        <li class="mb-4">
+                            <a href="/residente/" class="flex items-center text-gray-600 hover:text-blue-500 transition duration-200">
+                                <span class="mr-2">🏠</span> Inicio
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="/pagos/" class="flex items-center text-gray-600 hover:text-blue-500 transition duration-200">
+                                <span class="mr-2">💵</span> Pagos
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="/reservas/" class="flex items-center text-gray-600 hover:text-blue-500 transition duration-200">
+                                <span class="mr-2">📅</span> Alquiler de Espacios
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="/muroInfo/" class="flex items-center text-gray-600 hover:text-blue-500 transition duration-200">
+                                <span class="mr-2">ℹ️</span> Información
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
-        </aside>`
+        </aside>`;
 }
 
 function createSidebarClientes() {
     return `
-        <aside class="w-64 bg-white shadow-md">
+        <aside class="w-64 bg-white shadow-lg fixed h-screen overflow-y-auto">
             <div class="p-6">
-                <h1 class="text-2xl font-bold">Residencial Oasis</h1>
+                <h1 class="text-2xl font-bold text-gray-800">Residencial Oasis</h1>
                 <nav class="mt-6">
                     <ul>
-                        <li class="mb-4"><a href="/clientes/" class="text-gray-600 hover:text-blue-500">Inicio</a></li>
-                        <li class="mb-4"><a href="/reservas/" class="text-gray-600 hover:text-blue-500">Alquiler de Espacios</a></li> 
+                        <li class="mb-4">
+                            <a href="/clientes/" class="flex items-center text-gray-600 hover:text-blue-500 transition duration-200">
+                                <span class="mr-2">🏠</span> Inicio
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="/reservas/" class="flex items-center text-gray-600 hover:text-blue-500 transition duration-200">
+                                <span class="mr-2">📅</span> Alquiler de Espacios
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </div>
-        </aside>`
+        </aside>`;
 }
 
 
 function createCard(title, content) {
     return `
-        <div class="bg-white rounded-lg shadow-md transition-transform transform hover:scale-105 hover:shadow-lg p-4">
-            <h3 class="font-bold text-lg">
-            ${title}
-            </h3>
-
-            ${content}
-
-        </div>`
+        <div class="bg-white rounded-lg shadow-md p-6 transition-transform transform hover:scale-105 hover:shadow-lg">
+            <h3 class="font-bold text-lg text-gray-800 mb-4">${title}</h3>
+            <div class="text-gray-600">${content}</div>
+        </div>`;
 }
+
 // Función que crea el dashboard para el Administrador
 function createAdminDashboard() {
-    dashboard.innerHTML =`
+    dashboard.innerHTML = `
         ${createSidebarAdmin()}
-        <main class="flex-grow p-6">
-            <h2 class="text-xl font-semibold mb-4 text-center">Administrador</h2>
+        <main class="flex-grow p-6 ml-64">
+            <h2 class="text-xl font-semibold mb-4 text-center text-gray-800">Administrador</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                ${createCard("Usuarios", "<p><button onclick='manageUsers()' class='text-blue-500 hover:text-blue-700 transition duration-200 cursor-pointer hover:scale-105'>Administrar Usuarios</button></p>")}
-                ${createCard("Alicuotas", `<button onclick='manageAlicuotas()' class='text-blue-500 hover:text-blue-700 transition duration-200 cursor-pointer hover:scale-105'>Gestionar Alicuotas</button>`)}
+                ${createCard("Usuarios", "<p><button onclick='manageUsers()' class='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200'>Administrar Usuarios</button></p>")}
+                ${createCard("Alicuotas", `<button onclick='manageAlicuotas()' class='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200'>Gestionar Alicuotas</button>`)}
             </div>
 
             <!-- Sección para gestionar alícuotas -->
             <div id="alicuotasSection" class="mt-6 hidden">
                 <div class="flex space-x-4 mb-6">
-                    <button onclick="mostrarUsuariosSinAlicuota()" class="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:scale-105">
+                    <button onclick="mostrarUsuariosSinAlicuota()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200">
                         Mostrar Usuarios sin Alícuota
                     </button>
-                    <button onclick="mostrarUsuariosConAlicuota()" class="bg-green-500 text-white px-4 py-2 rounded cursor-pointer hover:scale-105">
+                    <button onclick="mostrarUsuariosConAlicuota()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200">
                         Mostrar Usuarios con Alícuota
                     </button>
                 </div>
             </div>
 
-            <!-- Sección para asignar alícuotas (oculta inicialmente) -->
+            <!-- Sección para asignar alícuotas -->
             <div id="asignarAlicuotaSection" class="mt-6 hidden">
-                <h3 class="font-bold text-lg mb-2">Asignar Alícuotas</h3>
-                <table class="min-w-full bg-white border border-gray-300">
-                    <thead>
+                <h3 class="font-bold text-lg mb-4 text-gray-800">Asignar Alícuotas</h3>
+                <table class="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+                    <thead class="bg-gray-100">
                         <tr>
-                            <th class="py-2 px-4 border-b">Nombre</th>
-                            <th class="py-2 px-4 border-b">Correo</th>
-                            <th class="py-2 px-4 border-b">Rol</th>
-                            <th class="py-2 px-4 border-b">Acciones</th>
+                            <th class="py-3 px-4 text-left">Nombre</th>
+                            <th class="py-3 px-4 text-left">Correo</th>
+                            <th class="py-3 px-4 text-left">Rol</th>
+                            <th class="py-3 px-4 text-left">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="usuariosSinAlicuotaTableBody">
+                    <tbody id="usuariosSinAlicuotaTableBody" class="divide-y divide-gray-200">
                         <!-- Aquí se cargarán los usuarios sin alícuota -->
                     </tbody>
                 </table>
             </div>
 
-            <!-- Sección para ver usuarios con alícuotas (oculta inicialmente) -->
+            <!-- Sección para ver usuarios con alícuotas -->
             <div id="usuariosConAlicuotaSection" class="mt-6 hidden">
-                <h3 class="font-bold text-lg mb-2">Usuarios con Alícuotas</h3>
-                <table class="min-w-full bg-white border border-gray-300">
-                    <thead>
+                <h3 class="font-bold text-lg mb-4 text-gray-800">Usuarios con Alícuotas</h3>
+                <table class="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+                    <thead class="bg-gray-100">
                         <tr>
-                            <th class="py-2 px-4 border-b">Nombre</th>
-                            <th class="py-2 px-4 border-b">Correo</th>
-                            <th class="py-2 px-4 border-b">Rol</th>
-                            <th class="py-2 px-4 border-b">Alícuota (%)</th>
-                            <th class="py-2 px-4 border-b">Acciones</th>
+                            <th class="py-3 px-4 text-left">Nombre</th>
+                            <th class="py-3 px-4 text-left">Correo</th>
+                            <th class="py-3 px-4 text-left">Rol</th>
+                            <th class="py-3 px-4 text-left">Alícuota (%)</th>
+                            <th class="py-3 px-4 text-left">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="usuariosConAlicuotaTableBody">
+                    <tbody id="usuariosConAlicuotaTableBody" class="divide-y divide-gray-200">
                         <!-- Aquí se cargarán los usuarios con alícuota -->
                     </tbody>
                 </table>
             </div>
 
+            <!-- Sección para gestionar usuarios -->
             <div id="usersSection" class="mt-6 hidden">
-    <h3 class="font-bold text-lg mb-2">Gestión de Usuarios</h3>
-    <table class="min-w-full bg-white border border-gray-300">
-        <thead>
-            <tr>
-                <th class="py-2 px-4 border-b">Nombre</th>
-                <th class="py-2 px-4 border-b">Correo</th>
-                <th class="py-2 px-4 border-b">Rol</th>
-                <th class="py-2 px-4 border-b">Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="usersTableBody">
-            <!-- Aquí se cargarán los usuarios -->
-        </tbody>
-    </table>
-</div>
-
-        </main>`
+                <h3 class="font-bold text-lg mb-4 text-gray-800">Gestión de Usuarios</h3>
+                <table class="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="py-3 px-4 text-left">Nombre</th>
+                            <th class="py-3 px-4 text-left">Correo</th>
+                            <th class="py-3 px-4 text-left">Rol</th>
+                            <th class="py-3 px-4 text-left">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody" class="divide-y divide-gray-200">
+                        <!-- Aquí se cargarán los usuarios -->
+                    </tbody>
+                </table>
+            </div>
+        </main>`;
 }
 
 function manageAlicuotas() {
-    const alicuotasSection = document.getElementById('alicuotasSection')
-    alicuotasSection.classList.toggle('hidden') // Muestra u oculta la sección de alícuotas
- }
+    const alicuotasSection = document.getElementById('alicuotasSection');
+    const usersSection = document.getElementById('usersSection');
+
+    // Mostrar u ocultar la sección de alícuotas
+    alicuotasSection.classList.toggle('hidden');
+
+    // Ocultar la sección de usuarios si está abierta
+    if (!usersSection.classList.contains('hidden')) {
+        usersSection.classList.add('hidden');
+    }
+}
  
  function manageUsers() {
-    const usersSection = document.getElementById('usersSection')
-    usersSection.classList.toggle('hidden') 
-    loadUsers()
- }
+    const usersSection = document.getElementById('usersSection');
+    const alicuotasSection = document.getElementById('alicuotasSection');
+    const usuariosConAlicuotaSection = document.getElementById('usuariosConAlicuotaSection');
+    const usuariosSinAlicuotaSection = document.getElementById('asignarAlicuotaSection');
+
+    // Mostrar u ocultar la sección de usuarios
+    usersSection.classList.toggle('hidden');
+
+    // Ocultar las secciones de alícuotas si están abiertas
+    if (!alicuotasSection.classList.contains('hidden')) {
+        alicuotasSection.classList.add('hidden');
+    }
+    if (!usuariosConAlicuotaSection.classList.contains('hidden')) {
+        usuariosConAlicuotaSection.classList.add('hidden');
+    }
+    if (!usuariosSinAlicuotaSection.classList.contains('hidden')) {
+        usuariosSinAlicuotaSection.classList.add('hidden');
+    }
+
+    // Cargar los usuarios si la sección está visible
+    if (!usersSection.classList.contains('hidden')) {
+        loadUsers();
+    }
+}
 
  
 async function loadUsers() {
@@ -339,51 +419,46 @@ async function deleteUser(userId) {
     }
 }
 
-
-
-
 // Función que crea el dashboard para el contador
 function createAccountantDashboard() {
     dashboard.innerHTML = `
-        ${createSidebarCont()} <!-- Llama a la función para crear la barra lateral -->
-        <main class="flex-grow p-6">
-            <h2 class="text-xl font-semibold mb-4">Contador</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                ${createCard("Reportes Financieros", "<p><button onclick='generateReports()' class='text-blue-500'>Generar Reportes Mensuales</button></p>")}
-                ${createCard("Pagos Recibidos", "<p>Total recibido este mes: $5,000.</p>")}
-                ${createCard("Estatus de Cuentas", "<p>Cuentas al día: 90%</p>")}
-                ${createCard("Gastos Comunes", "<p><button onclick='viewCommonExpenses()' class='text-blue-500'>Ver Gastos Comunes</button></p>")}
-            </div>
-        </main>`
+        <div class="flex">
+            ${createSidebarCont()}
+            <main class="flex-grow p-6 ml-64"> <!-- Margen izquierdo para evitar solapamiento -->
+                <h2 class="text-xl font-semibold mb-4">Contador</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${createCard("Pagos Recibidos", "<p>Total recibido este mes: $5,000.</p>")}
+                </div>
+            </main>
+        </div>`;
 }
 
-// Función que crea el dashboard para el residente
 function createResidentDashboard() {
-    dashboard.innerHTML= `
-        ${createSidebarRes()} <!-- Llama a la función para crear la barra lateral -->
-        <main class="flex-grow p-6">
-            <h2 class="text-xl font-semibold mb-4">Residente</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                ${createCard("Mis Proyectos", "<p>Tienes 3 proyectos activos.</p>")}
-                ${createCard("Mis Pagos", "<p>No tienes pagos pendientes.</p>")}
-                ${createCard("Información Personal", "<p>Última visita: Hoy.</p>")}
-            </div>
-        </main>`
+    dashboard.innerHTML = `
+        <div class="flex">
+            ${createSidebarRes()}
+            <main class="flex-grow p-6 ml-64"> <!-- Margen izquierdo para evitar solapamiento -->
+                <h2 class="text-xl font-semibold mb-4">Residente</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${createCard("Mis Pagos", "<p>No tienes pagos pendientes.</p>")}
+                    ${createCard("Información Personal", "<p>Última visita: Hoy.</p>")}
+                </div>
+            </main>
+        </div>`;
 }
 
 function createClienteDashboard() {
     dashboard.innerHTML= `
-        ${createSidebarClientes()} <!-- Llama a la función para crear la barra lateral -->
-        <main class="flex-grow p-6">
-            <h2 class="text-xl font-semibold mb-4">Residente</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                ${createCard("Mis Pagos", "<p>No tienes pagos pendientes.</p>")}
-                ${createCard("Información Personal", "<p>Última visita: Hoy.</p>")}
-            </div>
-        </main>`
+        <div class="flex">
+            ${createSidebarClientes()}
+            <main class="flex-grow p-6 ml-64"> <!-- Margen izquierdo para evitar solapamiento -->
+                <h2 class="text-xl font-semibold mb-4">Residente</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${createCard("Mis Pagos", "<p>No tienes pagos pendientes.</p>")}
+                    ${createCard("Información Personal", "<p>Última visita: Hoy.</p>")}
+                </div>
+            </main>
+        </div>`;
 }
 
 
